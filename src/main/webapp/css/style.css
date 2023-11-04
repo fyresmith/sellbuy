@@ -1,0 +1,32 @@
+.icon-hover:hover {
+    border-color: #3b71ca !important;
+    background-color: white !important;
+}
+
+.icon-hover:hover i {
+    color: #3b71ca !important;
+}
+
+@media (min-width: 768px) {
+    .sign-in-card {
+        width: 35rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .sign-in-card {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .reset-card {
+        width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .reset-card {
+        width: 85% !important;
+    }
+}
