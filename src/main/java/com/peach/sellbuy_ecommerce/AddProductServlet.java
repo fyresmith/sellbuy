@@ -20,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "addProductServlet", value = "/add-product")
 @MultipartConfig(
@@ -43,48 +45,63 @@ public class AddProductServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("user");
 
-        Part imagePart = request.getPart("productImage");
+        // Specify the desired field name
+        String desiredFieldName = "productImage";
 
-        String fileName = getFileName(imagePart);
-        String imageURL = Data.image() + fileName;
+        // Get all parts from the request
+        List<Part> allParts = new ArrayList<>(request.getParts());
 
-        try (InputStream fileContent = imagePart.getInputStream()) {
-            // Define the destination path to save the file
-            Path destinationPath = Paths.get(Data.image(), fileName);
-
-            // Save the file to the destination path
-            Files.copy(fileContent, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+        // Filter parts based on the desired field name
+        List<Part> imageParts = new ArrayList<>();
+        for (Part part : allParts) {
+            String fieldName = part.getName(); // Assuming that the field name is the name attribute in your HTML form
+            if (desiredFieldName.equals(fieldName)) {
+                imageParts.add(part);
+            }
         }
 
-        response.getWriter().print("The file uploaded successfully.");
+        for (Part imagePart : imageParts) {
+            String fileName = getFileName(imagePart);
+            String imageURL = Data.image() + fileName;
 
-        if (stringPrice == null || !Util.isNumeric(stringPrice)) {
-            price = 1.00;
-        } else {
-            price = Double.parseDouble(stringPrice);
+            try (InputStream fileContent = imagePart.getInputStream()) {
+                // Define the destination path to save the file
+                Path destinationPath = Paths.get(Data.image(), fileName);
+
+                // Save the file to the destination path
+                Files.copy(fileContent, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            response.getWriter().println("File uploaded successfully: " + fileName);
+
+            if (stringPrice == null || !Util.isNumeric(stringPrice)) {
+                price = 1.00;
+            } else {
+                price = Double.parseDouble(stringPrice);
+            }
+
+            if (stringQuantity == null || !Util.isNumeric(stringQuantity)) {
+                quantity = 1;
+            } else {
+                quantity = Integer.parseInt(stringQuantity);
+            }
+
+            Product product = new Product();
+            product.setProductName(name);
+            product.setDescription(description);
+            product.setProductCategory(category);
+            product.setKeywords(keywords);
+            product.setPrice(price);
+            product.setStockQuantity(quantity);
+            product.setSellerID(user.getUserID());
+
+            Image productImage = new Image();
+            productImage.setProductID(product.getProductID());
+            productImage.setImageURL(fileName);
+            productImage.save();
+
+            product.save();
         }
-
-        if (stringQuantity == null || !Util.isNumeric(stringQuantity)) {
-            quantity = 1;
-        } else {
-            quantity = Integer.parseInt(stringQuantity);
-        }
-
-        Product product = new Product();
-        product.setProductName(name);
-        product.setDescription(description);
-        product.setProductCategory(category);
-        product.setKeywords(keywords);
-        product.setPrice(price);
-        product.setStockQuantity(quantity);
-        product.setSellerID(user.getUserID());
-
-        Image productImage = new Image();
-        productImage.setProductID(product.getProductID());
-        productImage.setImageURL(fileName);
-        productImage.save();
-
-        product.save();
 
         session.setAttribute("alertTitle", "Success!");
         session.setAttribute("alertMessage", "Your product was published to SellBuy!");
@@ -93,9 +110,16 @@ public class AddProductServlet extends HttpServlet {
     }
 
     private String getFileName(Part part) {
+        String submittedFileName = part.getSubmittedFileName();
+
+        if (submittedFileName != null && !submittedFileName.isEmpty()) {
+            return submittedFileName;
+        }
+
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
-                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+                String fileName = content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+                return fileName.isEmpty() ? null : fileName;
             }
         }
         return null;

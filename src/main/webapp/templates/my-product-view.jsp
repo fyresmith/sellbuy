@@ -27,6 +27,24 @@
   LinkedList<Product> products = productAccess.getAltRows("sellerID", user.getUserID());
 %>
 
+<style>
+    .card-link {
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        display: block; /* Ensure the anchor takes up the entire space */
+    }
+
+    .card-link:hover {
+        transform: scale(1.025);
+        color: inherit;
+        transform-origin: center; /* Set the transform origin to the center */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-color: #0d6efd !important;
+        cursor: pointer; /* Set the cursor to a pointer on hover */
+    }
+</style>
+
 <!-- content -->
 <section class="py-5 bg-light">
   <div class="container">
@@ -70,13 +88,34 @@
                   </div>
                 </div>
               <% } else { %>
-                <div class="col-md-12">
-                  <div class="border border-success p-3 rounded-3 bg-white">
-                    <b class="mx-2 text-muted"><i class="fas fa-signature"></i></b>
-                    <%= user.getName() %> <a href="#" class="px-2"><i class="fa fa-edit"></i></a>
-                  </div>
+
+
+                <div class="col-md-6 mb-2">
+                    <a class="card-link border p-3 rounded-3 bg-white d-flex align-items-center">
+                        <!-- Image Container with Rounded Corners -->
+                        <div class="me-3">
+                            <img width="100%" height="100%" src="<%= Util.image("71Iy1eCkadL", "300") %>" id="image" class="img-rounded border rounded-2" />
+                        </div>
+                        <!-- Information Container -->
+                        <div class="d-flex flex-column">
+                            <div class="mb-1" id="name"><strong>Floating Tube</strong></div>
+                            <div class="mb-1" id="description">Description Text Goes Here</div>
+                            <div class="mb-1" id="category"><strong>Category Text</strong></div>
+                            <div class="mb-1 invisible" id="keywords"><strong>Keywords</strong></div>
+                            <div class="mb-1 invisible" id="stock"><strong>3</strong></div>
+                            <div class="mb-1 invisible" id="price"><strong>100</strong></div>
+                            <div class="mt-auto" id="stockString">3 in stock, $100/item</div>
+                        </div>
+                        <!-- User Information Container -->
+                        <%-- <div class="mx-2 text-muted"><i class="fas fa-signature"></i></div> --%>
+                    </a>
                 </div>
-              <% } %>
+
+
+
+
+
+                <% } %>
 
             <div class="col-md-12">
               <button class="btn btn-primary btn-block border border-primary p-3 rounded-3" data-mdb-toggle="modal" data-mdb-target="#insertProduct">
@@ -85,52 +124,8 @@
                 <a href="#" class="px-2 text-white"><i class="fas fa-plus"></i></a>
               </button>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="insertProduct" tabindex="-1" aria-labelledby="insertProduct" aria-hidden="true">
-              <div class="modal-dialog modal-xl">
-                <form class="modal-content" enctype="multipart/form-data" method="POST" action="<%= Util.webRoot("add-product") %>">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Product - Product Listing Details</h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <jsp:include page="product-creator.jsp"/>
-<%--                    <div class="mb-4">--%>
-<%--                      <input type="file" name="productImage" id="productImage" class="form-control" />--%>
-<%--                      &lt;%&ndash;    <label class="form-label" for="productImage">Upload Image</label>&ndash;%&gt;--%>
-<%--                    </div>--%>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Publish Product</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-
-
-<%--              <div class="col-md-6">--%>
-<%--                <div class="border p-3 rounded-3 bg-light">--%>
-<%--                  <b class="mx-2 text-muted"><i class="fas fa-at"></i></b>--%>
-<%--                  <%= user.getEmail() %> <a href="#" class="px-2"><i class="fa fa-edit"></i></a>--%>
-<%--                </div>--%>
-<%--              </div>--%>
-
-<%--              <div class="col-md-6">--%>
-<%--                <div class="border p-3 rounded-3 bg-light">--%>
-<%--                  <b class="mx-2 text-muted"><i class="fa fa-map-marker-alt"></i></b>--%>
-<%--                  <%= user.getShippingAddress() %> <a href="#" class="px-2"><i class="fa fa-edit"></i></a>--%>
-<%--                </div>--%>
-<%--              </div>--%>
-
-<%--              <div class="col-md-6">--%>
-<%--                <div class="border p-3 rounded-3 bg-light">--%>
-<%--                  <b class="mx-2 text-muted"><i class="fa fa-info-circle"></i></b>--%>
-<%--                  <%= user.getUsername() %> <a href="#" class="px-2"><i class="fas fa-edit"></i></a>--%>
-<%--                </div>--%>
-<%--              </div>--%>
+                <jsp:include page="create-product-modal.jsp"/>
+                <jsp:include page="edit-product-modal.jsp"/>
             </div>
           </div>
         </div>
@@ -140,3 +135,38 @@
   </div>
 </section>
 <!-- content -->
+
+<script>
+    $(document).ready(function () {
+        // Handle card click event
+        $('.card-link').click(function () {
+            // Get card information
+            let title = $('#name').text();
+            let description = $('#description').text();
+            let category = $('#category').text();
+            let keywords = $('#keywords').text();
+            let stock = $('#stock').text();
+            let price = $('#price').text();
+            let imageUrl = document.getElementById("image").src;
+
+            // Populate modal with card information
+            $('#editProductTitle').text("Edit " + title);
+
+            // Set values for the form fields
+            $('#editProductName').val(title);
+            $('#editProductDescription').val(description);
+            $('#editProductCategory').val(category);
+            $('#editProductKeywords').val(keywords);
+            $('#editProductPrice').val(price);
+            $('#editProductQuantity').val(stock);
+            $('#editImage').attr('src', imageUrl);
+
+
+            // Show the modal
+            $('#editProduct').modal('show');
+        });
+    });
+</script>
+
+
+

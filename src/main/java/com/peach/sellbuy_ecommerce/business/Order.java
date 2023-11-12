@@ -254,7 +254,7 @@ public class Order {
         DecimalFormat df = Util.priceFormat();
 
         StringBuilder card = new StringBuilder("""
-        <div class="card border border-primary mb-4 shadow-0">
+        <div class="card border border-success mb-4 shadow-0">
             <div class="card-body pb-0">
                 <header class="d-lg-flex">
                     <div class="flex-grow-1">
