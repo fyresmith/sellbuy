@@ -7,7 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "logoutServlet", value = "/logout-servlet")
+@WebServlet(name = "logoutServlet", value = "/logout")
 public class LogoutServlet extends HttpServlet {
 
     public void init() {

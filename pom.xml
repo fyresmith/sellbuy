@@ -84,21 +84,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.12.5</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>javax.activation</groupId>-->
-<!--            <artifactId>activation</artifactId>-->
-<!--            <version>1.1.1</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>javax.mail</groupId>-->
-<!--            <artifactId>javax.mail-api</artifactId>-->
-<!--            <version>2.1.2</version>-->
-<!--        </dependency>-->
-<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
-<!--&lt;!&ndash;            <groupId>com.sun.mail</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;            <artifactId>javax.mail</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;            <version>1.6.2</version>&ndash;&gt;-->
-<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 
     <build>

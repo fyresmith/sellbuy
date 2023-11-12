@@ -95,7 +95,7 @@
                                 <div class="accordion-body">
                                     <ul class="list-unstyled">
                                         <% for (int i = 0; i < maxCats; i++) { %>
-                                            <li><a href="<%= Util.webRoot("search-servlet?searchBar=" + Util.rawCategory(categories.get(i))) %>" class="text-dark"><%= categories.get(i) %></a></li>
+                                            <li><a href="<%= Util.webRoot("search?searchBar=" + Util.rawCategory(categories.get(i))) %>" class="text-dark"><%= categories.get(i) %></a></li>
                                         <% } %>
                                     </ul>
                                 </div>
@@ -115,7 +115,7 @@
                                 </button>
                             </h2>
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
-                                <form class="accordion-body" action="<%= Util.webRoot("sort-min-max-servlet") %>">
+                                <form class="accordion-body" action="<%= Util.webRoot("sort-min-max") %>">
 <%--                                    <div class="range">--%>
 <%--                                        <input type="range" class="form-range" id="customRange1" />--%>
 <%--                                    </div>--%>
@@ -141,7 +141,7 @@
                                 </form>
                             </div>
                         </div>
-<%--                        <form class="accordion-item" action="<%= Util.webRoot("sort-by-rating-servlet") %>">--%>
+<%--                        <form class="accordion-item" action="<%= Util.webRoot("sort-by-rating") %>">--%>
 <%--                            <h2 class="accordion-header" id="headingFour">--%>
 <%--                                <button--%>
 <%--                                        class="accordion-button text-dark bg-light"--%>
@@ -205,7 +205,7 @@
                 <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                     <strong class="d-block py-2"><%= results.size() %> Items found </strong>
                     <div class="ms-auto d-inline-flex w-auto">
-                        <form id="sortSelect" action="<%= Util.webRoot("sort-result-servlet") %>">
+                        <form id="sortSelect" action="<%= Util.webRoot("sort-result") %>">
                             <select id="formSelect" name="option" class="form-select d-inline-block w-auto border pt-1">
                                 <option value="best">Best match</option>
                                 <option value="rated">High rated</option>
@@ -238,9 +238,9 @@
                 <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
                     <ul class="pagination">
                         <% if (pageNum <= 1) { %>
-                            <form class="page-item disabled" action="<%= Util.webRoot("page-previous-servlet") %>">
+                            <form class="page-item disabled" action="<%= Util.webRoot("page-previous") %>">
                         <% } else { %>
-                            <form class="page-item" action="<%= Util.webRoot("page-previous-servlet") %>">
+                            <form class="page-item" action="<%= Util.webRoot("page-previous") %>">
                         <% } %>
                             <button class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">&laquo; Previous</span>
@@ -253,9 +253,9 @@
 <%--                        <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
 <%--                        <li class="page-item">--%>
                             <% if (pageNum >= pager.getNumberOfPages()) { %>
-                                <form class="page-item disabled" action="<%= Util.webRoot("page-next-servlet") %>">
+                                <form class="page-item disabled" action="<%= Util.webRoot("page-next") %>">
                             <% } else { %>
-                                <form class="page-item" action="<%= Util.webRoot("page-next-servlet") %>">
+                                <form class="page-item" action="<%= Util.webRoot("page-next") %>">
                             <% } %>
                             <button class="page-link" aria-label="Next">
                                 <span aria-hidden="true">Next &raquo;</span>

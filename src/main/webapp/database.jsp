@@ -75,7 +75,7 @@
 <div class="container my-5">
   <div class="row">
     <div class="col-md-6">
-      <form id="tableForm" action="<%= Util.webRoot("change-table-servlet") %>">
+      <form id="tableForm" action="<%= Util.webRoot("change-table") %>">
         <label for="tableSelect" class="form-label">Select Table:</label>
         <select class="form-select" id="tableSelect" name="table">
           <option <% if (table.equals("product")) {%>selected="selected"<%}%> value="product">Product - (<%= productAccess.size() %> rows)</option>
@@ -107,7 +107,7 @@
               </tr>
             </thead>
             <% for (Product product : productPager.getPage(pageNum)) { %>
-              <form action="/edit-table-servlet">
+              <form action="/edit-table">
                 <tbody>
                   <tr>
                     <td class="editable-cell"><%= product.getProductID() %></td>
@@ -241,18 +241,18 @@
   <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
     <ul class="pagination">
       <% if (pageNum <= 1) { %>
-      <form class="page-item disabled" action="<%= Util.webRoot("page-first-servlet") %>">
+      <form class="page-item disabled" action="<%= Util.webRoot("page-first") %>">
           <% } else { %>
-        <form class="page-item" action="<%= Util.webRoot("page-first-servlet") %>">
+        <form class="page-item" action="<%= Util.webRoot("page-first") %>">
           <% } %>
         <button class="page-link" aria-label="First">
           <span aria-hidden="true">&laquo;&laquo; First </span>
         </button>
       </form>
       <% if (pageNum <= 1) { %>
-      <form class="page-item disabled" action="<%= Util.webRoot("page-previous-servlet") %>">
+      <form class="page-item disabled" action="<%= Util.webRoot("page-previous") %>">
           <% } else { %>
-        <form class="page-item" action="<%= Util.webRoot("page-previous-servlet") %>">
+        <form class="page-item" action="<%= Util.webRoot("page-previous") %>">
           <% } %>
           <button class="page-link" aria-label="Previous">
             <span aria-hidden="true">&laquo; Previous</span>
@@ -265,18 +265,18 @@
         <%--                        <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
         <%--                        <li class="page-item">--%>
           <% if (pageNum >= pageTotal) { %>
-        <form class="page-item disabled" action="<%= Util.webRoot("page-next-servlet") %>">
+        <form class="page-item disabled" action="<%= Util.webRoot("page-next") %>">
             <% } else { %>
-          <form class="page-item" action="<%= Util.webRoot("page-next-servlet") %>">
+          <form class="page-item" action="<%= Util.webRoot("page-next") %>">
             <% } %>
             <button class="page-link" aria-label="Next">
               <span aria-hidden="true">Next &raquo;</span>
             </button>
           </form>
             <% if (pageNum >= pageTotal) { %>
-          <form class="page-item disabled" action="<%= Util.webRoot("page-final-servlet") %>">
+          <form class="page-item disabled" action="<%= Util.webRoot("page-final") %>">
               <% } else { %>
-            <form class="page-item" action="<%= Util.webRoot("page-final-servlet") %>">
+            <form class="page-item" action="<%= Util.webRoot("page-final") %>">
                 <% } %>
             <button class="page-link" aria-label="Final">
               <span aria-hidden="true"> Final &raquo;&raquo;</span>

@@ -9,7 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "passwordResetFinalServlet", value = "/password-reset-final-servlet")
+@WebServlet(name = "passwordResetFinalServlet", value = "/password-reset-final")
 public class PasswordResetFinalServlet extends HttpServlet {
 
     public void init() {

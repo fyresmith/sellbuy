@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "searchServlet", value = "/search-servlet")
+@WebServlet(name = "searchServlet", value = "/search")
 public class SearchServlet extends HttpServlet {
 
     public void init() {
@@ -34,6 +34,7 @@ public class SearchServlet extends HttpServlet {
             results = access.search(query);
         }
 
+        session.setAttribute("pageNum", 1);
         session.setAttribute("searchResults", results);
         session.setAttribute("query", query);
 

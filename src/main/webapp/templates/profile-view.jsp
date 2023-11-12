@@ -45,7 +45,7 @@
               <a class="nav-link my-0 bg-white" href="user-products.jsp">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-list-ul fa-lg"></i> My Products</p>
               </a>
-              <a class="nav-link my-0 bg-white" href="${pageContext.request.contextPath}/logout-servlet">
+              <a class="nav-link my-0 bg-white" href="${pageContext.request.contextPath}/logout">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-sign-out-alt"></i> Log out</p>
               </a>
             </nav>

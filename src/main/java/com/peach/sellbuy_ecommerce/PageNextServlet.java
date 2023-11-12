@@ -7,7 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "pageNextServlet", value = "/page-next-servlet")
+@WebServlet(name = "pageNextServlet", value = "/page-next")
 public class PageNextServlet extends HttpServlet {
 
     public void init() {

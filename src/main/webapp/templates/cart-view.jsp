@@ -1,12 +1,10 @@
-<%@ page import="com.peach.sellbuy_ecommerce.business.Cart" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.CartItem" %>
 <%@ page import="com.peach.sellbuy_ecommerce.util.Templates" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.Product" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.Access" %>
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="java.util.Random" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %><%--
+<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %>
+<%@ page import="com.peach.sellbuy_ecommerce.business.*" %>
+<%@ page import="java.io.IOException" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/26/23
@@ -15,6 +13,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%-- TODO: Fix the issue where the page does not redirect. --%>
 <%
   Cart cart = (Cart) session.getAttribute("cart");
   if (cart == null) {

@@ -73,8 +73,13 @@ public class Validator {
     }
 
     public static boolean isPath(String filePath) {
-        Path path = Paths.get(filePath);
-        return Files.exists(path) && Files.isRegularFile(path);
+        if (filePath.contains("png") || filePath.contains("jpg")) {
+            return true;
+        } else {
+            return false;
+        }
+//        Path path = Paths.get(filePath);
+//        return Files.exists(path) && Files.isRegularFile(path);
     }
 
 

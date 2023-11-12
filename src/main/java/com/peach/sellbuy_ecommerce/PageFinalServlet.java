@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet(
         name = "pageFinalServlet",
-        value = {"/page-final-servlet"}
+        value = {"/page-final"}
 )
 public class PageFinalServlet extends HttpServlet {
     public PageFinalServlet() {

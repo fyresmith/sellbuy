@@ -34,7 +34,7 @@
             <h5 class="mb-0">Billing details</h5>
           </div>
           <div class="card-body">
-            <form action="<%= Util.webRoot("checkout-servlet") %>">
+            <form action="<%= Util.webRoot("checkout") %>">
 <%--              <!-- 2 column grid layout with text inputs for the first and last names -->--%>
 <%--              <div class="row mb-4">--%>
 <%--                <div class="col">--%>

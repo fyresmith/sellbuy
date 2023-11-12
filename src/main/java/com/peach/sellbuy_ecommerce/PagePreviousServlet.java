@@ -7,7 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "pagePreviousServlet", value = "/page-previous-servlet")
+@WebServlet(name = "pagePreviousServlet", value = "/page-previous")
 public class PagePreviousServlet extends HttpServlet {
 
     public void init() {

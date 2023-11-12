@@ -22,7 +22,7 @@
 
 
 <div class="sign-in-card container border card rounded-4 d-lg-block p-5 pt-4 mt-5 mb-5">
-    <form class=" card-body justify-content-center align-items-center mb-0 pb-0" style="text-align: center;" action="${pageContext.request.contextPath}/login-servlet">
+    <form class=" card-body justify-content-center align-items-center mb-0 pb-0" style="text-align: center;" action="${pageContext.request.contextPath}/login">
         <% if (!Objects.equals(failMessage, "")) { %>
             <p class="text-danger">${failMessage}</p>
         <% } %>

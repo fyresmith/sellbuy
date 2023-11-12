@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 @WebServlet(
         name = "checkoutServlet",
-        value = {"/checkout-servlet"}
+        value = {"/checkout"}
 )
 public class CheckoutServlet extends HttpServlet {
     public CheckoutServlet() {

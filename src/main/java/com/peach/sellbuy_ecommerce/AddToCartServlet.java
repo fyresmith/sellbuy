@@ -7,7 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "addToCartServlet", value = "/add-to-cart-servlet")
+@WebServlet(name = "addToCartServlet", value = "/add-to-cart")
 public class AddToCartServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

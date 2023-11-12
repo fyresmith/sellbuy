@@ -9,7 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "createAccountServlet", value = "/create-account-servlet")
+@WebServlet(name = "createAccountServlet", value = "/create-account")
 public class CreateAccountServlet extends HttpServlet {
 
     public void init() {

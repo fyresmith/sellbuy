@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "sortResultServlet", value = "/sort-result-servlet")
+@WebServlet(name = "sortResultServlet", value = "/sort-result")
 public class SortResultServlet extends HttpServlet {
 
     public void init() {

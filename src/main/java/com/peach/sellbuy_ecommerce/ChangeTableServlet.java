@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "changeTableServlet", value = "/change-table-servlet")
+@WebServlet(name = "changeTableServlet", value = "/change-table")
 public class ChangeTableServlet extends HttpServlet {
 
     public void init() {

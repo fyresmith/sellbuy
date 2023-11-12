@@ -369,7 +369,7 @@ public class Product {
         product.populateImages();
 
         String baseURL = Util.getBaseURL("");
-        String webRoot = Util.webRoot("add-to-cart-servlet");
+        String webRoot = Util.webRoot("add-to-cart");
         String productID = String.valueOf(product.getProductID());
         String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
         String productName = Util.limitString(product.getProductName(), 50);
@@ -400,7 +400,7 @@ public class Product {
         final DecimalFormat df = Util.priceFormat();
         product.populateImages();
 
-        String webRoot = Util.webRoot("add-to-cart-servlet");
+        String webRoot = Util.webRoot("add-to-cart");
         String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
         String productName = product.getProductName();
         String priceFormatted = df.format(product.getPrice());
@@ -442,7 +442,7 @@ public class Product {
         String totalPrice = df.format(price * item.getQuantity());
         String pricePerItem = df.format(price);
         int cartItemID = item.getCartItemID();
-        String removeAction = Util.webRoot("remove-cartitem-servlet");
+        String removeAction = Util.webRoot("remove-cartitem");
 
         return """
                 <div class="row gy-3 mb-4">
@@ -476,7 +476,7 @@ public class Product {
                         </form>
                     </div>
                 </div>
-                """.formatted(imageURL, productName, Util.webRoot("update-cart-servlet"), item.getQuantity(), item.getCartItemID(), totalPrice, pricePerItem, removeAction, cartItemID);
+                """.formatted(imageURL, productName, Util.webRoot("update-cart"), item.getQuantity(), item.getCartItemID(), totalPrice, pricePerItem, removeAction, cartItemID);
     }
 
 
@@ -509,7 +509,7 @@ public class Product {
         double price = product.getPrice();
         product.populateImages();
 
-        String webRoot = Util.webRoot("add-to-cart-servlet");
+        String webRoot = Util.webRoot("add-to-cart");
         String productID = String.valueOf(product.getProductID());
         String imageURL = Util.image(product.getImages().get(0).getImageURL(), "300");
         String productName = Util.limitString(product.getProductName(), 50);
@@ -546,7 +546,7 @@ public class Product {
         String priceFormatted = df.format(product.getPrice());
 
         return """
-        <form class="row justify-content-center mb-3" action="%sadd-to-cart-servlet">
+        <form class="row justify-content-center mb-3" action="%sadd-to-cart">
             <div class="col-md-12">
                 <div class="card shadow-0 border rounded-3">
                     <div class="card-body">
@@ -599,7 +599,7 @@ public class Product {
         String priceFormatted = df.format(product.getPrice());
 
         return """
-               <form class="col-lg-3 col-md-6 col-sm-6" action="%sadd-to-cart-servlet">
+               <form class="col-lg-3 col-md-6 col-sm-6" action="%sadd-to-cart">
                    <div class="card my-2 shadow-0">
                        <a href="%sproduct.jsp?pid=%s" class="img-wrap">
                            <img src="%s" class="card-img-top" style="aspect-ratio: 1 / 1">

@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "sortMinMaxServlet", value = "/sort-min-max-servlet")
+@WebServlet(name = "sortMinMaxServlet", value = "/sort-min-max")
 public class SortMinMaxServlet extends HttpServlet {
 
     public void init() {

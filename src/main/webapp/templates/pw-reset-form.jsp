@@ -22,7 +22,7 @@
 
 <% if (Objects.equals(successMessage, "")) { %>
   <div class="container d-flex justify-content-center mb-5 mt-5">
-    <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/password-reset-servlet">
+    <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/password-reset">
       <div class="card-header h5 text-white bg-primary">Password Reset</div>
       <div class="card-body px-5">
         <% if (!Objects.equals(failMessage, "")) { %>
@@ -50,7 +50,7 @@
   </div>
 <% } else if (!(Objects.equals(successMessage, "PWRESET"))) { %>
   <div class="container d-flex justify-content-center mb-5 mt-5">
-    <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/reset-code-servlet">
+    <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/reset-code">
       <div class="card-header h5 text-white bg-primary">Enter Code</div>
       <div class="card-body px-5">
         <% if (!Objects.equals(failMessage, "")) { %>
@@ -74,7 +74,7 @@
   </div>
 <% } else { %>
 <div class="container d-flex justify-content-center mb-5 mt-5">
-  <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/password-reset-final-servlet">
+  <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/password-reset-final">
     <div class="card-header h5 text-white bg-primary">Enter New Password</div>
     <div class="card-body px-5">
       <% if (!Objects.equals(failMessage, "")) { %>

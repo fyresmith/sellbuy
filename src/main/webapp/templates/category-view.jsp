@@ -27,21 +27,21 @@
         <div class="col-md-4">
           <ul class="list-unstyled">
             <% for (int i = 0; i < firstThird; i++) { %>
-              <li class="p-1"><a href="<%= Util.webRoot("search-servlet?searchBar=" + Util.rawCategory(categories.get(i))) %>"><%= categories.get(i) %></a></li>
+              <li class="p-1"><a href="<%= Util.webRoot("search?searchBar=" + Util.rawCategory(categories.get(i))) %>"><%= categories.get(i) %></a></li>
             <% } %>
           </ul>
         </div>
         <div class="col-md-4">
           <ul class="list-unstyled">
             <% for (int i = firstThird; i < secondThird; i++) { %>
-              <li class="p-1"><a href="<%= Util.webRoot("search-servlet?searchBar=" + Util.rawCategory(categories.get(i))) %>"><%= categories.get(i) %></a></li>
+              <li class="p-1"><a href="<%= Util.webRoot("search?searchBar=" + Util.rawCategory(categories.get(i))) %>"><%= categories.get(i) %></a></li>
             <% } %>
           </ul>
         </div>
         <div class="col-md-4">
           <ul class="list-unstyled">
             <% for (int i = secondThird; i < finalThird; i++) { %>
-              <li class="p-1"><a href="<%= Util.webRoot("search-servlet?searchBar=" + Util.rawCategory(categories.get(i))) %>"><%= categories.get(i) %></a></li>
+              <li class="p-1"><a href="<%= Util.webRoot("search?searchBar=" + Util.rawCategory(categories.get(i))) %>"><%= categories.get(i) %></a></li>
             <% } %>
           </ul>
         </div>

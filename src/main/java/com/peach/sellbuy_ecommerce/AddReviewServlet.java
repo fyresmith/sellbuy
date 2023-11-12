@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "addReviewServlet", value = "/add-review-servlet")
+@WebServlet(name = "addReviewServlet", value = "/add-review")
 public class AddReviewServlet extends HttpServlet {
 
     public void init() {
@@ -43,10 +43,14 @@ public class AddReviewServlet extends HttpServlet {
         review.setUserID(user.getUserID());
         review.save();
 
-        URI url = Util.appendUri(Util.webRoot("product.jsp"), "pid=" + productID);
-
-        assert url != null;
-        response.sendRedirect(url.toString());
+//        URI url = Util.appendUri(Util.webRoot("product.jsp"), "pid=" + productID);
+//
+//        assert url != null;
+//        response.sendRedirect(url.toString());
+        session.setAttribute("alertTitle", "Success!");
+        session.setAttribute("alertMessage", "Your review was added to the product!");
+        String referer = request.getHeader("Referer");
+        response.sendRedirect(referer);
     }
 
     public void destroy() {

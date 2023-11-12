@@ -47,7 +47,7 @@
               <a class="nav-link my-0 active" href="user-products.jsp">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-list-ul fa-lg"></i> My Products</p>
               </a>
-              <a class="nav-link my-0 bg-white" href="${pageContext.request.contextPath}/logout-servlet">
+              <a class="nav-link my-0 bg-white" href="${pageContext.request.contextPath}/logout">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-sign-out-alt"></i> Log out</p>
               </a>
             </nav>
@@ -89,13 +89,17 @@
             <!-- Modal -->
             <div class="modal fade" id="insertProduct" tabindex="-1" aria-labelledby="insertProduct" aria-hidden="true">
               <div class="modal-dialog modal-xl">
-                <form class="modal-content" action="<%= Util.webRoot("add-product-servlet") %>">
+                <form class="modal-content" enctype="multipart/form-data" method="POST" action="<%= Util.webRoot("add-product") %>">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Product - Product Listing Details</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <jsp:include page="product-creator.jsp"/>
+<%--                    <div class="mb-4">--%>
+<%--                      <input type="file" name="productImage" id="productImage" class="form-control" />--%>
+<%--                      &lt;%&ndash;    <label class="form-label" for="productImage">Upload Image</label>&ndash;%&gt;--%>
+<%--                    </div>--%>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancel</button>

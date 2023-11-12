@@ -49,7 +49,7 @@
 
         <!-- Right elements -->
         <div class="col-lg-5 col-md-12 col-12">
-          <form class="input-group float-center" action="<%= Util.webRoot("search-servlet") %>">
+          <form class="input-group float-center" action="<%= Util.webRoot("search") %>">
             <div class="form-outline input-group">
               <% if (query == null) { %>
                 <input type="search" name="searchBar" id="searchBar" class="amber-border form-control" />

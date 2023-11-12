@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "deleteOrderServlet", value = "/delete-order-servlet")
+@WebServlet(name = "deleteOrderServlet", value = "/delete-order")
 public class DeleteOrderServlet extends HttpServlet {
 
     public void init() {

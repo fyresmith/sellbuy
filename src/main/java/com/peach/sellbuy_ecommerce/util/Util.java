@@ -223,7 +223,7 @@ public class Util {
 
     public static String image(String uniqueID, String size) {
         if (Validator.isPath(uniqueID)) {
-            return uniqueID;
+            return "images/" + uniqueID;
         } else{
             return "https://m.media-amazon.com/images/I/" + uniqueID + "._US" + size + "_.jpg";
         }

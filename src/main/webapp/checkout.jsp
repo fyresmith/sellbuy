@@ -1,4 +1,6 @@
-<%@ page import="com.peach.sellbuy_ecommerce.util.Templates" %><%--
+<%@ page import="com.peach.sellbuy_ecommerce.util.Templates" %>
+<%@ page import="com.peach.sellbuy_ecommerce.business.User" %>
+<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 11/7/23
@@ -6,6 +8,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    User user = (User) session.getAttribute("user");
+
+    if (user == null) {
+        session.setAttribute("failMessage", "You must first sign in to view your cart!");
+        response.sendRedirect(Util.webRoot("login.jsp"));
+    }
+%>
 
 <jsp:include page="templates/head.jsp"/>
 

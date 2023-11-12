@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "resetCodeServlet", value = "/reset-code-servlet")
+@WebServlet(name = "resetCodeServlet", value = "/reset-code")
 public class ResetCodeServlet extends HttpServlet {
 
     public void init() {

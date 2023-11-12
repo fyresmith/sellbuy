@@ -10,7 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "passwordResetServlet", value = "/password-reset-servlet")
+@WebServlet(name = "passwordResetServlet", value = "/password-reset")
 public class PasswordResetServlet extends HttpServlet {
 
     public void init() {

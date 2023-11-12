@@ -35,7 +35,7 @@
 %>
 
 <div class="container sign-in-card border card rounded-4 d-lg-block p-5 pt-4 mt-5 mb-5">
-  <form class="justify-content-center align-items-center" action="${pageContext.request.contextPath}/register-servlet" style="text-align: center;">
+  <form class="justify-content-center align-items-center" action="${pageContext.request.contextPath}/register" style="text-align: center;">
     <% if (!Objects.equals(failMessage, "")) { %>
     <p class="text-danger">${failMessage}</p>
     <% } %>

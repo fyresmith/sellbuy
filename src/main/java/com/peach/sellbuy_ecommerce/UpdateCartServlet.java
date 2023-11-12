@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "updateCartServlet", value = "/update-cart-servlet")
+@WebServlet(name = "updateCartServlet", value = "/update-cart")
 public class UpdateCartServlet extends HttpServlet {
 
     public void init() {

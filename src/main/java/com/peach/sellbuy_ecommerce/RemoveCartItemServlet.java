@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "removeCartItemServlet", value = "/remove-cartitem-servlet")
+@WebServlet(name = "removeCartItemServlet", value = "/remove-cartitem")
 public class RemoveCartItemServlet extends HttpServlet {
 
     public void init() {

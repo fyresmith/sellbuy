@@ -149,7 +149,7 @@
 <%--                            </select>--%>
 <%--                        </div>--%>
                         <!-- col.// -->
-                        <form action="<%= Util.webRoot("add-to-cart-servlet") %>">
+                        <form action="<%= Util.webRoot("add-to-cart") %>">
                             <div class="col-md-4 col-6 mb-3">
                                 <div class="input-group mb-3" style="width: 170px;">
                                     <button class="btn btn-white border border-secondary px-3" onclick="subtract('quantity');" type="button" data-mdb-ripple-color="dark">
@@ -201,7 +201,7 @@
                 <% if (user == null) { %>
                     <div class="border rounded-2 px-3 py-2 bg-white mb-3"><span class="fw-bold">Sign in to give a review!</span></div>
                 <% } else { %>
-                    <form class="border rounded-2 px-3 py-2 bg-white mb-3" action="<%= Util.webRoot("add-review-servlet") %>">
+                    <form class="border rounded-2 px-3 py-2 bg-white mb-3" action="<%= Util.webRoot("add-review") %>">
                         <div class="form-outline my-2">
                             <textarea class="form-control" id="reviewText" name="reviewText" rows="4"></textarea>
                             <label class="form-label" for="reviewText">Review</label>

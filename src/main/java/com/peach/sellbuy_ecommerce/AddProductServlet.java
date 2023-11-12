@@ -1,19 +1,27 @@
 package com.peach.sellbuy_ecommerce;
 
-import java.io.*;
-import java.net.URI;
-import java.util.Date;
-import java.util.Objects;
-
-import com.peach.sellbuy_ecommerce.business.*;
+import com.peach.sellbuy_ecommerce.business.Image;
+import com.peach.sellbuy_ecommerce.business.Product;
+import com.peach.sellbuy_ecommerce.business.User;
 import com.peach.sellbuy_ecommerce.util.Data;
 import com.peach.sellbuy_ecommerce.util.Util;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
-@WebServlet(name = "addProductServlet", value = "/add-product-servlet")
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+@WebServlet(name = "addProductServlet", value = "/add-product")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
         maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -21,11 +29,7 @@ import jakarta.servlet.annotation.*;
 )
 public class AddProductServlet extends HttpServlet {
 
-    public void init() {
-        String message = "Hello World!";
-    }
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
         String name = request.getParameter("productName");
@@ -37,16 +41,22 @@ public class AddProductServlet extends HttpServlet {
         double price;
         int quantity;
 
-        Part image = request.getPart("productImage");
-        String fileName = image.getSubmittedFileName();
+        User user = (User) session.getAttribute("user");
 
-        for (Part part : request.getParts()) {
-            part.write(Data.image() + fileName);
-        }
+        Part imagePart = request.getPart("productImage");
 
+        String fileName = getFileName(imagePart);
         String imageURL = Data.image() + fileName;
 
-        response.getWriter().print("The file uploaded sucessfully.");
+        try (InputStream fileContent = imagePart.getInputStream()) {
+            // Define the destination path to save the file
+            Path destinationPath = Paths.get(Data.image(), fileName);
+
+            // Save the file to the destination path
+            Files.copy(fileContent, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        response.getWriter().print("The file uploaded successfully.");
 
         if (stringPrice == null || !Util.isNumeric(stringPrice)) {
             price = 1.00;
@@ -67,18 +77,27 @@ public class AddProductServlet extends HttpServlet {
         product.setKeywords(keywords);
         product.setPrice(price);
         product.setStockQuantity(quantity);
+        product.setSellerID(user.getUserID());
 
         Image productImage = new Image();
         productImage.setProductID(product.getProductID());
-        productImage.setImageURL(imageURL);
+        productImage.setImageURL(fileName);
         productImage.save();
 
         product.save();
 
+        session.setAttribute("alertTitle", "Success!");
+        session.setAttribute("alertMessage", "Your product was published to SellBuy!");
         String referer = request.getHeader("Referer");
         response.sendRedirect(referer);
     }
 
-    public void destroy() {
+    private String getFileName(Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
     }
 }

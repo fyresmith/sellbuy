@@ -28,7 +28,7 @@
 
 <!-- Modal for displaying the alert -->
 <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content border-primary border-3 rounded">
       <div class="modal-header">
         <h5 class="modal-title" id="alertTitle"></h5>
@@ -38,7 +38,7 @@
         <h6 id="alertMessage"></h6>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Continue</button>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
 
 
 <!-- Dark overlay -->
-<div id="overlay" class="overlay"></div>
+<%--<div id="overlay" class="overlay"></div>--%>
 
 <%
   String alertMessage = (String) session.getAttribute("alertMessage");
@@ -62,28 +62,55 @@
       // Set the message in the modal
       document.getElementById("alertMessage").innerText = message;
       document.getElementById("alertTitle").innerText = title;
-
-      // Show the overlay
-      document.getElementById("overlay").style.display = "block";
-
-      // Show the modal
       $('#alertModal').modal('show');
-
-      // Handle the modal's hide.bs.modal event
-      $('#alertModal').on('hide.bs.modal', function (e) {
-        // Clear the overlay
-        document.getElementById("overlay").style.display = "none";
-      });
 
       // Handle the "Continue Shopping" button click
       $('#alertModal').find('.btn-primary').click(function() {
-        // Clear the overlay
-        document.getElementById("overlay").style.display = "none";
-
         // Hide the modal
         $('#alertModal').modal('hide');
       });
     }
+
+  // $(document).ready(function() {
+  //   // Function to show the alert modal
+  //   function showAlert(message, title) {
+  //     // Set the message in the modal
+  //     document.getElementById("alertMessage").innerText = message;
+  //     document.getElementById("alertTitle").innerText = title;
+  //
+  //     // Show the overlay
+  //     document.getElementById("overlay").style.display = "block";
+  //
+  //     // Show the modal
+  //     $('#alertModal').modal('show');
+  //
+  //     // Handle the modal's hide.bs.modal event
+  //     $('#alertModal').on('hide.bs.modal', function (e) {
+  //       // Clear the overlay
+  //       document.getElementById("overlay").style.display = "none";
+  //     });
+  //
+  //     // Handle the "Continue Shopping" button click
+  //     $('#alertModal').find('.btn-primary').click(function() {
+  //       // Clear the overlay
+  //       document.getElementById("overlay").style.display = "none";
+  //
+  //       // Hide the modal
+  //       $('#alertModal').modal('hide');
+  //     });
+  //
+  //     // Handle keydown event on the document
+  //     $(document).on('keydown', function(e) {
+  //       // Check if the pressed key is Enter (key code 13)
+  //       if (e.keyCode === 13) {
+  //         // Clear the overlay
+  //         document.getElementById("overlay").style.display = "none";
+  //
+  //         // Hide the modal
+  //         $('#alertModal').modal('hide');
+  //       }
+  //     });
+  //   }
 
     // Example usage of showAlert function
     var alertMessage = "<%= alertMessage %>";
@@ -97,6 +124,7 @@
       showAlert(alertMessage, alertTitle);
     }
   });
+
 </script>
 
 <%--<!-- Modal -->--%>
