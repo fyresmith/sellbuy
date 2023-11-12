@@ -27,8 +27,7 @@ public class PasswordResetServlet extends HttpServlet {
         if (!access.existsInColumn("email", email)) {
             session.setAttribute("failMessage", "Email does not exist!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("password-reset.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("password-reset.jsp");
         } else {
             session.setAttribute("failMessage", "");
         }
@@ -44,8 +43,7 @@ public class PasswordResetServlet extends HttpServlet {
         session.setAttribute("successMessage", "Email sent!");
         session.setAttribute("tempUser", tempUser);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("password-reset.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("password-reset.jsp");
     }
 
     public void destroy() {

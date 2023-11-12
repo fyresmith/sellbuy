@@ -43,8 +43,7 @@ public class SortResultServlet extends HttpServlet {
 
         session.setAttribute("searchResults", results);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("search.jsp");
     }
 
     public void destroy() {

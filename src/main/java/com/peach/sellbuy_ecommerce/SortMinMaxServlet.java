@@ -56,8 +56,7 @@ public class SortMinMaxServlet extends HttpServlet {
         session.setAttribute("minString", minString);
         session.setAttribute("maxString", maxString);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("search.jsp");
     }
 
     public void destroy() {

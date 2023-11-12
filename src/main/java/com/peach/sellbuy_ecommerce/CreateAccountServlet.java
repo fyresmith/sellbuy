@@ -31,29 +31,25 @@ public class CreateAccountServlet extends HttpServlet {
         if (!Validator.isValidName(firstName) || !Validator.isValidName(lastName)) {
             session.setAttribute("failMessage", "First or Last Name is Invalid!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("register.jsp");
         }
 
         if (!Validator.isValidPassword(password)) {
             session.setAttribute("failMessage", "Password is Invalid!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("register.jsp");
         }
 
         if (!Validator.isValidEmail(email)) {
             session.setAttribute("failMessage", "Email Address is Invalid!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("register.jsp");
         }
 
         if (!Validator.isValidUsername(username)) {
             session.setAttribute("failMessage", "Username is Invalid!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("register.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("register.jsp");
         }
 
         User user = new User(firstName, lastName, username, password, email, address, payment);
@@ -62,8 +58,7 @@ public class CreateAccountServlet extends HttpServlet {
 
         session.setAttribute("user", user);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("user-account.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("user-account.jsp");
     }
 
     public void destroy() {

@@ -38,8 +38,7 @@ public class PasswordResetFinalServlet extends HttpServlet {
 
         session.setAttribute("successMessage", "Password reset!");
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("login.jsp");
     }
 
     public void destroy() {

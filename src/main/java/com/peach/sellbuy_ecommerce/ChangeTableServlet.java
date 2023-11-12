@@ -22,8 +22,7 @@ public class ChangeTableServlet extends HttpServlet {
 
         session.setAttribute("table", Objects.requireNonNullElse(option, "product"));
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("database.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("database.jsp");
     }
 
     public void destroy() {

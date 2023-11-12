@@ -25,15 +25,13 @@ public class ResetCodeServlet extends HttpServlet {
         if (!Objects.equals(code, realCode)) {
             session.setAttribute("failMessage", "That code is incorrect!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("password-reset.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("password-reset.jsp");
         }
 
         session.setAttribute("failMessage", "");
         session.setAttribute("successMessage", "PWRESET");
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("password-reset.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("password-reset.jsp");
     }
 
     public void destroy() {

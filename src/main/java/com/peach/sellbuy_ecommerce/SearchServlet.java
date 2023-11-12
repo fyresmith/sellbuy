@@ -37,8 +37,7 @@ public class SearchServlet extends HttpServlet {
         session.setAttribute("searchResults", results);
         session.setAttribute("query", query);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("search.jsp");
     }
 
     public void destroy() {

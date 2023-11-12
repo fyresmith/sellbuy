@@ -25,8 +25,7 @@ public class RemoveCartItemServlet extends HttpServlet {
         cart.delItem(productID);
         session.setAttribute("cart", cart);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("my-cart.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("my-cart.jsp");
     }
 
     public void destroy() {}

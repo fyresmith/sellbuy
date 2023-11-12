@@ -38,7 +38,7 @@
         <h6 id="alertMessage"></h6>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Continue Shopping</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
       </div>
     </div>
   </div>

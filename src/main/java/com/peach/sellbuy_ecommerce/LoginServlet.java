@@ -28,8 +28,7 @@ public class LoginServlet extends HttpServlet {
         if (!access.existsInColumn("email", email)) {
             session.setAttribute("failMessage", "Email or Password Incorrect!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("login.jsp");
         }
 
         User user = access.altSelect("email", email);
@@ -37,14 +36,12 @@ public class LoginServlet extends HttpServlet {
         if (!(Objects.equals(user.getPassword(), password))) {
             session.setAttribute("failMessage", "Email or Password Incorrect!");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("login.jsp");
         }
 
         session.setAttribute("user", user);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("user-account.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("user-account.jsp");
     }
 
     public void destroy() {
