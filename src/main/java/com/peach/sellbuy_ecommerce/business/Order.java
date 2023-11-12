@@ -83,6 +83,10 @@ public class Order {
      * @return The list of order items.
      */
     public LinkedList<OrderItem> getOrderItems() {
+        if (this.orderItems == null) {
+            populateOrderItems();
+        }
+
         return orderItems;
     }
 
@@ -223,6 +227,16 @@ public class Order {
         return 0.07 * total;
     }
 
+    public static void cancelOrder(Order order) {
+        LinkedList<OrderItem> items = order.getOrderItems();
+
+        for (OrderItem item : items) {
+            item.delete();
+        }
+
+        order.delete();
+    }
+
     public static String orderCard(Order order) {
         order.populateOrderItems();
 
@@ -249,10 +263,10 @@ public class Order {
                         </h6>
                         <span class="text-muted">Date: %s</span>
                     </div>
-                    <div>
-                        <a href="#" class="btn btn-sm btn-outline-danger">Cancel order</a>
-                        <a href="#" class="btn btn-sm btn-primary shadow-0">Track order</a>
-                    </div>
+                    <form action="%s">
+                        <button class="btn btn-sm btn-outline-danger">Cancel order</button>
+                        <input type="hidden" name="orderID" value="%s">
+                    </form>
                 </header>
                 <hr />
                 <div class="row">
@@ -282,7 +296,7 @@ public class Order {
                 </div>
                 <hr />
         <ul class="row list-unstyled">
-        """.formatted(orderID, date, name, username, email, address, cardNumber, df.format(order.getTotal() + order.getTax())));
+        """.formatted(orderID, date, Util.webRoot("delete-order-servlet"), orderID, name, username, email, address, cardNumber, df.format(order.getTotal() + order.getTax())));
 
                 for (OrderItem item : order.getOrderItems()) {
                     card.append(OrderItem.orderCard(item));

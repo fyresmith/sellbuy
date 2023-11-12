@@ -185,7 +185,7 @@ public class OrderItem {
         String price = df.format(item.getProduct().getPrice());
 
         return """
-        <li class="col-xl-4 col-lg-6">
+        <li class="col-xl-4 col-lg-6 pb-2">
           <div class="d-flex mb-3 mb-xl-0">
             <div class="me-3">
               <img width="72" height="72" src="%s" class="img-sm rounded border" />
