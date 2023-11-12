@@ -27,8 +27,12 @@ public class DeleteOrderServlet extends HttpServlet {
         Order order = access.select(orderID);
         Order.cancelOrder(order);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("success.jsp");
-        requestDispatcher.forward(request, response);
+        session.setAttribute("alertTitle", "Order Canceled!");
+
+        session.setAttribute("alertMessage", "Your order was canceled!");
+
+        String referer = request.getHeader("Referer");
+        response.sendRedirect(referer);
     }
 
     public void destroy() {

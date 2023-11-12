@@ -38,6 +38,10 @@ public class Data {
         return file("test/" + file);
     }
 
+    public static String image() {
+        return file("images");
+    }
+
     /**
      * Checks if a file exists at the specified path.
      *

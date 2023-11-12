@@ -62,7 +62,12 @@ public class CheckoutServlet extends HttpServlet {
 
         cart.clear();
         session.setAttribute("cart", cart);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("success.jsp");
+
+        session.setAttribute("alertTitle", "Order Placed!");
+
+        session.setAttribute("alertMessage", "Your order was placed!");
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("user-account.jsp");
         requestDispatcher.forward(request, response);
     }
 

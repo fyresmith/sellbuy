@@ -25,13 +25,13 @@
         <div class="card border">
           <div class="card-body">
             <nav class="nav flex-lg-column w-100 d-flex nav-pills mb-1">
-              <a class="nav-link my-0 active" href="user-account.jsp">
+              <a class="nav-link my-0 bg-white" href="user-account.jsp">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-home fa-lg"></i> Account main</p>
               </a>
               <a class="nav-link my-0 bg-white" href="user-profile.jsp">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-user-circle fa-lg"></i> Profile</p>
               </a>
-              <a class="nav-link my-0 bg-white" href="user-orders.jsp">
+              <a class="nav-link my-0 active" href="user-orders.jsp">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-history fa-lg"></i> Orders History</p>
               </a>
               <a class="nav-link my-0 bg-white" href="user-products.jsp">
@@ -49,35 +49,10 @@
       <main class="col-lg-9 col-xl-9">
         <div class="card p-4 mb-0 shadow-0 border">
           <div class="content-body">
-            <h3 class="">Your Account</h3>
+            <h3 class="mb-3">Your Orders</h3>
             <hr />
-
-            <div class="row g-2 mb-3">
-              <div class="col-md-6">
-                <div class="border p-3 rounded-3 bg-light">
-                  <b class="mx-2 text-muted"><i class="fa fa-info"></i></b>
-                  <%= user.getName() %>, <%= user.getEmail() %>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="border p-3 rounded-3 bg-light">
-                  <b class="mx-2 text-muted"><i class="fa fa-map-marker-alt"></i></b>
-                  <%= user.getShippingAddress() %>
-                </div>
-              </div>
-            </div>
-
-<%--                              <a href="#" class="px-2"><i class="fa fa-pen"></i></a>--%>
-
-<%--            <hr />--%>
-<%--            <a href="#" class="btn btn-light border"><i class="me-2 fa fa-pen"></i>Change Address</a>--%>
-
-            <hr class="my-4" />
-
-            <h5 class="mb-3">Your Orders</h5>
             <% for (Order order : orders) { %>
-              <%= Order.orderCard(order) %>
+            <%= Order.orderCard(order) %>
             <% } %>
           </div>
         </div>

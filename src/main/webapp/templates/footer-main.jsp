@@ -162,3 +162,5 @@
   });
 </script>
 <!-- Footer -->
+
+<jsp:include page="modal.jsp"/>

@@ -1,7 +1,6 @@
 package com.peach.sellbuy_ecommerce;
 
 import java.io.*;
-
 import com.peach.sellbuy_ecommerce.business.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,10 +9,6 @@ import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "addToCartServlet", value = "/add-to-cart-servlet")
 public class AddToCartServlet extends HttpServlet {
-
-    public void init() {
-        String message = "Hello World!";
-    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
@@ -43,15 +38,18 @@ public class AddToCartServlet extends HttpServlet {
 
         session.setAttribute("cart", cart);
 
+        session.setAttribute("alertTitle", "Added to Cart!");
+
         if (user == null) {
-            session.setAttribute("failMessage", "Your item was added, but you must sign in to access your cart!");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-            requestDispatcher.forward(request, response);
+            session.setAttribute("alertMessage", "Your item was added to the cart, but you must first sign in to access it!");
+        } else {
+            session.setAttribute("alertMessage", "Your item was added to the cart!");
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("my-cart.jsp");
-        requestDispatcher.forward(request, response);
+        String referer = request.getHeader("Referer");
+        response.sendRedirect(referer);
     }
 
     public void destroy() {}
 }
+

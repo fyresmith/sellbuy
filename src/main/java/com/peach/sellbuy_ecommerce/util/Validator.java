@@ -2,7 +2,11 @@ package com.peach.sellbuy_ecommerce.util;
 
 import com.peach.sellbuy_ecommerce.business.Access;
 import com.peach.sellbuy_ecommerce.business.User;
+
+import java.nio.file.Files;
 import java.util.regex.Pattern;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Validator {
     public Validator() {
@@ -67,6 +71,12 @@ public class Validator {
             return false;
         }
     }
+
+    public static boolean isPath(String filePath) {
+        Path path = Paths.get(filePath);
+        return Files.exists(path) && Files.isRegularFile(path);
+    }
+
 
     public static boolean isValidCVV(String cvv) {
         cvv = cvv.replaceAll("\\D", "");

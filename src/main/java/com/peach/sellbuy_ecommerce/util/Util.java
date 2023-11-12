@@ -222,7 +222,11 @@ public class Util {
     }
 
     public static String image(String uniqueID, String size) {
-        return "https://m.media-amazon.com/images/I/" + uniqueID + "._US" + size + "_.jpg";
+        if (Validator.isPath(uniqueID)) {
+            return uniqueID;
+        } else{
+            return "https://m.media-amazon.com/images/I/" + uniqueID + "._US" + size + "_.jpg";
+        }
     }
 
     public static void printLoadingBar(int currentStep, int totalSteps, String data) {
