@@ -15,7 +15,7 @@ import java.util.Map;
  * Data class for managing file paths, database connection, and JSON file reading.
  */
 public class Data {
-    public static final String ROOT = "/Users/calebsmith/IdeaProjects/SellBuy eCommerce/data/";
+    public static final String ROOT = "/Users/calebsmith/IdeaProjects/SellBuy/data/";
     public static final String DATABASE = UcanaccessDriver.URL_PREFIX + file("data.accdb");
 
     /**
@@ -35,7 +35,7 @@ public class Data {
      * @return The full test file path.
      */
     public static String testFile(String file) {
-        return ROOT + "test/" + file;
+        return file("test/" + file);
     }
 
     /**

@@ -7,15 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
-
 <jsp:include page="templates/head.jsp"/>
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("Search", new String[]{"Home", "Library", "Search"}) %>
+<%= Templates.locationHeader("Search", new String[]{"Home", "Search"}, new String[]{"index.jsp", "search.jsp"}) %>
 
 <jsp:include page="templates/search-view.jsp"/>
 

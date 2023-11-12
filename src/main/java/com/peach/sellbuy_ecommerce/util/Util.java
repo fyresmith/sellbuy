@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -107,7 +108,7 @@ public class Util {
      *
      * @return A random date between 2012 and 2023.
      */
-    public static java.util.Date generateRandomDate() {
+    public static Date generateRandomDate() {
         Random random = new Random();
         int year = random.nextInt(12) + 2012;  // Random year between 2012 and 2023
         int month = random.nextInt(12) + 1;   // Random month between 1 and 12
@@ -314,5 +315,76 @@ public class Util {
         return Stream.of(array1, array2, array3, array4)
                 .flatMap(Stream::of)
                 .toArray(String[]::new);
+    }
+
+    public static String limitString(String input, int maxLength) {
+        if (input.length() <= maxLength) {
+            return input;
+        } else {
+            return input.substring(0, maxLength - 3) + "...";
+        }
+    }
+
+    public static DecimalFormat priceFormat() {
+        return new DecimalFormat("#,###.00");
+    }
+
+    public static String styleCategory(String category) {
+        // Split the category into words
+        String[] words = category.split("_");
+
+        // Capitalize the first letter of each word and join them with spaces
+        StringBuilder styledCategory = new StringBuilder();
+        for (String word : words) {
+            if (styledCategory.length() > 0) {
+                styledCategory.append(" "); // Add space between words
+            }
+            styledCategory.append(word.substring(0, 1).toUpperCase()).append(word.substring(1).toLowerCase());
+        }
+
+        return styledCategory.toString();
+    }
+
+
+    public static LinkedList<String> styleCategories(LinkedList<String> categories) {
+        LinkedList<String> styledCategories = new LinkedList<>();
+
+        for (String category : categories) {
+            String styledCategory = styleCategory(category);
+
+            styledCategories.add(styledCategory);
+        }
+
+        return styledCategories;
+    }
+
+    public static String rawCategory(String styledCategory) {
+        // Split the styled category into words
+        String[] words = styledCategory.split(" ");
+
+        // Convert the first letter of each word to lowercase and join with underscores
+        StringBuilder originalCategory = new StringBuilder();
+        for (String word : words) {
+            if (originalCategory.length() > 0) {
+                originalCategory.append("_"); // Add underscore between words
+            }
+            originalCategory.append(word.substring(0, 1).toLowerCase()).append(word.substring(1));
+        }
+
+        return originalCategory.toString().toUpperCase();
+    }
+
+    public static boolean isRawCategory(String text) {
+        // Check if the text is all uppercase and contains underscores
+        return text.matches("^[A-Z_]+$");
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 }

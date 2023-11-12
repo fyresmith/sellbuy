@@ -1,0 +1,33 @@
+package com.peach.sellbuy_ecommerce;
+
+import java.io.*;
+
+import com.peach.sellbuy_ecommerce.business.*;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
+
+@WebServlet(name = "removeCartItemServlet", value = "/remove-cartitem-servlet")
+public class RemoveCartItemServlet extends HttpServlet {
+
+    public void init() {
+        String message = "Hello World!";
+    }
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+
+        Cart cart = (Cart) session.getAttribute("cart");
+
+        int productID = Integer.parseInt(request.getParameter("productID"));
+
+        cart.delItem(productID);
+        session.setAttribute("cart", cart);
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("my-cart.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    public void destroy() {}
+}

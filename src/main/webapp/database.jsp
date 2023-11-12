@@ -1,6 +1,8 @@
 <%@ page import="com.peach.sellbuy_ecommerce.business.*" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %><%--
+<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %>
+<%@ page import="com.peach.sellbuy_ecommerce.util.Pager" %>
+<%@ page import="com.peach.sellbuy_ecommerce.util.DBPager" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 11/2/23
@@ -20,10 +22,43 @@
   String table = (String) session.getAttribute("table");
 
   if (table == null) {
-    table = "product";
+      table = "product";
   }
 
-  DecimalFormat df = new DecimalFormat("0.00");
+  final DecimalFormat df = Util.priceFormat();
+
+  int pageNum, pageTotal;
+
+  if (session.getAttribute("pageNum") == null) {
+      pageNum = 1;
+
+      session.setAttribute("pageNum", pageNum);
+  } else {
+      pageNum = (int) session.getAttribute("pageNum");
+  }
+
+  DBPager<Product> productPager = new DBPager<>(new Access<>(Product.class), 100);
+  DBPager<Image> imagePager = new DBPager<>(new Access<>(Image.class), 100);
+  DBPager<Order> orderPager = new DBPager<>(new Access<>(Order.class), 100);
+  DBPager<OrderItem> orderItemPager = new DBPager<>(new Access<>(OrderItem.class), 100);
+  DBPager<Review> reviewPager = new DBPager<>(new Access<>(Review.class), 100);
+  DBPager<User> userPager = new DBPager<>(new Access<>(User.class), 100);
+
+  if (table.equals("image")) {
+      pageTotal = imagePager.getNumberOfPages();
+  } else if (table.equals("order")) {
+    pageTotal = orderPager.getNumberOfPages();
+  } else if (table.equals("orderitem")) {
+    pageTotal = orderItemPager.getNumberOfPages();
+  } else if (table.equals("review")) {
+    pageTotal = reviewPager.getNumberOfPages();
+  } else if (table.equals("user")) {
+    pageTotal = userPager.getNumberOfPages();
+  } else {
+    pageTotal = productPager.getNumberOfPages();
+  }
+
+  session.setAttribute("pageTotal", pageTotal);
 %>
 
 <!DOCTYPE html>
@@ -67,22 +102,26 @@
                 <th>price</th>
                 <th>stockQuantity</th>
                 <th>sellerID</th>
+                <th>productCategory</th>
                 <th>keywords</th>
               </tr>
             </thead>
-            <% for (Product product : productAccess.getTable()) { %>
-              <tbody>
-                <tr>
-                  <td><%= product.getProductID() %></td>
-                  <td><%= product.getProductName() %></td>
-                  <td><%= product.getDescription() %></td>
-                  <td><%= df.format(product.getPrice()) %></td>
-                  <td><%= product.getStockQuantity() %></td>
-                  <td><%= product.getSellerID() %></td>
-                  <td><%= product.getKeywords() %></td>
-                </tr>
-              </tbody>
-            <% } %>
+            <% for (Product product : productPager.getPage(pageNum)) { %>
+              <form action="/edit-table-servlet">
+                <tbody>
+                  <tr>
+                    <td class="editable-cell"><%= product.getProductID() %></td>
+                    <td class="editable-cell"><%= product.getProductName() %></td>
+                    <td class="editable-cell"><%= product.getDescription() %></td>
+                    <td class="editable-cell"><%= df.format(product.getPrice()) %></td>
+                    <td class="editable-cell"><%= product.getStockQuantity() %></td>
+                    <td class="editable-cell"><%= product.getSellerID() %></td>
+                    <td class="editable-cell"><%= product.getProductCategory() %></td>
+                    <td class="editable-cell"><%= product.getKeywords() %></td>
+                  </tr>
+                </tbody>
+              </form>
+          <% } %>
           <% } else if (table.equals("image")) {%>
             <thead class="table-warning">
               <tr>
@@ -91,12 +130,12 @@
                 <th>productID</th>
               </tr>
             </thead>
-            <% for (Image image : imageAccess.getTable()) { %>
+            <% for (Image image : imagePager.getPage(pageNum)) { %>
               <tbody>
                 <tr>
-                  <td><%= image.getImageID() %></td>
-                  <td><%= image.getImageURL() %></td>
-                  <td><%= image.getProductID() %></td>
+                  <td class="editable-cell"><%= image.getImageID() %></td>
+                  <td class="editable-cell"><%= image.getImageURL() %></td>
+                  <td class="editable-cell"><%= image.getProductID() %></td>
                 </tr>
               </tbody>
             <% } %>
@@ -110,14 +149,14 @@
                 <th>paymentMethod</th>
               </tr>
             </thead>
-            <% for (Order order : orderAccess.getTable()) { %>
+            <% for (Order order : orderPager.getPage(pageNum)) { %>
               <tbody>
               <tr>
-                <td><%= order.getOrderID() %></td>
-                <td><%= order.getUserID() %></td>
-                <td><%= order.getOrderDate() %></td>
-                <td><%= order.getShippingAddress() %></td>
-                <td><%= order.getPaymentMethod() %></td>
+                <td class="editable-cell"><%= order.getOrderID() %></td>
+                <td class="editable-cell"><%= order.getUserID() %></td>
+                <td class="editable-cell"><%= order.getOrderDate() %></td>
+                <td class="editable-cell"><%= order.getShippingAddress() %></td>
+                <td class="editable-cell"><%= order.getPaymentMethod() %></td>
               </tr>
               </tbody>
             <% } %>
@@ -131,14 +170,14 @@
                 <th>price</th>
               </tr>
             </thead>
-            <% for (OrderItem orderItem : orderItemAccess.getTable()) { %>
+            <% for (OrderItem orderItem : orderItemPager.getPage(pageNum)) { %>
               <tbody>
                 <tr>
-                  <td><%= orderItem.getOrderID() %></td>
-                  <td><%= orderItem.getOrderItemID() %></td>
-                  <td><%= orderItem.getProductID() %></td>
-                  <td><%= orderItem.getQuantity() %></td>
-                  <td><%= orderItem.getPrice() %></td>
+                  <td class="editable-cell"><%= orderItem.getOrderID() %></td>
+                  <td class="editable-cell"><%= orderItem.getOrderItemID() %></td>
+                  <td class="editable-cell"><%= orderItem.getProductID() %></td>
+                  <td class="editable-cell"><%= orderItem.getQuantity() %></td>
+                  <td class="editable-cell"><%= orderItem.getPrice() %></td>
                 </tr>
               </tbody>
             <% } %>
@@ -153,15 +192,15 @@
                 <th>datePosted</th>
               </tr>
             </thead>
-            <% for (Review review : reviewAccess.getTable()) { %>
+            <% for (Review review : reviewPager.getPage(pageNum)) { %>
               <tbody>
                 <tr>
-                  <td><%= review.getReviewID() %></td>
-                  <td><%= review.getProductID() %></td>
-                  <td><%= review.getUserID() %></td>
-                  <td><%= review.getRating() %></td>
-                  <td><%= review.getReviewText() %></td>
-                  <td><%= review.getDatePosted() %></td>
+                  <td class="editable-cell"><%= review.getReviewID() %></td>
+                  <td class="editable-cell"><%= review.getProductID() %></td>
+                  <td class="editable-cell"><%= review.getUserID() %></td>
+                  <td class="editable-cell"><%= review.getRating() %></td>
+                  <td class="editable-cell"><%= review.getReviewText() %></td>
+                  <td class="editable-cell"><%= review.getDatePosted() %></td>
                 </tr>
               </tbody>
             <% } %>
@@ -178,47 +217,74 @@
                 <th>paymentMethod</th>
               </tr>
             </thead>
-            <% for (User user : userAccess.getTable()) { %>
+            <% for (User user : userPager.getPage(pageNum)) { %>
               <tbody>
                 <tr>
-                  <td><%= user.getFirstName() %></td>
-                  <td><%= user.getUserID() %></td>
-                  <td><%= user.getLastName() %></td>
-                  <td><%= user.getUsername() %></td>
-                  <td><%= user.getPassword() %></td>
-                  <td><%= user.getEmail() %></td>
-                  <td><%= user.getShippingAddress() %></td>
-                  <td><%= user.getPaymentInformation() %></td>
+                  <td class="editable-cell"><%= user.getFirstName() %></td>
+                  <td class="editable-cell"><%= user.getUserID() %></td>
+                  <td class="editable-cell"><%= user.getLastName() %></td>
+                  <td class="editable-cell"><%= user.getUsername() %></td>
+                  <td class="editable-cell"><%= user.getPassword() %></td>
+                  <td class="editable-cell"><%= user.getEmail() %></td>
+                  <td class="editable-cell"><%= user.getShippingAddress() %></td>
+                  <td class="editable-cell"><%= user.getPaymentInformation() %></td>
                 </tr>
               </tbody>
             <% } %>
           <% } %>
         </table>
       </div>
-
-
-      <div id="table2" style="display: none;">
-        <table class="table table-striped table-bordered">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Column A</th>
-            <th>Column B</th>
-            <!-- Add more columns as needed -->
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>1</td>
-            <td>Data A1</td>
-            <td>Data B1</td>
-            <!-- Add more rows as needed -->
-          </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
+
+  <!-- Pagination -->
+  <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+    <ul class="pagination">
+      <% if (pageNum <= 1) { %>
+      <form class="page-item disabled" action="<%= Util.webRoot("page-first-servlet") %>">
+          <% } else { %>
+        <form class="page-item" action="<%= Util.webRoot("page-first-servlet") %>">
+          <% } %>
+        <button class="page-link" aria-label="First">
+          <span aria-hidden="true">&laquo;&laquo; First </span>
+        </button>
+      </form>
+      <% if (pageNum <= 1) { %>
+      <form class="page-item disabled" action="<%= Util.webRoot("page-previous-servlet") %>">
+          <% } else { %>
+        <form class="page-item" action="<%= Util.webRoot("page-previous-servlet") %>">
+          <% } %>
+          <button class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo; Previous</span>
+          </button>
+        </form>
+        <%--                        <li class="page-item active"><a class="page-link" href="#">1</a></li>--%>
+        <li class="page-item"><span class="page-link disabled fw-bold text-dark">Page <%= pageNum %> of <%= pageTotal %></span></li>
+        <%--                        <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
+        <%--                        <li class="page-item"><a class="page-link" href="#">4</a></li>--%>
+        <%--                        <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
+        <%--                        <li class="page-item">--%>
+          <% if (pageNum >= pageTotal) { %>
+        <form class="page-item disabled" action="<%= Util.webRoot("page-next-servlet") %>">
+            <% } else { %>
+          <form class="page-item" action="<%= Util.webRoot("page-next-servlet") %>">
+            <% } %>
+            <button class="page-link" aria-label="Next">
+              <span aria-hidden="true">Next &raquo;</span>
+            </button>
+          </form>
+            <% if (pageNum >= pageTotal) { %>
+          <form class="page-item disabled" action="<%= Util.webRoot("page-final-servlet") %>">
+              <% } else { %>
+            <form class="page-item" action="<%= Util.webRoot("page-final-servlet") %>">
+                <% } %>
+            <button class="page-link" aria-label="Final">
+              <span aria-hidden="true"> Final &raquo;&raquo;</span>
+            </button>
+          </form>
+    </ul>
+  </nav>
+  <!-- Pagination -->
 </div>
 
 <!-- Add jQuery and Popper.js (required by MDB) -->
@@ -233,5 +299,35 @@
     document.getElementById('tableForm').submit();
   });
 </script>
+<script>
+  // Function to make table cells editable on double-click
+  const makeTableCellEditable = (cell) => {
+    cell.contentEditable = true;
+    cell.focus();
+    cell.classList.add('editable-cell');
+  };
+
+  // Function to handle saving changes and submitting the form on Enter
+  const handleTableCellEdit = (cell) => {
+    cell.contentEditable = false;
+    cell.classList.remove('editable-cell');
+    // Update the corresponding hidden input field with the edited value
+    const hiddenInput = cell.querySelector('.hidden-input');
+    hiddenInput.value = cell.innerText;
+    document.getElementById('tableForm').submit();
+  };
+
+  // Add event listeners to make table cells editable on double-click
+  const tableCells = document.querySelectorAll('.editable-cell');
+  tableCells.forEach((cell) => {
+    cell.addEventListener('dblclick', () => makeTableCellEditable(cell));
+    cell.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleTableCellEdit(cell);
+      }
+    });
+  });
+</script>
+
 </body>
 </html>

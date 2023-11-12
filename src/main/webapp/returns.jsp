@@ -10,9 +10,7 @@
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("Returns", new String[]{"Home", "Returns"}) %>
+<%= Templates.locationHeader("Returns", new String[]{"Home", "Returns"}, new String[]{"index.jsp", "returns.jsp"}) %>
 
 <jsp:include page="templates/return-policy-view.jsp"/>
 

@@ -11,9 +11,7 @@
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("Privacy Policy", new String[]{"Home", "Privicy Policy"}) %>
+<%= Templates.locationHeader("Privacy Policy", new String[]{"Home", "Privicy Policy"}, new String[]{"index.jsp", "privacy-policy.jsp"}) %>
 
 <jsp:include page="templates/privacy-policy-view.jsp"/>
 

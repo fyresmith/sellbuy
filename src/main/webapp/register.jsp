@@ -1,5 +1,5 @@
 <%@ page import="com.peach.sellbuy_ecommerce.util.Templates" %>
-<%@ page import="java.util.Objects" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/20/23
@@ -12,9 +12,7 @@
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("Register", new String[]{"Home", "Register"}) %>
+<%= Templates.locationHeader("Register", new String[]{"Home", "Register"}, new String[]{"index.jsp", "register.jsp"}) %>
 
 <jsp:include page="templates/register-form.jsp"/>
 

@@ -21,8 +21,8 @@ public class PageNextServlet extends HttpServlet {
         pageNum += 1;
         session.setAttribute("pageNum", pageNum);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search.jsp");
-        requestDispatcher.forward(request, response);
+        String referer = request.getHeader("Referer");
+        response.sendRedirect(referer);
     }
 
     public void destroy() {

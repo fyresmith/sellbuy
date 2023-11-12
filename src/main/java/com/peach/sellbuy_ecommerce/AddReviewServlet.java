@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import com.peach.sellbuy_ecommerce.business.*;
 import com.peach.sellbuy_ecommerce.util.Util;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -46,9 +47,6 @@ public class AddReviewServlet extends HttpServlet {
 
         assert url != null;
         response.sendRedirect(url.toString());
-
-//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product.jsp");
-//        requestDispatcher.forward(request, response);
     }
 
     public void destroy() {

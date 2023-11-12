@@ -11,9 +11,7 @@
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("Product Details", new String[]{"Home", "Library", "Product Details"}) %>
+<%= Templates.locationHeader("Product Details", new String[]{"Home", "Search", "Product Details"}, new String[]{"index.jsp", "search.jsp", "product.jsp"}) %>
 
 <jsp:include page="templates/product-view.jsp"/>
 

@@ -25,14 +25,14 @@ public class LoginServlet extends HttpServlet {
 
         Access<User> access = new Access<>("user", "userID", User.class);
 
-        if (!access.valueExists("email", email)) {
+        if (!access.existsInColumn("email", email)) {
             session.setAttribute("failMessage", "Email or Password Incorrect!");
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
             requestDispatcher.forward(request, response);
         }
 
-        User user = access.alternateSelect("email", email);
+        User user = access.altSelect("email", email);
 
         if (!(Objects.equals(user.getPassword(), password))) {
             session.setAttribute("failMessage", "Email or Password Incorrect!");

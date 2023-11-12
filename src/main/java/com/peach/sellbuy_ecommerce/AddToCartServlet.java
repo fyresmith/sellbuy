@@ -20,15 +20,18 @@ public class AddToCartServlet extends HttpServlet {
 
         Cart cart = (Cart) session.getAttribute("cart");
         User user = (User) session.getAttribute("user");
-//        int quantity = Integer.parseInt(session.getAttribute("quantity"));
-        int quantity = 0;
 
         int productID = Integer.parseInt(request.getParameter("productID"));
+        int quantity = 0;
+
+        if (request.getParameter("quantity") != null) {
+            quantity = Integer.parseInt(request.getParameter("quantity"));
+        }
 
         Product product = new Product();
         product.select(productID);
 
-        if (quantity == 0) {
+        if (quantity <= 0) {
             quantity = 1;
         }
 

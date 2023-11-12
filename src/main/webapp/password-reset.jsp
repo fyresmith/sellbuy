@@ -10,9 +10,7 @@
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("Password Reset", new String[]{"Home", "Login", "Password Reset"}) %>
+<%= Templates.locationHeader("Password Reset", new String[]{"Home", "Login", "Password Reset"}, new String[]{"index.jsp", "login.jsp", "password-reset.jsp"}) %>
 
 <jsp:include page="templates/pw-reset-form.jsp"/>
 

@@ -12,9 +12,7 @@
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("Login", new String[]{"Home", "Login"}) %>
+<%= Templates.locationHeader("Login", new String[]{"Home", "Login"}, new String[]{"index.jsp", "login.jsp"}) %>
 
 <jsp:include page="templates/login-form.jsp"/>
 

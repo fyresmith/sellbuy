@@ -25,6 +25,7 @@ public class SearchServlet extends HttpServlet {
 
         LinkedList<Product> results;
 
+
         Access<Product> access = new Access<>("product", "productID", Product.class);
 
         if (Objects.equals(query, "")) {
@@ -34,6 +35,7 @@ public class SearchServlet extends HttpServlet {
         }
 
         session.setAttribute("searchResults", results);
+        session.setAttribute("query", query);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("search.jsp");
         requestDispatcher.forward(request, response);

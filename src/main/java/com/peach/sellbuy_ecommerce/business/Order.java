@@ -1,5 +1,9 @@
 package com.peach.sellbuy_ecommerce.business;
 
+import com.peach.sellbuy_ecommerce.util.PaymentFormat;
+import com.peach.sellbuy_ecommerce.util.Util;
+
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -19,19 +23,22 @@ public class Order {
     /**
      * Default constructor for Order.
      */
-    public Order() {}
+    public Order() {
+        Access<Order> access = new Access<>("order", "orderID", Order.class);
+        this.orderID = access.generateUniquePK();
+    }
 
     /**
      * Constructor for Order with all attributes provided.
-     * @param orderID The unique ID of the order.
      * @param userID The user ID associated with this order.
      * @param orderItems A list of order items in the order.
      * @param orderDate The date when the order was placed.
      * @param shippingAddress The address to which the order is shipped.
      * @param paymentMethod The payment method used for the order.
      */
-    public Order(int orderID, int userID, LinkedList<OrderItem> orderItems, Date orderDate, String shippingAddress, String paymentMethod) {
-        this.orderID = orderID;
+    public Order(int userID, LinkedList<OrderItem> orderItems, Date orderDate, String shippingAddress, String paymentMethod) {
+        Access<Order> access = new Access<>("order", "orderID", Order.class);
+        this.orderID = access.generateUniquePK();
         this.userID = userID;
         this.orderItems = orderItems;
         this.orderDate = orderDate;
@@ -189,4 +196,103 @@ public class Order {
                 ", paymentMethod='" + paymentMethod + '\'' +
                 '}';
     }
+
+    public void populateOrderItems() {
+        Access<OrderItem> access = new Access<>(OrderItem.class);
+        this.orderItems = access.getAltRows("orderID", orderID);
+    }
+
+    public User getUser() {
+        Access<User> userAccess = new Access(User.class);
+        return userAccess.select(this.userID);
+    }
+
+    public double getTotal() {
+        double total = 0;
+
+        for (OrderItem item : this.orderItems) {
+            total += item.getProduct().getPrice() * item.getQuantity();
+        }
+
+        return total;
+    }
+
+    public double getTax() {
+        double total = getTotal();
+
+        return 0.07 * total;
+    }
+
+    public static String orderCard(Order order) {
+        order.populateOrderItems();
+
+        int orderID = order.getOrderID();
+        Date date = order.getOrderDate();
+        User user = order.getUser();
+        String name = user.getName();
+        String username = user.getUsername();
+        String email = user.getEmail();
+        String address = order.getShippingAddress();
+
+        PaymentFormat pf = PaymentFormat.fromString(order.getPaymentMethod());
+        String cardNumber = pf.getCardNumber().substring(12, 16);
+
+        DecimalFormat df = Util.priceFormat();
+
+        StringBuilder card = new StringBuilder("""
+        <div class="card border border-primary mb-4 shadow-0">
+            <div class="card-body pb-0">
+                <header class="d-lg-flex">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">Order ID: %s <i class="dot"></i>
+                            <span class="text-success"> Shipped</span>
+                        </h6>
+                        <span class="text-muted">Date: %s</span>
+                    </div>
+                    <div>
+                        <a href="#" class="btn btn-sm btn-outline-danger">Cancel order</a>
+                        <a href="#" class="btn btn-sm btn-primary shadow-0">Track order</a>
+                    </div>
+                </header>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-4">
+                        <p class="mb-0 text-muted">Contact</p>
+                        <p class="m-0">
+                            %s <br />
+                            Username: %s <br />
+                            Email: %s
+                        </p>
+                    </div>
+                    <div class="col-lg-4 border-start">
+                        <p class="mb-0 text-muted">Shipping Address</p>
+                        <p class="m-0">
+                            United States <br />
+                            %s
+                        </p>
+                    </div>
+                    <div class="col-lg-4 border-start">
+                        <p class="mb-0 text-muted">Payment</p>
+                        <p class="m-0">
+                            <span class="text-success"> Visa **** %s </span> <br />
+                            Shipping fee: $0 <br />
+                            Total paid: $%s
+                        </p>
+                    </div>
+                </div>
+                <hr />
+        <ul class="row list-unstyled">
+        """.formatted(orderID, date, name, username, email, address, cardNumber, df.format(order.getTotal() + order.getTax())));
+
+                for (OrderItem item : order.getOrderItems()) {
+                    card.append(OrderItem.orderCard(item));
+                }
+
+        card.append("         </ul>\n" +
+                "    </div>\n" +
+                "</div>\n");
+
+        return card.toString();
+    }
+
 }

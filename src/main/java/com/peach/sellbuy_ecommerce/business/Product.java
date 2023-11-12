@@ -288,10 +288,10 @@ public class Product {
      * Gets the average rating of the product based on its reviews.
      * @return The average rating of the product.
      */
-    public int getRating() {
+    public double getRating() {
         populateReviews();
 
-        return Review.reviewAverage(this.reviews);
+        return (double) Review.reviewAverage(this.reviews) / 2;
     }
 
     /**
@@ -364,155 +364,257 @@ public class Product {
         }
     }
 
-    public static String cartPageCard(Product product) {
-        final DecimalFormat df = new DecimalFormat("0.00");
+    public static String recommendedItemsCard(Product product) {
+        final DecimalFormat df = Util.priceFormat();
         product.populateImages();
 
-        return "<form class=\"col-lg-3 col-md-6 col-sm-6\" action=\"" + Util.webRoot("add-to-cart-servlet") + "\">\n" +
-                "        <div class=\"card px-4 border shadow-0 mb-4 mb-lg-0\">\n" +
-                "          <div class=\"mask px-2\" style=\"height: 50px;\">\n" +
-                "            <a href=\"#\"><i class=\"fas fa-heart text-primary fa-lg float-end pt-3 m-2\"></i></a>\n" +
-                "          </div>\n" +
-                "          <a href=\"#\" class=\"\">\n" +
-                "            <img src=\"" + Util.image(product.getImages().get(0).getImageURL(), "86") + "\" class=\"card-img-top rounded-2\" />\n" +
-                "          </a>\n" +
-                "          <div class=\"card-body d-flex flex-column pt-3 border-top\">\n" +
-                "            <a href=\"#\" class=\"nav-link\">" + product.getProductName() + "</a>\n" +
-                "            <div class=\"price-wrap mb-2\">\n" +
-                "              <strong class=\"\">$" + df.format(product.getPrice()) + "</strong>\n" +
-                "            </div>\n" +
-                "            <div class=\"card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto\">\n" +
-                "              <input type=\"hidden\" name=\"productID\" value=\"" + product.getProductID() + "\">" +
-                "              <button type=\"submit\" class=\"btn btn-outline-primary w-100\">Add to cart</button>\n" +
-                "            </div>\n" +
-                "          </div>\n" +
-                "        </div>\n" +
-                "      </form>";
+        String baseURL = Util.getBaseURL("");
+        String webRoot = Util.webRoot("add-to-cart-servlet");
+        String productID = String.valueOf(product.getProductID());
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
+        String productName = Util.limitString(product.getProductName(), 50);
+        String priceFormatted = df.format(product.getPrice());
+
+        return """
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card px-4 border shadow-0">
+                <a href="%sproduct.jsp?pid=%s" class="">
+                    <img src="%s" class="card-img-top rounded-2" />
+                </a>
+                <div class="card-body d-flex flex-column pt-3 border-top">
+                    <a href="%sproduct.jsp?pid=%s" class="nav-link">%s</a>
+                    <div class="price-wrap mb-2">
+                      <strong class="">$%s</strong>
+                    </div>
+                    <form class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto" action="%s">
+                      <input type="hidden" name="productID" value="%s">
+                      <button type="submit" class="btn btn-outline-primary w-100">Add to cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                """.formatted(baseURL, productID, imageURL, baseURL, productID, productName, priceFormatted, webRoot, productID);
     }
 
+    public static String cartPageCard(Product product) {
+        final DecimalFormat df = Util.priceFormat();
+        product.populateImages();
+
+        String webRoot = Util.webRoot("add-to-cart-servlet");
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
+        String productName = product.getProductName();
+        String priceFormatted = df.format(product.getPrice());
+        String productID = String.valueOf(product.getProductID());
+
+        return """
+        <form class="col-lg-3 col-md-6 col-sm-6" action="%s">
+            <div class="card px-4 border shadow-0 mb-4 mb-lg-0">
+                <div class="mask px-2" style="height: 50px;">
+                    <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
+                </div>
+                <a href="#">
+                    <img src="%s" class="card-img-top rounded-2" />
+                </a>
+                <div class="card-body d-flex flex-column pt-3 border-top">
+                    <a href="#" class="nav-link">%s</a>
+                    <div class="price-wrap mb-2">
+                        <strong class="">$%s</strong>
+                    </div>
+                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                        <input type="hidden" name="productID" value="%s">
+                        <button type="submit" class="btn btn-outline-primary w-100">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        """.formatted(webRoot, imageURL, productName, priceFormatted, productID);
+    }
+
+
     public static String cartCard(CartItem item) {
-        final DecimalFormat df = new DecimalFormat("0.00");
+        final DecimalFormat df = Util.priceFormat();
         Product product = item.getProduct();
         double price = product.getPrice();
         product.populateImages();
 
-        return "<div class=\"row gy-3 mb-4\">\n" +
-                "              <div class=\"col-lg-5\">\n" +
-                "                <div class=\"me-lg-5\">\n" +
-                "                  <div class=\"d-flex\">\n" +
-                "                    <img src=\"" + Util.image(product.getImages().get(0).getImageURL(), "86") + "\" class=\"border rounded me-3\" style=\"width: 96px; height: 96px;\" />\n" +
-                "                    <div class=\"\">\n" +
-                "                      <a href=\"#\" class=\"nav-link\">" + product.getProductName() + "</a>\n" +
-                "                    </div>\n" +
-                "                  </div>\n" +
-                "                </div>\n" +
-                "              </div>\n" +
-                "\n" +
-                "              <div class=\"col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap\">\n" +
-                "                <div class=\"\">\n" +
-                "                  <select style=\"width: 100px;\" class=\"form-select me-4\">\n" +
-                "                    <option>1</option>\n" +
-                "                    <option>2</option>\n" +
-                "                    <option>3</option>\n" +
-                "                    <option>4</option>\n" +
-                "                  </select>\n" +
-                "                </div>\n" +
-                "                <div class=\"\">\n" +
-                "                  <text class=\"h6\">$" + df.format(price * item.getQuantity()) + "</text> <br />\n" +
-                "                  <small class=\"text-muted text-nowrap\"> $" + df.format(price) + " / per item </small>\n" +
-                "                </div>\n" +
-                "              </div>\n" +
-                "              <div class=\"col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2\">\n" +
-                "                <form class=\"float-md-end\" action=\"" + Util.webRoot("remove-cart-item") + "\">\n" +
-                "                  <button type=\"submit\" class=\"btn btn-light border text-danger icon-hover-danger\">Remove</button>\n" +
-                "                  <input type=\"hidden\" name=\"productID\" value=\"" + item.getCartItemID() + "\">" +
-                "                </form>\n" +
-                "              </div>\n" +
-                "            </div>";
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
+        String productName = product.getProductName();
+        String totalPrice = df.format(price * item.getQuantity());
+        String pricePerItem = df.format(price);
+        int cartItemID = item.getCartItemID();
+        String removeAction = Util.webRoot("remove-cartitem-servlet");
+
+        return """
+                <div class="row gy-3 mb-4">
+                    <div class="col-lg-5">
+                        <div class="me-lg-5">
+                            <div class="d-flex">
+                                <img src="%s" class="border rounded me-3" style="width: 96px; height: 96px;" />
+                                <div>
+                                    <a href="#" class="nav-link">%s</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                        <form class="product-form" action="%s">
+                            <div style="width: 100px" class="form-outline me-4">
+                                <input value="%s" type="number" name="quantity" id="quantity" step="1" min="1" max="20" class="quantity-input form-control" />
+                                <input type="hidden" name="cartID" value="%s">
+                                <label class="form-label" for="quantity">Quantity</label>
+                            </div>
+                        </form>
+                        <div>
+                            <text class="h6">$%s</text> <br />
+                            <small class="text-muted text-nowrap"> $%s / per item </small>
+                        </div>
+                    </div>
+                    <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
+                        <form class="float-md-end" action="%s">
+                            <button type="submit" class="btn btn-light border text-danger icon-hover-danger">Remove</button>
+                            <input type="hidden" name="productID" value="%s">
+                        </form>
+                    </div>
+                </div>
+                """.formatted(imageURL, productName, Util.webRoot("update-cart-servlet"), item.getQuantity(), item.getCartItemID(), totalPrice, pricePerItem, removeAction, cartItemID);
     }
 
-    public static String miniProductCard(Product product) {
-        final DecimalFormat df = new DecimalFormat("0.00");
+
+    public static String otherItemsCard(Product product) {
+        final DecimalFormat df = Util.priceFormat();
         product.populateImages();
 
-        return "<div class=\"d-flex mb-3\">\n" +
-                "                       <a data-fslightbox=\"mygalley\" class=\"border rounded-2\" target=\"_blank\" data-type=\"image\" href=\"" + Util.getBaseURL("") + "product.jsp?pid=" + product.getProductID() + "\" class=\"item-thumb\">\n" +
-                "                           <img width=\"86\" height=\"86\" class=\"rounded-2\" src=\"" + Util.image(product.getImages().get(0).getImageURL(), "86") + "\" />\n" +
-                "                       </a>" +
-                "                                <div class=\"info mx-3\">\n" +
-                "<a class=\"nav-link mb-1\" href=\"" + Util.getBaseURL("") + "product.jsp?pid=" + product.getProductID() + "\">" + product.getProductName() + "</a>\n" +
-                "                                    <strong class=\"text-dark\"> $" + df.format(product.getPrice()) + "</strong>\n" +
-                "                                </div>\n" +
-                "                            </div>";
+        String baseURL = Util.getBaseURL("");
+        String productID = String.valueOf(product.getProductID());
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
+        String productName = Util.limitString(product.getProductName(), 50);
+        String priceFormatted = df.format(product.getPrice());
+
+        return """
+        <div class="d-flex mb-3">
+            <a data-fslightbox="mygalley" class="border rounded-2" target="_blank" data-type="image" href="%sproduct.jsp?pid=%s" class="item-thumb">
+                <img width="86" height="86" class="rounded-2" src="%s" />
+            </a>
+            <div class="info mx-3">
+                <a class="nav-link mb-1" href="%sproduct.jsp?pid=%s">%s</a>
+                <strong class="text-dark"> $%s</strong>
+            </div>
+        </div>
+        """.formatted(baseURL, productID, imageURL, baseURL, productID, productName, priceFormatted);
     }
 
-    public static String productCard(Product product, String url) {
-        final DecimalFormat df = new DecimalFormat("0.00");
+
+    public static String homepageCard(Product product, String url) {
+        final DecimalFormat df = Util.priceFormat();
         double price = product.getPrice();
         product.populateImages();
 
-        return "<form class=\"col-lg-3 col-md-6 col-sm-6 d-flex\" action=\"" + Util.webRoot("add-to-cart-servlet") + "\">\n" +
-                "                <div class=\"card w-100 my-2 shadow-2-strong\">\n" +
-                "                    <a href=\"" + Util.appendUri(Util.webRoot("product.jsp"), "pid=" + product.getProductID()) + "\"><img src=\"" + Util.image(product.getImages().get(0).getImageURL(), "300") + "\" class=\"card-img-top\" style=\"aspect-ratio: 1 / 1\" /></a>\n" +
-                "                    <div class=\"card-body d-flex flex-column\">\n" +
-                "                        <a class=\"text-dark\" href=\"" + Util.getBaseURL(url) + "product.jsp?pid=" + product.getProductID() + "\"><h5 class=\"card-title\">" + product.getProductName() + "</h5></a>\n" +
-                "                        <p class=\"card-text\">$" + df.format(price) + "</p>\n" +
-                "                        <div class=\"card-footer d-flex align-items-center justify-content-center pt-3 px-0 pb-0 mt-auto\">\n" +
-                "                            <button type=\"submit\" class=\"btn border border-primary btn-primary shadow-0 me-1\">Add to cart</button>\n" +
-                "                            <input type=\"hidden\" name=\"productID\" value=\"" + product.getProductID() + "\">" +
-//                "                            <a href=\"#!\" class=\"btn btn-light border shadow-0 me-1 icon-hover \"><i class=\"fas fa-heart text-secondary\" style=\"font-size: 1.147rem;\"></i></a>\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
-                "            </form>";
+        String webRoot = Util.webRoot("add-to-cart-servlet");
+        String productID = String.valueOf(product.getProductID());
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "300");
+        String productName = Util.limitString(product.getProductName(), 50);
+        String baseURL = Util.getBaseURL(url);
+
+        return """
+        <form class="col-lg-3 col-md-6 col-sm-6 d-flex" action="%s">
+            <div class="card w-100 my-2 shadow-2-strong">
+                <a href="%s"><img src="%s" class="card-img-top" style="aspect-ratio: 1 / 1" /></a>
+                <div class="card-body d-flex flex-column">
+                    <a class="text-dark" href="%sproduct.jsp?pid=%s"><h5 class="card-title">%s</h5></a>
+                    <p class="card-text">$%s</p>
+                    <div class="card-footer d-flex align-items-center justify-content-center pt-3 px-0 pb-0 mt-auto">
+                        <button type="submit" class="btn border border-primary btn-primary shadow-0 me-1">Add to cart</button>
+                        <input type="hidden" name="productID" value="%s">
+                    </div>
+                </div>
+            </div>
+        </form>
+        """.formatted(webRoot, Util.appendUri(Util.webRoot("product.jsp"), "pid=" + productID),
+                imageURL, baseURL, productID, productName, df.format(price), productID);
     }
+
 
     public static String searchCard(Product product) {
-        final DecimalFormat df = new DecimalFormat("0.00");
+        final DecimalFormat df = Util.priceFormat();
         product.populateImages();
 
-        return "<form class=\"row justify-content-center mb-3\" action=\"" + Util.webRoot("add-to-cart-servlet") + "\">\n" +
-                "                    <div class=\"col-md-12\">\n" +
-                "                        <div class=\"card shadow-0 border rounded-3\">\n" +
-                "                            <div class=\"card-body\">\n" +
-                "                                <div class=\"row g-0\">\n" +
-                "                                    <div class=\"col-xl-3 col-md-4 d-flex justify-content-center\">\n" +
-                "                                        <div class=\"bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0\">\n" +
-                "                                            <img src=\"" + Util.image(product.getImages().get(0).getImageURL(), "200") + "\" + Util.generateSixDigitNumber() + \"\" class=\"w-100\" />\n" +
-                "                                            <a href=\"" + Util.webRoot("product.jsp?pid=" + product.getProductID()) + "\">\n" +
-                "                                                <div class=\"hover-overlay\">\n" +
-                "                                                    <div class=\"mask\" style=\"background-color: rgba(253, 253, 253, 0.15);\"></div>\n" +
-                "                                                </div>\n" +
-                "                                            </a>\n" +
-                "                                        </div>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"col-xl-6 col-md-5 col-sm-7\">\n" +
-                "                                    <a class=\"text-dark\" href=\"" + Util.webRoot("product.jsp?pid=" + product.getProductID()) + "\">\n" +
-                "                                        <h5>" + product.getProductName() + "</h5>\n" +
-        "                                            </a>\n" +
-                                                        Templates.rating(product) +
-                "\n" +
-                "                                        <p class=\"text mb-4 mb-md-0\">\n" +
-                "                                            " + product.getDescription() + "\n" +
-                "                                        </p>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"col-xl-3 col-md-3 col-sm-5\">\n" +
-                "                                        <div class=\"d-flex flex-row align-items-center mb-1\">\n" +
-                "                                            <h4 class=\"mb-1 me-1\">$" + df.format(product.getPrice()) + "</h4>\n" +
-//                "                                            <span class=\"text-danger\"><s>$" + df.format(product.getPrice()) + "</s></span>\n" +
-                "                                        </div>\n" +
-                "                                        <h6 class=\"text-success\">Free shipping</h6>\n" +
-                "                                        <div class=\"mt-4\">\n" +
-                "                                        <input type=\"hidden\" name=\"productID\" value=\"" + product.getProductID() + "\">" +
-                "                                            <button class=\"btn btn-primary shadow-0\" type=\"button\">Add to Cart</button>\n" +
-                "                                        </div>\n" +
-                "                                    </div>\n" +
-                "                                </div>\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                </form>";
+        String webRoot = Util.webRoot("");
+        String productID = String.valueOf(product.getProductID());
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "200");
+        String productName = product.getProductName();
+        String description = product.getDescription();
+        String priceFormatted = df.format(product.getPrice());
+
+        return """
+        <form class="row justify-content-center mb-3" action="%sadd-to-cart-servlet">
+            <div class="col-md-12">
+                <div class="card shadow-0 border rounded-3">
+                    <div class="card-body">
+                        <div class="row g-0">
+                            <div class="col-xl-3 col-md-4 d-flex justify-content-center">
+                                <div class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
+                                    <img src="%s" class="w-100" />
+                                    <a href="%sproduct.jsp?pid=%s">
+                                        <div class="hover-overlay">
+                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-5 col-sm-7">
+                                <a class="text-dark" href="%sproduct.jsp?pid=%s">
+                                    <h5>%s</h5>
+                                </a>
+                                %s
+                                <p class="text mb-4 mb-md-0">
+                                    %s
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-md-3 col-sm-5 px-3">
+                                <div class="d-flex flex-row align-items-center mb-1">
+                                    <h4 class="mb-1 me-1">$%s</h4>
+                                </div>
+                                <h6 class="text-success">Free shipping</h6>
+                                <div class="mt-4">
+                                    <input type="hidden" name="productID" value="%s">
+                                    <button class="btn btn-primary shadow-0" type="submit">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        """.formatted(webRoot, imageURL, webRoot, productID, webRoot, productID, productName, Templates.rating(product), description, priceFormatted, productID);
     }
+
+    public static String homeViewCard(Product product) {
+        final DecimalFormat df = Util.priceFormat();
+        product.populateImages();
+
+        String webRoot = Util.webRoot("");
+        String productID = String.valueOf(product.getProductID());
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "200");
+        String productName = product.getProductName();
+        String priceFormatted = df.format(product.getPrice());
+
+        return """
+               <form class="col-lg-3 col-md-6 col-sm-6" action="%sadd-to-cart-servlet">
+                   <div class="card my-2 shadow-0">
+                       <a href="%sproduct.jsp?pid=%s" class="img-wrap">
+                           <img src="%s" class="card-img-top" style="aspect-ratio: 1 / 1">
+                       </a>
+                       <div class="card-body p-0 pt-3">
+                           <input type="hidden" name="productID" value="%s">
+                           <button type="submit" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-shopping-cart fa-lg px-1 text-secondary"></i></button>
+                           <h5 class="card-title">$%s</h5>
+                           <p class="card-text mb-0 pt-2">%s</p>
+                       </div>
+                   </div>
+               </form>
+                """.formatted(webRoot, webRoot, productID, imageURL, productID, priceFormatted, productName);
+    }
+
 
     public static void sortProductsDescending(LinkedList<Product> productList) {
         productList.sort(Comparator.comparing(Product::getRating).reversed());

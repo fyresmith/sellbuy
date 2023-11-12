@@ -1,5 +1,9 @@
 package com.peach.sellbuy_ecommerce.business;
 
+import com.peach.sellbuy_ecommerce.util.Util;
+
+import java.text.DecimalFormat;
+
 /**
  * This class represents an order item within an e-commerce system.
  * An order item is a specific product with a quantity and price associated with it in an order.
@@ -11,23 +15,28 @@ public class OrderItem {
     private int productID;
     private int quantity;
     private double price;
+    private Product product;
 
     /**
      * Default constructor for OrderItem.
      */
-    public OrderItem() {}
+    public OrderItem() {
+        Access<OrderItem> access = new Access<>("order_item", "orderItemID", OrderItem.class);
+        this.orderItemID = access.generateUniquePK();
+    }
 
     /**
      * Constructor for OrderItem with all attributes provided.
      * @param orderID The ID of the order to which this order item belongs.
-     * @param orderItemID The unique ID of the order item.
      * @param productID The ID of the product associated with this order item.
      * @param quantity The quantity of the product in the order.
      * @param price The price of the order item.
      */
-    public OrderItem(int orderID, int orderItemID, int productID, int quantity, double price) {
+    public OrderItem(int orderID, int productID, int quantity, double price) {
+        Access<OrderItem> access = new Access<>("order_item", "orderItemID", OrderItem.class);
+        this.orderItemID = access.generateUniquePK();
+
         this.orderID = orderID;
-        this.orderItemID = orderItemID;
         this.productID = productID;
         this.quantity = quantity;
         this.price = price;
@@ -151,4 +160,43 @@ public class OrderItem {
         Access<OrderItem> access = new Access<>("order_item", "orderItemID", OrderItem.class);
         access.delete(this.getOrderID());
     }
+
+    public void setProduct() {
+        Access<Product> productAccess = new Access<>(Product.class);
+        this.product = productAccess.select(this.productID);
+    }
+
+    public Product getProduct() {
+        if (this.product == null) {
+            this.setProduct();
+        }
+
+        return this.product;
+    }
+
+    public static String orderCard(OrderItem item) {
+        int quantity = item.getQuantity();
+        item.getProduct().populateImages();
+        String image = Util.image((item.getProduct().getImages().get(0)).getImageURL(), "72");
+        String title = item.getProduct().getProductName();
+        String limitedTitle = Util.limitString(item.getProduct().getProductName(), 20);
+
+        DecimalFormat df = Util.priceFormat();
+        String price = df.format(item.getProduct().getPrice());
+
+        return """
+        <li class="col-xl-4 col-lg-6">
+          <div class="d-flex mb-3 mb-xl-0">
+            <div class="me-3">
+              <img width="72" height="72" src="%s" class="img-sm rounded border" />
+            </div>
+            <div title="%s">
+              <p class="mb-0">%s</p>
+              <strong> %sx = $%s </strong>
+            </div>
+          </div>
+        </li>
+        """.formatted(image, title, limitedTitle, quantity, price);
+    }
+
 }

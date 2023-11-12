@@ -17,7 +17,7 @@
     Product product = new Product();
     product.select(productID);
 
-    DecimalFormat df = new DecimalFormat("0.00");
+    final DecimalFormat df = Util.priceFormat();
 
     LinkedList<Review> reviews = product.getReviews();
 
@@ -149,22 +149,31 @@
 <%--                            </select>--%>
 <%--                        </div>--%>
                         <!-- col.// -->
-                        <div class="col-md-4 col-6 mb-3">
-                            <label class="mb-2 d-block">Quantity</label>
-                            <div class="input-group mb-3" style="width: 170px;">
-                                <button class="btn btn-white border border-secondary px-3" onclick="subtract('quantity');" type="button" data-mdb-ripple-color="dark">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <input type="text" id="quantity" class="form-control text-center border border-secondary" placeholder="1" aria-label="text" aria-describedby="button-addon1" />
-                                <button class="btn btn-white border border-secondary px-3" onclick="add('quantity');" type="button" data-mdb-ripple-color="dark">
-                                    <i class="fas fa-plus"></i>
-                                </button>
+                        <form action="<%= Util.webRoot("add-to-cart-servlet") %>">
+                            <div class="col-md-4 col-6 mb-3">
+                                <div class="input-group mb-3" style="width: 170px;">
+                                    <button class="btn btn-white border border-secondary px-3" onclick="subtract('quantity');" type="button" data-mdb-ripple-color="dark">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" name="quantity" id="quantity" class="form-control text-center border border-secondary" value="1" aria-label="text" aria-describedby="button-addon1" />
+                                    <input type="hidden" name="productID" value="<%= product.getProductID() %>">
+                                    <button class="btn btn-white border border-secondary px-3" onclick="add('quantity');" type="button" data-mdb-ripple-color="dark">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="d-flex align-items-center">
+                                <a href="#" class="btn btn-warning shadow-0 me-2">Buy now</a>
+                                <div class="mb-0">
+                                    <button type="submit" class="btn btn-primary shadow-0">
+                                        <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
-                    <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                    <a href="#" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
-<%--                    <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Save </a>--%>
                 </div>
             </main>
         </div>
@@ -225,7 +234,7 @@
                             <h5 class="card-title">Other items</h5>
 
                             <% for (Product productItem : productList) { %>
-                                <%= Product.miniProductCard(productItem) %>
+                                <%= Product.otherItemsCard(productItem) %>
                             <% } %>
                         </div>
                     </div>

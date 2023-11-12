@@ -24,7 +24,7 @@ public class PasswordResetServlet extends HttpServlet {
 
         Access<User> access = new Access<>("user", "userID", User.class);
 
-        if (!access.valueExists("email", email)) {
+        if (!access.existsInColumn("email", email)) {
             session.setAttribute("failMessage", "Email does not exist!");
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("password-reset.jsp");
@@ -33,7 +33,7 @@ public class PasswordResetServlet extends HttpServlet {
             session.setAttribute("failMessage", "");
         }
 
-        User tempUser = access.alternateSelect("email", email);
+        User tempUser = access.altSelect("email", email);
 
         String code = Integer.toString(Util.generateSixDigitNumber());
         session.setAttribute("resetCode", code);

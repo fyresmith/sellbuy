@@ -2,6 +2,7 @@ package com.peach.sellbuy_ecommerce.business;
 
 import com.peach.sellbuy_ecommerce.util.Util;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -109,5 +110,40 @@ public class Cart {
      */
     public void addItem(Product item, int quantity) {
         this.cartItems.add(new CartItem(item, quantity));
+    }
+
+    public void delItem(int productID) {
+        cartItems.removeIf(cartItem -> cartItem.getCartItemID() == productID);
+    }
+
+
+    public CartItem getByID(int id) {
+        for (CartItem cartItem : this.cartItems) {
+            if (cartItem.getCartItemID() == id) {
+                return cartItem;
+            }
+        }
+
+        return null;
+    }
+
+    public double getTax() {
+        double total = getTotal();
+
+        return 0.07 * total;
+    }
+
+    public double getTotal() {
+        double total = 0;
+
+        for (CartItem cartItem : this.cartItems) {
+            total += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+        }
+
+        return total;
+    }
+
+    public void clear() {
+        this.cartItems.clear();
     }
 }

@@ -1,10 +1,4 @@
-<%@ page import="java.util.Objects" %><%--
-  Created by IntelliJ IDEA.
-  User: calebsmith
-  Date: 10/20/23
-  Time: 3:57 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
   if (session.getAttribute("failMessage") == null) {
@@ -18,10 +12,30 @@
   }
 
   String successMessage = (String) session.getAttribute("successMessage");
+
+  String firstName = (String) session.getAttribute("firstName");
+  String lastName = (String) session.getAttribute("lastName");
+  String username = (String) session.getAttribute("username");
+  String streetAddress = (String) session.getAttribute("streetAddress");
+  String city = (String) session.getAttribute("city");
+  String state = (String) session.getAttribute("state");
+  String zipCode = (String) session.getAttribute("zipCode");
+  String password = (String) session.getAttribute("password");
+  String email = (String) session.getAttribute("email");
+
+  firstName = (firstName == null) ? "" : firstName;
+  lastName = (lastName == null) ? "" : lastName;
+  username = (username == null) ? "" : username;
+  email = (email == null) ? "" : email;
+  streetAddress = (streetAddress == null) ? "" : streetAddress;
+  city = (city == null) ? "" : city;
+  state = (state == null) ? "" : state;
+  zipCode = (zipCode == null) ? "" : zipCode;
+  password = (password == null) ? "" : password;
 %>
 
 <div class="container sign-in-card border card rounded-4 d-lg-block p-5 pt-4 mt-5 mb-5">
-  <form class="justify-content-center align-items-center" action="${pageContext.request.contextPath}/create-account-servlet" style="text-align: center;">
+  <form class="justify-content-center align-items-center" action="${pageContext.request.contextPath}/register-servlet" style="text-align: center;">
     <% if (!Objects.equals(failMessage, "")) { %>
     <p class="text-danger">${failMessage}</p>
     <% } %>
@@ -31,43 +45,66 @@
     <% } %>
 
     <h1 class="mb-4">Sign Up!</h1>
+
     <!-- 2 column grid layout with text inputs for the first and last names -->
     <div class="row">
       <div class="col-md-6 mb-4">
         <div class="form-outline">
-          <input type="text" name="firstName" id="firstName" class="form-control" />
-          <label class="form-label" for="firstName">First name</label>
+          <input type="text" name="firstName" id="firstName" class="form-control" value="<%= firstName %>" />
+          <label class="form-label" for="firstName">First Name</label>
         </div>
       </div>
       <div class="col-md-6 mb-4">
         <div class="form-outline">
-          <input type="text" name="lastName" id="lastName" class="form-control" />
-          <label class="form-label" for="lastName">Last name</label>
+          <input type="text" name="lastName" id="lastName" class="form-control" value="<%= lastName %>" />
+          <label class="form-label" for="lastName">Last Name</label>
         </div>
       </div>
     </div>
 
-    <!-- username input -->
+    <!-- Email input -->
     <div class="form-outline mb-4">
-      <input type="text" name="username" id="username" class="form-control" />
-      <label class="form-label" for="username">Display Name</label>
+      <input type="email" name="email" id="email" class="form-control" value="<%= email %>" />
+      <label class="form-label" for="email">Email Address</label>
     </div>
 
     <!-- Address input -->
-    <div class="form-outline mb-4">
-      <input type="address" name="address" id="address" class="form-control" />
-      <label class="form-label" for="address">Address</label>
+    <div class="row">
+      <div class="col-sm-8 mb-3">
+        <div class="form-outline">
+          <input type="text" name="streetAddress" id="streetAddress" class="form-control" value="<%= streetAddress %>" />
+          <label class="form-label" for="streetAddress">Street Address</label>
+        </div>
+      </div>
+      <div class="col-sm-4 mb-3">
+        <div class="form-outline">
+          <input type="text" name="city" id="city" class="form-control" value="<%= city %>" />
+          <label class="form-label" for="city">City</label>
+        </div>
+      </div>
+      <div class="col-sm-6 col-6 mb-3">
+        <div class="form-outline">
+          <input type="text" name="state" id="state" class="form-control" minlength="2" maxlength="2" value="<%= state %>" />
+          <label class="form-label" for="state">State</label>
+        </div>
+      </div>
+      <div class="col-sm-6 col-6 mb-3">
+        <div class="form-outline">
+          <input type="text" name="zipCode" id="zipCode" class="form-control" minlength="6" value="<%= zipCode %>" />
+          <label class="form-label" for="zipCode">Zip Code</label>
+        </div>
+      </div>
     </div>
 
-    <!-- Email input -->
+    <!-- Username input -->
     <div class="form-outline mb-4">
-      <input type="email" name="email" id="email" class="form-control" />
-      <label class="form-label" for="email">Email address</label>
+      <input type="text" name="username" id="username" class="form-control" value="<%= username %>" />
+      <label class="form-label" for="username">Username</label>
     </div>
 
     <!-- Password input -->
     <div class="form-outline mb-4">
-      <input type="password" name="password" id="password" class="form-control" />
+      <input type="password" name="password" id="password" class="form-control" value="<%= password %>" />
       <label class="form-label" for="password">Password</label>
     </div>
 
@@ -83,25 +120,5 @@
     <button type="submit" class="btn btn-primary btn-block mb-4">
       Sign up
     </button>
-
-    <!-- Register buttons -->
-    <div class="text-center">
-      <p>or sign up with:</p>
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-facebook-f"></i>
-      </button>
-
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-google"></i>
-      </button>
-
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-twitter"></i>
-      </button>
-
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-github"></i>
-      </button>
-    </div>
   </form>
 </div>

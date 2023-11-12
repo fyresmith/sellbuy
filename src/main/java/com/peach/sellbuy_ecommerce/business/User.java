@@ -50,7 +50,8 @@ public class User {
      * Generates a random 6-digit user ID for the User.
      */
     public void genUserID() {
-        this.userID = Util.generateSixDigitNumber();
+        Access<User> access = new Access<>("user", "userID", User.class);
+        this.userID = access.generateUniquePK();
     }
 
     /**

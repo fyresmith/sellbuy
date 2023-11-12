@@ -11,9 +11,7 @@
 
 <jsp:include page="templates/header.jsp"/>
 
-<jsp:include page="templates/nav.jsp"/>
-
-<%= Templates.locationJumbo("My Cart", new String[]{"Home", "My Cart"}) %>
+<%= Templates.locationHeader("My Cart", new String[]{"Home", "My Cart"}, new String[]{"index.jsp", "my-cart.jsp"}) %>
 
 <jsp:include page="templates/cart-view.jsp"/>
 

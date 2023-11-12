@@ -9,7 +9,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% User user = (User) session.getAttribute("user"); %>
+<%
+  User user = (User) session.getAttribute("user");
+  String query = (String) session.getAttribute("query");
+
+  if (query != null) {
+    if (Util.isRawCategory(query)) {
+      query = Util.styleCategory(query);
+    }
+  }
+%>
 
 <header>
   <!-- Jumbotron -->
@@ -42,7 +51,11 @@
         <div class="col-lg-5 col-md-12 col-12">
           <form class="input-group float-center" action="<%= Util.webRoot("search-servlet") %>">
             <div class="form-outline input-group">
-              <input type="search" name="searchBar" id="searchBar" class="amber-border form-control" />
+              <% if (query == null) { %>
+                <input type="search" name="searchBar" id="searchBar" class="amber-border form-control" />
+              <% } else { %>
+                <input type="search" name="searchBar" id="searchBar" class="amber-border form-control" value="<%= query %>" />
+              <% } %>
               <label class="form-label" for="searchBar">Search</label>
             </div>
             <button type="submit" class="btn btn-primary shadow-0">

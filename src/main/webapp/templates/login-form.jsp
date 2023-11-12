@@ -22,7 +22,7 @@
 
 
 <div class="sign-in-card container border card rounded-4 d-lg-block p-5 pt-4 mt-5 mb-5">
-    <form class=" card-body justify-content-center align-items-center" style="text-align: center;" action="${pageContext.request.contextPath}/login-servlet">
+    <form class=" card-body justify-content-center align-items-center mb-0 pb-0" style="text-align: center;" action="${pageContext.request.contextPath}/login-servlet">
         <% if (!Objects.equals(failMessage, "")) { %>
             <p class="text-danger">${failMessage}</p>
         <% } %>
@@ -36,7 +36,7 @@
         <!-- Email input -->
         <div class="card-title form-outline mb-4">
             <input type="email" name="userEmail" id="userEmail" class="form-control" />
-            <label class="form-label" for="userEmail">Email address</label>
+            <label class="form-label" for="userEmail">Email Address</label>
         </div>
 
         <!-- Password input -->
@@ -65,24 +65,24 @@
         <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
         <!-- Register buttons -->
-        <div class="text-center">
+        <div class="text-center mb-0 p-0">
             <p>Not a member? <a href="register.jsp">Register</a></p>
-            <p>or sign up with:</p>
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-facebook-f"></i>
-            </button>
+<%--            <p>or sign up with:</p>--%>
+<%--            <button type="button" class="btn btn-link btn-floating mx-1">--%>
+<%--                <i class="fab fa-facebook-f"></i>--%>
+<%--            </button>--%>
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-google"></i>
-            </button>
+<%--            <button type="button" class="btn btn-link btn-floating mx-1">--%>
+<%--                <i class="fab fa-google"></i>--%>
+<%--            </button>--%>
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-twitter"></i>
-            </button>
+<%--            <button type="button" class="btn btn-link btn-floating mx-1">--%>
+<%--                <i class="fab fa-twitter"></i>--%>
+<%--            </button>--%>
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-github"></i>
-            </button>
+<%--            <button type="button" class="btn btn-link btn-floating mx-1">--%>
+<%--                <i class="fab fa-github"></i>--%>
+<%--            </button>--%>
         </div>
     </form>
 </div>

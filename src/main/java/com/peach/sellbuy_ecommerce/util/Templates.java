@@ -4,12 +4,9 @@ import com.peach.sellbuy_ecommerce.business.Product;
 import com.peach.sellbuy_ecommerce.business.Review;
 import com.peach.sellbuy_ecommerce.business.User;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 public class Templates {
-    private static final DecimalFormat df = new DecimalFormat("0.00");
-
     public static String cartModal() {
         return "<div class=\"modal fade\" id=\"cartAddModal\" tabindex=\"-1\" aria-labelledby=\"cartAddModalLabel\" aria-hidden=\"true\">\n" +
                 "  <div class=\"modal-dialog\">\n" +
@@ -49,35 +46,33 @@ public class Templates {
                 "                </div>";
     }
 
-    public static String locationJumbo(String title, String[] locations) {
-        StringBuilder string = new StringBuilder("<div class=\"bg-primary mb-4\">\n" +
-                "  <div class=\"container py-4\">\n" +
-                "    <h3 class=\"text-white mt-2\">" + title + "</h3>\n" +
-                "    <!-- Breadcrumb -->\n" +
-                "    <nav class=\"d-flex mb-2\">\n" +
-                "      <h6 class=\"mb-0\">");
+    public static String locationHeader(String title, String[] locations, String[] links) {
+        StringBuilder string = new StringBuilder("<div class=\"bg-primary mb-4\">\n");
+        string.append("  <div class=\"container py-4\">\n");
+        string.append("    <h3 class=\"text-white mt-2\">").append(title).append("</h3>\n");
+        string.append("    <!-- Breadcrumb -->\n");
+        string.append("    <nav class=\"d-flex mb-2\">\n");
+        string.append("      <h6 class=\"mb-0\">");
 
         for (int i = 0; i < locations.length - 1; i++) {
-            string.append("<a href=\"\" class=\"text-white-50\">"  + locations[i] + "</a>\n" +
-                    "        <span class=\"text-white-50 mx-2\"> > </span>");
+            string.append("<a href=\"").append(links[i]).append("\" class=\"text-white-50\">").append(locations[i]).append("</a>\n");
+            string.append("        <span class=\"text-white-50 mx-2\"> > </span>");
         }
 
-        string.append("<a href=\"\" class=\"text-white\"><u>" + locations[locations.length - 1] + "</u></a>\n" +
-                        "      </h6>\n" +
-                        "    </nav>\n" +
-                        "    <!-- Breadcrumb -->\n" +
-                        "  </div>\n" +
-                        "</div>\n" +
-                        "<!-- Heading -->\n" +
-                        "</header>");
-
+        string.append("<a href=\"").append(links[links.length - 1]).append("\" class=\"text-white\"><u>").append(locations[locations.length - 1]).append("</u></a>\n");
+        string.append("      </h6>\n");
+        string.append("    </nav>\n");
+        string.append("    <!-- Breadcrumb -->\n");
+        string.append("  </div>\n");
+        string.append("</div>\n");
+        string.append("<!-- Heading -->\n");
+        string.append("</header>");
 
         return string.toString();
     }
 
-    public static String rating(int initRating) {
-        double rating = (double) initRating / 2;
 
+    public static String rating(double rating) {
         int starCount = 5; // Number of stars
         int fullStars = (int) rating; // Number of full stars
 
@@ -99,9 +94,7 @@ public class Templates {
     }
 
     public static String rating(Product product) {
-        int initRating = product.getRating();
-
-        double rating = (double) initRating / 2;
+        double rating = product.getRating();
 
         int starCount = 5; // Number of stars
         int fullStars = (int) rating; // Number of full stars
