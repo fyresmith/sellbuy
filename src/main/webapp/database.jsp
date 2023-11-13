@@ -73,8 +73,8 @@
 
 <body>
 <div class="container my-5">
-  <div class="row">
-    <div class="col-md-6">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-4">
       <form id="tableForm" action="<%= Util.webPage("change-table") %>">
         <label for="tableSelect" class="form-label">Select Table:</label>
         <select class="form-select" id="tableSelect" name="table">
@@ -87,7 +87,59 @@
         </select>
       </form>
     </div>
+
+    <div class="col-md-8">
+      <!-- Pagination -->
+      <div aria-label="Page navigation example" class="d-flex justify-content-center mt-3 pt-2">
+        <ul class="pagination pb-0 mb-0">
+          <% if (pageNum <= 1) { %>
+            <form class="page-item disabled" action="<%= Util.webPage("page-first") %>">
+          <% } else { %>
+            <form class="page-item" action="<%= Util.webPage("page-first") %>">
+          <% } %>
+            <button class="page-link" aria-label="First">
+              <span aria-hidden="true">&laquo;&laquo; First</span>
+            </button>
+          </form>
+
+          <% if (pageNum <= 1) { %>
+            <form class="page-item disabled" action="<%= Util.webPage("page-previous") %>">
+          <% } else { %>
+            <form class="page-item" action="<%= Util.webPage("page-previous") %>">
+          <% } %>
+              <button class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo; Previous</span>
+              </button>
+            </form>
+
+          <li class="page-item">
+            <span class="page-link disabled fw-bold text-dark">Page <%= pageNum %> of <%= pageTotal %></span>
+          </li>
+
+          <% if (pageNum >= pageTotal) { %>
+            <form class="page-item disabled" action="<%= Util.webPage("page-next") %>">
+          <% } else { %>
+            <form class="page-item" action="<%= Util.webPage("page-next") %>">
+          <% } %>
+              <button class="page-link" aria-label="Next">
+                <span aria-hidden="true">Next &raquo;</span>
+              </button>
+            </form>
+
+          <% if (pageNum >= pageTotal) { %>
+            <form class="page-item disabled" action="<%= Util.webPage("page-final") %>">
+          <% } else { %>
+            <form class="page-item" action="<%= Util.webPage("page-final") %>">
+          <% } %>
+              <button class="page-link" aria-label="Final">
+                <span aria-hidden="true">Final &raquo;&raquo;</span>
+              </button>
+            </form>
+        </ul>
+      </div>
+    </div>
   </div>
+
 
   <div class="row mt-3">
     <div class="col">
@@ -241,47 +293,48 @@
   <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
     <ul class="pagination">
       <% if (pageNum <= 1) { %>
-      <form class="page-item disabled" action="<%= Util.webPage("page-first") %>">
-          <% } else { %>
+        <form class="page-item disabled" action="<%= Util.webPage("page-first") %>">
+      <% } else { %>
         <form class="page-item" action="<%= Util.webPage("page-first") %>">
-          <% } %>
+      <% } %>
         <button class="page-link" aria-label="First">
-          <span aria-hidden="true">&laquo;&laquo; First </span>
+          <span aria-hidden="true">&laquo;&laquo; First</span>
         </button>
       </form>
+
       <% if (pageNum <= 1) { %>
-      <form class="page-item disabled" action="<%= Util.webPage("page-previous") %>">
-          <% } else { %>
+        <form class="page-item disabled" action="<%= Util.webPage("page-previous") %>">
+      <% } else { %>
         <form class="page-item" action="<%= Util.webPage("page-previous") %>">
-          <% } %>
+      <% } %>
           <button class="page-link" aria-label="Previous">
             <span aria-hidden="true">&laquo; Previous</span>
           </button>
         </form>
-        <%--                        <li class="page-item active"><a class="page-link" href="#">1</a></li>--%>
-        <li class="page-item"><span class="page-link disabled fw-bold text-dark">Page <%= pageNum %> of <%= pageTotal %></span></li>
-        <%--                        <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
-        <%--                        <li class="page-item"><a class="page-link" href="#">4</a></li>--%>
-        <%--                        <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
-        <%--                        <li class="page-item">--%>
-          <% if (pageNum >= pageTotal) { %>
+
+      <li class="page-item">
+        <span class="page-link disabled fw-bold text-dark">Page <%= pageNum %> of <%= pageTotal %></span>
+      </li>
+
+      <% if (pageNum >= pageTotal) { %>
         <form class="page-item disabled" action="<%= Util.webPage("page-next") %>">
-            <% } else { %>
-          <form class="page-item" action="<%= Util.webPage("page-next") %>">
-            <% } %>
-            <button class="page-link" aria-label="Next">
-              <span aria-hidden="true">Next &raquo;</span>
-            </button>
-          </form>
-            <% if (pageNum >= pageTotal) { %>
-          <form class="page-item disabled" action="<%= Util.webPage("page-final") %>">
-              <% } else { %>
-            <form class="page-item" action="<%= Util.webPage("page-final") %>">
-                <% } %>
-            <button class="page-link" aria-label="Final">
-              <span aria-hidden="true"> Final &raquo;&raquo;</span>
-            </button>
-          </form>
+      <% } else { %>
+        <form class="page-item" action="<%= Util.webPage("page-next") %>">
+      <% } %>
+          <button class="page-link" aria-label="Next">
+            <span aria-hidden="true">Next &raquo;</span>
+          </button>
+        </form>
+
+      <% if (pageNum >= pageTotal) { %>
+        <form class="page-item disabled" action="<%= Util.webPage("page-final") %>">
+      <% } else { %>
+        <form class="page-item" action="<%= Util.webPage("page-final") %>">
+      <% } %>
+          <button class="page-link" aria-label="Final">
+            <span aria-hidden="true">Final &raquo;&raquo;</span>
+          </button>
+        </form>
     </ul>
   </nav>
   <!-- Pagination -->

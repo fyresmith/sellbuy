@@ -27,6 +27,8 @@
         pageNum = (int) session.getAttribute("pageNum");
     }
 
+    int pageTotal = pager.getNumberOfPages();
+
     session.setAttribute("pageTotal", pager.getNumberOfPages());
 
     Access<Product> access = new Access<>("product", "productID", Product.class);
@@ -219,35 +221,54 @@
 
                 <hr />
 
-                <!-- Pagination -->
-                <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+                  <!-- Pagination -->
+                  <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
                     <ul class="pagination">
-                        <% if (pageNum <= 1) { %>
-                            <form class="page-item disabled" action="<%= Util.webPage("page-previous") %>">
-                        <% } else { %>
-                            <form class="page-item" action="<%= Util.webPage("page-previous") %>">
-                        <% } %>
-                            <button class="page-link" aria-label="Previous">
-                                <span aria-hidden="true">&laquo; Previous</span>
-                            </button>
+                      <% if (pageNum <= 1) { %>
+                        <form class="page-item disabled" action="<%= Util.webPage("page-first") %>">
+                      <% } else { %>
+                        <form class="page-item" action="<%= Util.webPage("page-first") %>">
+                      <% } %>
+                        <button class="page-link" aria-label="First">
+                          <span aria-hidden="true">&laquo;&laquo; First</span>
+                        </button>
+                      </form>
+
+                      <% if (pageNum <= 1) { %>
+                        <form class="page-item disabled" action="<%= Util.webPage("page-previous") %>">
+                      <% } else { %>
+                        <form class="page-item" action="<%= Util.webPage("page-previous") %>">
+                      <% } %>
+                          <button class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo; Previous</span>
+                          </button>
                         </form>
-<%--                        <li class="page-item active"><a class="page-link" href="#">1</a></li>--%>
-                        <li class="page-item"><span class="page-link disabled fw-bold text-dark">Page <%= pageNum %> of <%= pager.getNumberOfPages() %></span></li>
-<%--                        <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
-<%--                        <li class="page-item"><a class="page-link" href="#">4</a></li>--%>
-<%--                        <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
-<%--                        <li class="page-item">--%>
-                            <% if (pageNum >= pager.getNumberOfPages()) { %>
-                                <form class="page-item disabled" action="<%= Util.webPage("page-next") %>">
-                            <% } else { %>
-                                <form class="page-item" action="<%= Util.webPage("page-next") %>">
-                            <% } %>
-                            <button class="page-link" aria-label="Next">
-                                <span aria-hidden="true">Next &raquo;</span>
-                            </button>
+
+                      <li class="page-item">
+                        <span class="page-link disabled fw-bold text-dark">Page <%= pageNum %> of <%= pageTotal %></span>
+                      </li>
+
+                      <% if (pageNum >= pageTotal) { %>
+                        <form class="page-item disabled" action="<%= Util.webPage("page-next") %>">
+                      <% } else { %>
+                        <form class="page-item" action="<%= Util.webPage("page-next") %>">
+                      <% } %>
+                          <button class="page-link" aria-label="Next">
+                            <span aria-hidden="true">Next &raquo;</span>
+                          </button>
+                        </form>
+
+                      <% if (pageNum >= pageTotal) { %>
+                        <form class="page-item disabled" action="<%= Util.webPage("page-final") %>">
+                      <% } else { %>
+                        <form class="page-item" action="<%= Util.webPage("page-final") %>">
+                      <% } %>
+                          <button class="page-link" aria-label="Final">
+                            <span aria-hidden="true">Final &raquo;&raquo;</span>
+                          </button>
                         </form>
                     </ul>
-                </nav>
+                  </nav>
                 <!-- Pagination -->
             </div>
         </div>

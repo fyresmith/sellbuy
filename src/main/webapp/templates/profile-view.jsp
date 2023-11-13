@@ -68,28 +68,31 @@
               <div class="col-md-6">
                 <div class="border p-3 rounded-3 bg-light">
                   <b class="mx-2 text-muted"><i class="fas fa-signature"></i></b>
-                  <%= user.getName() %> <a href="#" class="px-2"><i class="fa fa-edit"></i></a>
+                  <%= user.getName() %>
+<%--                  <a href="#" class="px-2"><i class="fa fa-edit"></i></a>--%>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="border p-3 rounded-3 bg-light">
                   <b class="mx-2 text-muted"><i class="fas fa-at"></i></b>
-                  <%= user.getEmail() %> <a href="#" class="px-2"><i class="fa fa-edit"></i></a>
+                  <%= user.getEmail() %> <a data-mdb-toggle="modal" data-mdb-target="#editEmailModal" href="" class="px-2"><i class="fa fa-edit"></i></a>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="border p-3 rounded-3 bg-light">
                   <b class="mx-2 text-muted"><i class="fa fa-map-marker-alt"></i></b>
-                  <%= user.getShippingAddress() %> <a href="#" class="px-2"><i class="fa fa-edit"></i></a>
+                  <%= user.getShippingAddress() %>
+<%--                  <a href="#" class="px-2"><i class="fa fa-edit"></i></a>--%>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="border p-3 rounded-3 bg-light">
                   <b class="mx-2 text-muted"><i class="fa fa-info-circle"></i></b>
-                  <%= user.getUsername() %> <a href="#" class="px-2"><i class="fas fa-edit"></i></a>
+                  <%= user.getUsername() %>
+<%--                  <a href="#" class="px-2"><i class="fas fa-edit"></i></a>--%>
                 </div>
               </div>
             </div>
@@ -101,3 +104,5 @@
   </div>
 </section>
 <!-- content -->
+
+<jsp:include page="edit-email-modal.jsp"/>
