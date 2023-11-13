@@ -31,4 +31,63 @@
 <%--    <link rel="stylesheet" href="css/mdb.min.css" />--%>
 <%--    <!-- Custom styles -->--%>
 <%--    <link rel="stylesheet" href="css/style.css" />--%>
+
+    <style>
+        .icon-hover:hover {
+            border-color: #3b71ca !important;
+            background-color: white !important;
+        }
+
+        .icon-hover:hover i {
+            color: #3b71ca !important;
+        }
+
+        @media (min-width: 768px) {
+            .sign-in-card {
+                width: 35rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .empty-cart-card {
+                width: 100% !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .empty-cart-card {
+                width: 35rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sign-in-card {
+                width: 100% !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .reset-card {
+                width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .reset-card {
+                width: 85% !important;
+            }
+        }
+
+        /* Custom styling for the dark overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1050; /* Adjust the z-index to make sure it's above the modal */
+            display: none; /* Hide the overlay initially */
+        }
+    </style>
 </head>

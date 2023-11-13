@@ -28,19 +28,19 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("failMessage", "Email or Password Incorrect!");
 
             response.sendRedirect("login.jsp");
+        } else {
+            User user = access.altSelect("email", email);
+
+            if (!(Objects.equals(user.getPassword(), password))) {
+                session.setAttribute("failMessage", "Email or Password Incorrect!");
+
+                response.sendRedirect("login.jsp");
+            }
+
+            session.setAttribute("user", user);
+
+            response.sendRedirect("user-account.jsp");
         }
-
-        User user = access.altSelect("email", email);
-
-        if (!(Objects.equals(user.getPassword(), password))) {
-            session.setAttribute("failMessage", "Email or Password Incorrect!");
-
-            response.sendRedirect("login.jsp");
-        }
-
-        session.setAttribute("user", user);
-
-        response.sendRedirect("user-account.jsp");
     }
 
     public void destroy() {

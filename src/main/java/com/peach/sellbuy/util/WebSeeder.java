@@ -1,20 +1,19 @@
 package com.peach.sellbuy.util;
 
 import com.peach.sellbuy.business.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Seeder class responsible for populating data into the database for testing purposes.
  */
-public class Seeder {
+public class WebSeeder {
     public static String[] usernames = Util.textToArray(Data.testFile("usernames.txt"));
     public static String[] emails = Util.textToArray(Data.testFile("emails.txt"));
     public static String[] addresses = Util.textToArray(Data.testFile("addresses.txt"));

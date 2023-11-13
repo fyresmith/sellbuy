@@ -9,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  Access<Product> access = new Access<>("product", "productID", Product.class);
+  Access<Product> access = new Access<>(Product.class);
   LinkedList<Product> products = access.getRandomObjects(20);
 %>
 
