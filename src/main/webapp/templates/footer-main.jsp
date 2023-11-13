@@ -4,7 +4,7 @@
   User: calebsmith
   Date: 10/20/23
   Time: 12:53 AM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- Footer -->
@@ -17,7 +17,7 @@
         <!-- Grid column -->
         <div class="col-12 col-lg-3 col-sm-12 mb-2">
           <!-- Content -->
-          <a href="<%= Util.webRoot("") %>" class="text-white h2">
+          <a href="<%= Util.webPage("") %>" class="text-white h2">
             SellBuy
           </a>
           <p class="mt-1 text-white">
@@ -35,8 +35,8 @@
           <ul class="list-unstyled mb-4">
             <li><a class="text-white-50" href="about.jsp">About Us</a></li>
             <li><a class="text-white-50" href="faq.jsp">FAQ</a></li>
-            <li><a class="text-white-50" href="#">Categories</a></li>
-            <li><a class="text-white-50" href="#">Blogs</a></li>
+            <li><a class="text-white-50" href="categories.jsp">Categories</a></li>
+            <li><a class="text-white-50" href="search.jsp">Search</a></li>
           </ul>
         </div>
         <!-- Grid column -->
@@ -63,9 +63,8 @@
           </h6>
           <ul class="list-unstyled mb-4">
             <li><a class="text-white-50" href="contact.jsp">Contact Us</a></li>
-            <li><a class="text-white-50" href="user-account.jsp">My Orders</a></li>
+            <li><a class="text-white-50" href="user-orders.jsp">My Orders</a></li>
             <li><a class="text-white-50" href="user-account.jsp">My Account</a></li>
-            <li><a class="text-white-50" href="login.jsp">Sign In</a></li>
           </ul>
         </div>
         <!-- Grid column -->

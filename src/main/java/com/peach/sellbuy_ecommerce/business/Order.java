@@ -296,7 +296,7 @@ public class Order {
                 </div>
                 <hr />
         <ul class="row list-unstyled">
-        """.formatted(orderID, date, Util.webRoot("delete-order"), orderID, name, username, email, address, cardNumber, df.format(order.getTotal() + order.getTax())));
+        """.formatted(orderID, date, Util.webPage("delete-order"), orderID, name, username, email, address, cardNumber, df.format(order.getTotal() + order.getTax())));
 
                 for (OrderItem item : order.getOrderItems()) {
                     card.append(OrderItem.orderCard(item));

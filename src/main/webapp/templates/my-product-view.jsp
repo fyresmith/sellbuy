@@ -3,7 +3,7 @@
   User: calebsmith
   Date: 11/11/23
   Time: 10:59 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.peach.sellbuy_ecommerce.business.User" %>
@@ -16,7 +16,7 @@
   User: calebsmith
   Date: 10/20/23
   Time: 12:06 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -65,7 +65,10 @@
               <a class="nav-link my-0 active" href="user-products.jsp">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-list-ul fa-lg"></i> My Products</p>
               </a>
-              <a class="nav-link my-0 bg-white" href="${pageContext.request.contextPath}/logout">
+                <a class="nav-link my-0 bg-white" href="user-transactions.jsp">
+                    <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-dollar-sign fa-lg"></i> Transactions</p>
+                </a>
+              <a class="nav-link my-0 bg-white" href="<%= Util.webPage("logout") %>">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-sign-out-alt"></i> Log out</p>
               </a>
             </nav>
@@ -84,7 +87,7 @@
               <% if (products == null || products.isEmpty()) { %>
                 <div class="col-md-12">
                   <div class="border border-danger text-white p-3 rounded-3 bg-danger text-center">
-                    You have no products! Click below to add a product.
+                    You have no products listed! Click below to add a product.
                   </div>
                 </div>
               <% } else { %>

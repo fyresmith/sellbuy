@@ -1,9 +1,10 @@
-<%@ page import="java.util.Objects" %><%--
+<%@ page import="java.util.Objects" %>
+<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/20/23
   Time: 12:19 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -22,7 +23,7 @@
 
 <% if (Objects.equals(successMessage, "")) { %>
   <div class="container d-flex justify-content-center mb-5 mt-5">
-    <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/password-reset">
+    <form class="reset-card card d-lg-block text-center" action="<%= Util.webPage("password-reset") %>">
       <div class="card-header h5 text-white bg-primary">Password Reset</div>
       <div class="card-body px-5">
         <% if (!Objects.equals(failMessage, "")) { %>
@@ -50,7 +51,7 @@
   </div>
 <% } else if (!(Objects.equals(successMessage, "PWRESET"))) { %>
   <div class="container d-flex justify-content-center mb-5 mt-5">
-    <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/reset-code">
+    <form class="reset-card card d-lg-block text-center" action="<%= Util.webPage("reset-code") %>">
       <div class="card-header h5 text-white bg-primary">Enter Code</div>
       <div class="card-body px-5">
         <% if (!Objects.equals(failMessage, "")) { %>
@@ -74,7 +75,7 @@
   </div>
 <% } else { %>
 <div class="container d-flex justify-content-center mb-5 mt-5">
-  <form class="reset-card card d-lg-block text-center" action="${pageContext.request.contextPath}/password-reset-final">
+  <form class="reset-card card d-lg-block text-center" action="<%= Util.webPage("password-reset-final") %>">
     <div class="card-header h5 text-white bg-primary">Enter New Password</div>
     <div class="card-body px-5">
       <% if (!Objects.equals(failMessage, "")) { %>

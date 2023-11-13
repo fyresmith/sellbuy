@@ -3,18 +3,19 @@
   User: calebsmith
   Date: 11/11/23
   Time: 10:59 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.peach.sellbuy_ecommerce.business.User" %>
 <%@ page import="com.peach.sellbuy_ecommerce.business.Access" %>
 <%@ page import="com.peach.sellbuy_ecommerce.business.Order" %>
-<%@ page import="java.util.LinkedList" %><%--
+<%@ page import="java.util.LinkedList" %>
+<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/20/23
   Time: 12:06 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -45,7 +46,10 @@
               <a class="nav-link my-0 bg-white" href="user-products.jsp">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-list-ul fa-lg"></i> My Products</p>
               </a>
-              <a class="nav-link my-0 bg-white" href="${pageContext.request.contextPath}/logout">
+              <a class="nav-link my-0 bg-white" href="user-transactions.jsp">
+                <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-dollar-sign fa-lg"></i> Transactions</p>
+              </a>
+              <a class="nav-link my-0 bg-white" href="<%= Util.webPage("logout") %>">
                 <p class="pb-0 mb-0" style="width: 120px"><i class="fas fa-sign-out-alt"></i> Log out</p>
               </a>
             </nav>

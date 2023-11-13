@@ -3,7 +3,7 @@
   User: calebsmith
   Date: 10/26/23
   Time: 4:22 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container my-5">
@@ -11,7 +11,12 @@
   <!-- MDB Card -->
   <div class="card d-lg-block px-3 py-1 border">
     <div class="card-body">
-      <h1 class="h1 display-4 pb-2">Frequently Asked Questions</h1>
+      <!-- Heading Section -->
+      <h1 class="h1 display-4 fw-bold text-primary">Frequently Asked Questions</h1>
+      <p class="lead">Have questions? We've got answers! Explore our Frequently Asked Questions (FAQ) to find information on a variety of topics. Whether you're curious about our services, policies, or how to make the most of your experience, this is the go-to resource for all things related to our platform. We've compiled a comprehensive list of queries to provide clarity and assist you on your journey. If you don't find what you're looking for, feel free to reach out to our dedicated support team. Let's make your experience seamless and enjoyable!</p>
+
+      <!-- Section Separators -->
+      <hr class="my-4">
 
       <div class="accordion w-100" id="basicAccordion">
         <div class="accordion-item">

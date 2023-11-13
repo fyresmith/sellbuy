@@ -7,7 +7,7 @@
   User: calebsmith
   Date: 11/2/23
   Time: 6:53 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -28,21 +28,6 @@
     }
 
     session.setAttribute("pageTotal", pager.getNumberOfPages());
-
-//    int totalPages = (int) Math.ceil((double) results.size() / 5);  // Calculate the total number of pages
-//
-//    if (pageNum < 1) {
-//        pageNum = 1;
-//    } else if (pageNum > totalPages) {
-//        pageNum = totalPages;
-//    }
-//
-//    if (results == null) {
-//        results = new LinkedList<>();
-//    }
-//
-//    int startIndex = (pageNum - 1) * 5;  // Calculate the start index for the current page
-//    int endIndex = Math.min(startIndex + 5, results.size());  // Calculate the end index for the current page
 
     Access<Product> access = new Access<>("product", "productID", Product.class);
     LinkedList<String> categories = Util.styleCategories(access.getProductCategories());
@@ -95,7 +80,7 @@
                                 <div class="accordion-body">
                                     <ul class="list-unstyled">
                                         <% for (int i = 0; i < maxCats; i++) { %>
-                                            <li><a href="<%= Util.webRoot("search?searchBar=" + Util.rawCategory(categories.get(i))) %>" class="text-dark"><%= categories.get(i) %></a></li>
+                                            <li><a href="<%= Util.webPage("search?searchBar=" + Util.rawCategory(categories.get(i))) %>" class="text-dark"><%= categories.get(i) %></a></li>
                                         <% } %>
                                     </ul>
                                 </div>
@@ -115,7 +100,7 @@
                                 </button>
                             </h2>
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
-                                <form class="accordion-body" action="<%= Util.webRoot("sort-min-max") %>">
+                                <form class="accordion-body" action="<%= Util.webPage("sort-min-max") %>">
 <%--                                    <div class="range">--%>
 <%--                                        <input type="range" class="form-range" id="customRange1" />--%>
 <%--                                    </div>--%>
@@ -141,7 +126,7 @@
                                 </form>
                             </div>
                         </div>
-<%--                        <form class="accordion-item" action="<%= Util.webRoot("sort-by-rating") %>">--%>
+<%--                        <form class="accordion-item" action="<%= Util.webPage("sort-by-rating") %>">--%>
 <%--                            <h2 class="accordion-header" id="headingFour">--%>
 <%--                                <button--%>
 <%--                                        class="accordion-button text-dark bg-light"--%>
@@ -205,7 +190,7 @@
                 <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                     <strong class="d-block py-2"><%= results.size() %> Items found </strong>
                     <div class="ms-auto d-inline-flex w-auto">
-                        <form id="sortSelect" action="<%= Util.webRoot("sort-result") %>">
+                        <form id="sortSelect" action="<%= Util.webPage("sort-result") %>">
                             <select id="formSelect" name="option" class="form-select d-inline-block w-auto border pt-1">
                                 <option value="best">Best match</option>
                                 <option value="rated">High rated</option>
@@ -238,9 +223,9 @@
                 <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
                     <ul class="pagination">
                         <% if (pageNum <= 1) { %>
-                            <form class="page-item disabled" action="<%= Util.webRoot("page-previous") %>">
+                            <form class="page-item disabled" action="<%= Util.webPage("page-previous") %>">
                         <% } else { %>
-                            <form class="page-item" action="<%= Util.webRoot("page-previous") %>">
+                            <form class="page-item" action="<%= Util.webPage("page-previous") %>">
                         <% } %>
                             <button class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">&laquo; Previous</span>
@@ -253,9 +238,9 @@
 <%--                        <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
 <%--                        <li class="page-item">--%>
                             <% if (pageNum >= pager.getNumberOfPages()) { %>
-                                <form class="page-item disabled" action="<%= Util.webRoot("page-next") %>">
+                                <form class="page-item disabled" action="<%= Util.webPage("page-next") %>">
                             <% } else { %>
-                                <form class="page-item" action="<%= Util.webRoot("page-next") %>">
+                                <form class="page-item" action="<%= Util.webPage("page-next") %>">
                             <% } %>
                             <button class="page-link" aria-label="Next">
                                 <span aria-hidden="true">Next &raquo;</span>

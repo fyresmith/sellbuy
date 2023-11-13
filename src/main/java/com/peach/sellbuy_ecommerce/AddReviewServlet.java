@@ -43,7 +43,7 @@ public class AddReviewServlet extends HttpServlet {
         review.setUserID(user.getUserID());
         review.save();
 
-//        URI url = Util.appendUri(Util.webRoot("product.jsp"), "pid=" + productID);
+//        URI url = Util.appendUri(Util.webPage("product.jsp"), "pid=" + productID);
 //
 //        assert url != null;
 //        response.sendRedirect(url.toString());

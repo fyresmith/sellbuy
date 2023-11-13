@@ -1,4 +1,5 @@
 <%@ page import="java.util.Objects" %>
+<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
   if (session.getAttribute("failMessage") == null) {
@@ -35,7 +36,7 @@
 %>
 
 <div class="container sign-in-card border card rounded-4 d-lg-block p-5 pt-4 mt-5 mb-5">
-  <form class="justify-content-center align-items-center" action="${pageContext.request.contextPath}/register" style="text-align: center;">
+  <form class="justify-content-center align-items-center" action="<%= Util.webPage("register-servlet") %>" onsubmit="return validateForm()" style="text-align: center;">
     <% if (!Objects.equals(failMessage, "")) { %>
     <p class="text-danger">${failMessage}</p>
     <% } %>
@@ -90,7 +91,7 @@
       </div>
       <div class="col-sm-6 col-6 mb-3">
         <div class="form-outline">
-          <input type="text" name="zipCode" id="zipCode" class="form-control" minlength="6" value="<%= zipCode %>" />
+          <input type="text" name="zipCode" id="zipCode" class="form-control" minlength="5" value="<%= zipCode %>" />
           <label class="form-label" for="zipCode">Zip Code</label>
         </div>
       </div>
@@ -122,3 +123,55 @@
     </button>
   </form>
 </div>
+
+
+<script>
+  // Function to show the alert modal
+  function showAlert(message, title) {
+    // Set the message in the modal
+    document.getElementById("alertMessage").innerText = message;
+    document.getElementById("alertTitle").innerText = title;
+    $('#alertModal').modal('show');
+
+    // Handle the "Continue Shopping" button click
+    $('#alertModal').find('.btn-primary').click(function() {
+      // Hide the modal
+      $('#alertModal').modal('hide');
+    });
+  }
+
+  function validateForm() {
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var email = document.getElementById("email").value;
+    var streetAddress = document.getElementById("streetAddress").value;
+    var city = document.getElementById("city").value;
+    var state = document.getElementById("state").value;
+    var zipCode = document.getElementById("zipCode").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    if (
+            firstName === "" ||
+            lastName === "" ||
+            email === "" ||
+            streetAddress === "" ||
+            city === "" ||
+            state === "" ||
+            zipCode === "" ||
+            username === "" ||
+            password === ""
+    ) {
+      showAlert("All fields are required", "Alert!");
+      return false;
+    }
+
+    // Validate state length
+    if (state.length !== 2) {
+      showAlert("State must be exactly 2 characters", "Alert!");
+      return false;
+    }
+
+    return true;
+  }
+</script>

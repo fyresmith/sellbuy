@@ -3,7 +3,7 @@
   User: calebsmith
   Date: 10/26/23
   Time: 6:15 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container my-5">
@@ -12,9 +12,12 @@
   <div class="card d-lg-block px-3 py-1 border">
     <div class="card-body">
 
-      <h1>Privacy Policy</h1>
+      <!-- Heading Section -->
+      <h1 class="h1 display-4 fw-bold text-primary">Privacy Policy</h1>
+      <p class="lead">Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information. By using our services, you consent to the practices described in this policy. We may update this policy from time to time, and any changes will be posted on this page. Please review this policy periodically.</p>
 
-      <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information. By using our services, you consent to the practices described in this policy. We may update this policy from time to time, and any changes will be posted on this page. Please review this policy periodically.</p>
+      <!-- Section Separators -->
+      <hr class="my-4">
 
       <h2>1. Information We Collect</h2>
       <p>We collect information you provide directly to us, such as when you create an account, make a purchase, or contact us for support. This information may include your name, email address, shipping address, payment information, and any other information you choose to provide.</p>

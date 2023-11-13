@@ -9,11 +9,10 @@
   User: calebsmith
   Date: 10/26/23
   Time: 3:55 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%-- TODO: Fix the issue where the page does not redirect. --%>
 <%
   Cart cart = (Cart) session.getAttribute("cart");
   if (cart == null) {
@@ -111,13 +110,20 @@
 </section>
 <!-- Recommended -->
 <% } else { %>
-<div class="container my-5">
-
-  <!-- MDB Card -->
-  <div class="card d-lg-block px-3 py-1 border">
-    <h4 class="p-4">Your shopping cart is empty!</h4>
-  </div>
+<div class="empty-cart-card card border shadow-2-strong container my-5 d-flex justify-content-center align-items-center flex-column my-2 py-5">
+  <img width="250" height="250" src="<%= Util.webPage("image/empty-cart.svg") %>" alt="Empty Cart" class="img-fluid mb-4" style="filter: invert(24%) sepia(8%) saturate(5765%) hue-rotate(170deg) brightness(95%) contrast(88%);" />
+  <h1 class="h1">Your Shopping Cart is Empty</h1>
+  <p class="lead">Looks like you haven't added any items to your cart yet.</p>
+  <a href="<%= Util.search("Cellular") %>" class="btn btn-primary btn-lg">Continue Shopping</a>
 </div>
+
+<%--<div class="container my-5">--%>
+
+<%--  <!-- MDB Card -->--%>
+<%--  <div class="card d-lg-block px-3 py-1 border">--%>
+<%--    <h4 class="p-4">Your shopping cart is empty!</h4>--%>
+<%--  </div>--%>
+<%--</div>--%>
 <% } %>
 
 

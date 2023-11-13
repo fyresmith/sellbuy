@@ -7,7 +7,7 @@
   User: calebsmith
   Date: 11/2/23
   Time: 11:52 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -75,7 +75,7 @@
 <div class="container my-5">
   <div class="row">
     <div class="col-md-6">
-      <form id="tableForm" action="<%= Util.webRoot("change-table") %>">
+      <form id="tableForm" action="<%= Util.webPage("change-table") %>">
         <label for="tableSelect" class="form-label">Select Table:</label>
         <select class="form-select" id="tableSelect" name="table">
           <option <% if (table.equals("product")) {%>selected="selected"<%}%> value="product">Product - (<%= productAccess.size() %> rows)</option>
@@ -241,18 +241,18 @@
   <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
     <ul class="pagination">
       <% if (pageNum <= 1) { %>
-      <form class="page-item disabled" action="<%= Util.webRoot("page-first") %>">
+      <form class="page-item disabled" action="<%= Util.webPage("page-first") %>">
           <% } else { %>
-        <form class="page-item" action="<%= Util.webRoot("page-first") %>">
+        <form class="page-item" action="<%= Util.webPage("page-first") %>">
           <% } %>
         <button class="page-link" aria-label="First">
           <span aria-hidden="true">&laquo;&laquo; First </span>
         </button>
       </form>
       <% if (pageNum <= 1) { %>
-      <form class="page-item disabled" action="<%= Util.webRoot("page-previous") %>">
+      <form class="page-item disabled" action="<%= Util.webPage("page-previous") %>">
           <% } else { %>
-        <form class="page-item" action="<%= Util.webRoot("page-previous") %>">
+        <form class="page-item" action="<%= Util.webPage("page-previous") %>">
           <% } %>
           <button class="page-link" aria-label="Previous">
             <span aria-hidden="true">&laquo; Previous</span>
@@ -265,18 +265,18 @@
         <%--                        <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
         <%--                        <li class="page-item">--%>
           <% if (pageNum >= pageTotal) { %>
-        <form class="page-item disabled" action="<%= Util.webRoot("page-next") %>">
+        <form class="page-item disabled" action="<%= Util.webPage("page-next") %>">
             <% } else { %>
-          <form class="page-item" action="<%= Util.webRoot("page-next") %>">
+          <form class="page-item" action="<%= Util.webPage("page-next") %>">
             <% } %>
             <button class="page-link" aria-label="Next">
               <span aria-hidden="true">Next &raquo;</span>
             </button>
           </form>
             <% if (pageNum >= pageTotal) { %>
-          <form class="page-item disabled" action="<%= Util.webRoot("page-final") %>">
+          <form class="page-item disabled" action="<%= Util.webPage("page-final") %>">
               <% } else { %>
-            <form class="page-item" action="<%= Util.webRoot("page-final") %>">
+            <form class="page-item" action="<%= Util.webPage("page-final") %>">
                 <% } %>
             <button class="page-link" aria-label="Final">
               <span aria-hidden="true"> Final &raquo;&raquo;</span>

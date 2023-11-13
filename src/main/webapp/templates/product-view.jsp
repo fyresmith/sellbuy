@@ -8,7 +8,7 @@
   User: calebsmith
   Date: 10/24/23
   Time: 7:14 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -157,7 +157,7 @@
 <%--                            </select>--%>
 <%--                        </div>--%>
                         <!-- col.// -->
-                        <form action="<%= Util.webRoot("add-to-cart") %>">
+                        <form action="<%= Util.webPage("add-to-cart") %>">
                             <div class="col-md-4 col-6 mb-3">
                                 <div class="input-group mb-3" style="width: 170px;">
                                     <input type="hidden" name="productID" value="<%= product.getProductID() %>">
@@ -224,7 +224,7 @@
                 <% if (user == null) { %>
                     <div class="border rounded-2 px-3 py-2 bg-white mb-3"><span class="fw-bold">Sign in to give a review!</span></div>
                 <% } else { %>
-                    <form class="border rounded-2 px-3 py-2 bg-white mb-3" action="<%= Util.webRoot("add-review") %>">
+                    <form class="border rounded-2 px-3 py-2 bg-white mb-3" action="<%= Util.webPage("add-review") %>">
                         <div class="form-outline my-2">
                             <textarea class="form-control" id="reviewText" name="reviewText" rows="4"></textarea>
                             <label class="form-label" for="reviewText">Review</label>
@@ -238,7 +238,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="productID" id="productID" value="<%= product.getProductID() %>">
-                            <input type="hidden" name="prevURL" value="<%= Util.appendUri(Util.webRoot("product.jsp"), "pid=" + product.getProductID()) %>">
+                            <input type="hidden" name="prevURL" value="<%= Util.appendUri(Util.webPage("product.jsp"), "pid=" + product.getProductID()) %>">
                             <div class="col-md-9">
                                 <button type="submit" class="btn btn-primary btn-block">
                                     Submit!

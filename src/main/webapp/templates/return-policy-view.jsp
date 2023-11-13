@@ -3,7 +3,7 @@
   User: calebsmith
   Date: 10/26/23
   Time: 4:31 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container my-5">
@@ -11,9 +11,13 @@
   <!-- MDB Card -->
   <div class="card d-lg-block px-3 py-1 border">
     <div class="card-body">
-      <h1 class="h1 display-4 fw-bold">Return Policy</h1>
 
-      <p class="my-4">We want you to be completely satisfied with your purchase on SellBuy. If for any reason you are not, you may return items within [X] days of the delivery date for a full refund or exchange.</p>
+      <!-- Heading Section -->
+      <h1 class="h1 display-4 fw-bold text-primary">Return Policy</h1>
+      <p class="lead">We want you to be completely satisfied with your purchase on SellBuy. If for any reason you are not, you may return items within [X] days of the delivery date for a full refund or exchange.</p>
+
+      <!-- Section Separators -->
+      <hr class="my-4">
 
       <h2 class="h2">Eligibility for Returns</h2>
       <p>We accept returns for items that meet the following criteria:</p>

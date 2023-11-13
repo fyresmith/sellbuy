@@ -5,7 +5,7 @@
   User: calebsmith
   Date: 10/19/23
   Time: 9:54 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -27,7 +27,7 @@
       <div class="row gy-3">
         <!-- Left elements -->
         <div class="col-lg-2 col-sm-4 col-4">
-          <a href="<%= Util.webRoot("") %>" class="float-start">
+          <a href="<%= Util.webPage("") %>" class="float-start">
             <img src="assets/sellbuy_logo.png" height="35" />
           </a>
         </div>
@@ -49,7 +49,7 @@
 
         <!-- Right elements -->
         <div class="col-lg-5 col-md-12 col-12">
-          <form class="input-group float-center" action="<%= Util.webRoot("search") %>">
+          <form class="input-group float-center" action="<%= Util.webPage("search") %>">
             <div class="form-outline input-group">
               <% if (query == null) { %>
                 <input type="search" name="searchBar" id="searchBar" class="amber-border form-control" />

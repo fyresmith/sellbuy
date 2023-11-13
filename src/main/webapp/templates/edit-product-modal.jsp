@@ -3,12 +3,12 @@
   User: calebsmith
   Date: 11/11/23
   Time: 11:42 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="modal fade" id="editProduct" tabindex="-1" aria-labelledby="editProduct" aria-hidden="true">
   <div class="modal-dialog modal-xl">
-    <form class="modal-content" enctype="multipart/form-data" method="POST" action="<%= Util.webRoot("edit-product") %>">
+    <form class="modal-content" enctype="multipart/form-data" method="POST" action="<%= Util.webPage("edit-product") %>">
       <div class="modal-header">
         <h5 class="modal-title" id="editProductTitle">Add Product - Product Listing Details</h5>
         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>

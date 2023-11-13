@@ -208,8 +208,12 @@ public class Util {
         }
     }
 
-    public static String webRoot(String page) {
+    public static String webPage(String page) {
         return "http://localhost:8080/SellBuy_eCommerce-1.0-SNAPSHOT/" + page;
+    }
+
+    public static String search(String query) {
+        return "http://localhost:8080/SellBuy_eCommerce-1.0-SNAPSHOT/search?searchBar=" + query;
     }
 
     public static URI appendUri(String uri, String appendQuery) {
@@ -224,7 +228,7 @@ public class Util {
 
     public static String image(String uniqueID, String size) {
         if (Validator.isImage(uniqueID)) {
-            return Util.webRoot("image/" + uniqueID);
+            return Util.webPage("image/" + uniqueID);
         } else{
             return "https://m.media-amazon.com/images/I/" + uniqueID + "._US" + size + "_.jpg";
         }

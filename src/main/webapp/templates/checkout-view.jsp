@@ -6,7 +6,7 @@
   User: calebsmith
   Date: 11/7/23
   Time: 11:43 AM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -19,7 +19,7 @@
   User user = (User) session.getAttribute("user");
   if (user == null) {
     session.setAttribute("failMessage", "You must sign in to access your cart!");
-    response.sendRedirect(Util.webRoot("login.jsp"));
+    response.sendRedirect(Util.webPage("login.jsp"));
   }
 %>
 
@@ -34,7 +34,7 @@
             <h5 class="mb-0">Billing details</h5>
           </div>
           <div class="card-body">
-            <form action="<%= Util.webRoot("checkout") %>">
+            <form action="<%= Util.webPage("checkout") %>">
 <%--              <!-- 2 column grid layout with text inputs for the first and last names -->--%>
 <%--              <div class="row mb-4">--%>
 <%--                <div class="col">--%>

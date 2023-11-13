@@ -3,12 +3,12 @@
   User: calebsmith
   Date: 10/26/23
   Time: 4:16 PM
-  To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section class="mt-5 mb-5">
     <div class="container">
-        <main class="card mt-5 shadow-2-strong">
+        <main class="card mt-5 d-lg-block border">
             <div class="card-body">
                 <h3 class="card-title p-2">Why Choose Us?</h3>
 
