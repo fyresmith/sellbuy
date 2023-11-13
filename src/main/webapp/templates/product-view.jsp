@@ -65,7 +65,11 @@
         let count = parseInt(countString)
 
         if (count) {
-            count = count + 1;
+            if (count < <%= product.getStockQuantity() %>) {
+                count = count + 1;
+            } else {
+                count = <%= product.getStockQuantity() %>;
+            }
         } else {
             count = 1;
         }
@@ -111,7 +115,11 @@
                     <div class="d-flex flex-row my-3">
                         <%= Templates.rating(product) %>
 
-                        <span class="text-success ms-2">In stock</span>
+                        <% if (product.getStockQuantity() <= 0) { %>
+                            <span class="text-danger ms-2">Out of Stock</span>
+                        <% } else { %>
+                            <span class="text-success ms-2">In Stock</span>
+                        <% } %>
                     </div>
 
                     <div class="mb-3">
@@ -152,23 +160,38 @@
                         <form action="<%= Util.webRoot("add-to-cart") %>">
                             <div class="col-md-4 col-6 mb-3">
                                 <div class="input-group mb-3" style="width: 170px;">
-                                    <button class="btn btn-white border border-secondary px-3" onclick="subtract('quantity');" type="button" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="text" name="quantity" id="quantity" class="form-control text-center border border-secondary" value="1" aria-label="text" aria-describedby="button-addon1" />
                                     <input type="hidden" name="productID" value="<%= product.getProductID() %>">
-                                    <button class="btn btn-white border border-secondary px-3" onclick="add('quantity');" type="button" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                    <% if (product.getStockQuantity() <= 0) { %>
+                                        <button class="btn btn-white border border-secondary px-3 disabled" onclick="subtract('quantity');" type="button" data-mdb-ripple-color="dark">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <input type="text" name="quantity" id="quantity" class="form-control text-center border border-secondary" readonly value="0" aria-label="text" aria-describedby="button-addon1" />
+                                        <button class="btn btn-white border border-secondary px-3 disabled" onclick="add('quantity');" type="button" data-mdb-ripple-color="dark">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    <% } else { %>
+                                        <button class="btn btn-white border border-secondary px-3" onclick="subtract('quantity');" type="button" data-mdb-ripple-color="dark">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <input type="text" name="quantity" id="quantity" class="form-control text-center border border-secondary" value="1" aria-label="text" aria-describedby="button-addon1" />
+                                        <button class="btn btn-white border border-secondary px-3" onclick="add('quantity');" type="button" data-mdb-ripple-color="dark">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    <% } %>
                                 </div>
                             </div>
 
                             <div class="d-flex align-items-center">
-                                <a href="#" class="btn btn-warning shadow-0 me-2">Buy now</a>
                                 <div class="mb-0">
-                                    <button type="submit" class="btn btn-primary shadow-0">
-                                        <i class="me-1 fa fa-shopping-basket"></i> Add to cart
-                                    </button>
+                                    <% if (product.getStockQuantity() <= 0) { %>
+                                        <button type="submit" class="btn btn-primary shadow-0 disabled">
+                                            <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                                        </button>
+                                    <% } else { %>
+                                        <button type="submit" class="btn btn-primary shadow-0">
+                                            <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                                        </button>
+                                    <% } %>
                                 </div>
                             </div>
 

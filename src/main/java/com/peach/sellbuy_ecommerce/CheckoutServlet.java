@@ -56,8 +56,11 @@ public class CheckoutServlet extends HttpServlet {
             orderItem.setPrice(item.getProduct().getPrice() * (double)item.getQuantity());
             orderItem.setQuantity(item.getQuantity());
             orderItem.setProductID(item.getProduct().getProductID());
-            Access<OrderItem> access = new Access(OrderItem.class);
-            access.save(orderItem);
+
+            item.getProduct().setStockQuantity(item.getProduct().getStockQuantity() - item.getQuantity());
+            item.getProduct().update();
+
+            orderItem.save();
         }
 
         cart.clear();

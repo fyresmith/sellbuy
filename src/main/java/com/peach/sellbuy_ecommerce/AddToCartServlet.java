@@ -34,6 +34,13 @@ public class AddToCartServlet extends HttpServlet {
             cart = new Cart();
         }
 
+        if (product.getStockQuantity() <= 0) {
+            session.setAttribute("alertTitle", "Item not Added!");
+            session.setAttribute("alertMessage", "Your item was not added to the cart because it is out of stock!");
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
+        }
+
         cart.addItem(new CartItem(product, quantity));
 
         session.setAttribute("cart", cart);

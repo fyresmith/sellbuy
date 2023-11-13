@@ -17,9 +17,7 @@ import java.util.Map;
 public class Data {
     public static final String ROOT = "/Users/calebsmith/IdeaProjects/SellBuy/";
     public static final String DATA_ROOT = ROOT + "data/";
-    public static final String MAIN_SOURCE = "src/main/";
-    public static final String RESOURCES = ROOT + MAIN_SOURCE + "resources/";
-    public static final String IMAGE = ROOT + MAIN_SOURCE + "webapp/images/";
+    public static final String IMAGE = ROOT + "data/images/";
     public static final String DATABASE = UcanaccessDriver.URL_PREFIX + file("data.accdb");
 
     /**

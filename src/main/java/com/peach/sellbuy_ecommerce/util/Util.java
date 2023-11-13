@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Stream;
@@ -222,8 +223,8 @@ public class Util {
     }
 
     public static String image(String uniqueID, String size) {
-        if (Validator.isPath(uniqueID)) {
-            return "images/" + uniqueID;
+        if (Validator.isImage(uniqueID)) {
+            return Util.webRoot("image/" + uniqueID);
         } else{
             return "https://m.media-amazon.com/images/I/" + uniqueID + "._US" + size + "_.jpg";
         }
@@ -360,6 +361,33 @@ public class Util {
         }
 
         return styledCategories;
+    }
+
+    public static String generateRandomString(int length) {
+        if (length <= 0) {
+            throw new IllegalArgumentException("Length must be greater than 0");
+        }
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder stringBuilder = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int randomCharType = random.nextInt(3); // 0: uppercase letter, 1: lowercase letter, 2: digit
+
+            switch (randomCharType) {
+                case 0:
+                    stringBuilder.append((char) ('A' + random.nextInt(26)));
+                    break;
+                case 1:
+                    stringBuilder.append((char) ('a' + random.nextInt(26)));
+                    break;
+                case 2:
+                    stringBuilder.append((char) ('0' + random.nextInt(10)));
+                    break;
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
     public static String rawCategory(String styledCategory) {

@@ -15,29 +15,20 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet(name = "addProductServlet", value = "/add-product")
+@WebServlet(name = "editProductServlet", value = "/edit-product")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
         maxFileSize = 1024 * 1024 * 10,      // 10 MB
         maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
-public class AddProductServlet extends HttpServlet {
+public class EditProductServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
         int productID = Integer.parseInt(request.getParameter("editProductID"));
 
-        Product product = new Product();
-        product.select(productID);
+        Product product = Product.fromID(productID);
 
         for (Image image : product.getImages()) {
             image.delete();
@@ -54,6 +45,7 @@ public class AddProductServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
+        int productID = Integer.parseInt(request.getParameter("editProductID"));
         String name = request.getParameter("productName");
         String description = request.getParameter("productDescription");
         String category = request.getParameter("productCategory");
@@ -62,23 +54,6 @@ public class AddProductServlet extends HttpServlet {
         String stringQuantity = request.getParameter("productQuantity");
         double price;
         int quantity;
-
-        User user = (User) session.getAttribute("user");
-
-        // Specify the desired field name
-        String desiredFieldName = "productImage";
-
-        // Get all parts from the request
-        List<Part> allParts = new ArrayList<>(request.getParts());
-
-        // Filter parts based on the desired field name
-        List<Part> imageParts = new ArrayList<>();
-        for (Part part : allParts) {
-            String fieldName = part.getName(); // Assuming that the field name is the name attribute in your HTML form
-            if (desiredFieldName.equals(fieldName)) {
-                imageParts.add(part);
-            }
-        }
 
         if (stringPrice == null || !Util.isNumeric(stringPrice)) {
             price = 1.00;
@@ -92,7 +67,10 @@ public class AddProductServlet extends HttpServlet {
             quantity = Integer.parseInt(stringQuantity);
         }
 
-        Product product = new Product();
+        Product product = Product.fromID(productID);
+
+        User user = (User) session.getAttribute("user");
+
         product.setProductName(name);
         product.setDescription(description);
         product.setProductCategory(category);
@@ -101,30 +79,10 @@ public class AddProductServlet extends HttpServlet {
         product.setStockQuantity(quantity);
         product.setSellerID(user.getUserID());
 
-        for (Part imagePart : imageParts) {
-            String fileName = getFileName(imagePart);
-            String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-            String finalName = Util.generateRandomString(40) + "." + extension;
-
-
-            try (InputStream fileContent = imagePart.getInputStream()) {
-                // Define the destination path to save the file
-                Path destinationPath = Paths.get(Data.image(), finalName);
-
-                // Save the file to the destination path
-                Files.copy(fileContent, destinationPath, StandardCopyOption.REPLACE_EXISTING);
-            }
-
-            Image productImage = new Image();
-            productImage.setProductID(product.getProductID());
-            productImage.setImageURL(finalName);
-            productImage.save();
-        }
-
-        product.save();
+        product.update();
 
         session.setAttribute("alertTitle", "Success!");
-        session.setAttribute("alertMessage", "Your product was published to SellBuy!");
+        session.setAttribute("alertMessage", "Your product was updated on SellBuy!");
         String referer = request.getHeader("Referer");
         response.sendRedirect(referer);
     }

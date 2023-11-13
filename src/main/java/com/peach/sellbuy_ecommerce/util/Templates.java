@@ -72,7 +72,9 @@ public class Templates {
     }
 
 
-    public static String rating(double rating) {
+    public static String rating(double initRating) {
+        double rating = initRating / 2;
+
         int starCount = 5; // Number of stars
         int fullStars = (int) rating; // Number of full stars
 

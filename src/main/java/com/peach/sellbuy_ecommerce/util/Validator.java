@@ -4,6 +4,8 @@ import com.peach.sellbuy_ecommerce.business.Access;
 import com.peach.sellbuy_ecommerce.business.User;
 
 import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -70,6 +72,20 @@ public class Validator {
         } else {
             return false;
         }
+    }
+
+    private static final List<String> SUPPORTED_EXTENSIONS = Arrays.asList("png", "jpg", "jpeg", "gif", "bmp", "webp", "avif");
+
+    public static boolean isImage(String filePath) {
+        String lowerCaseFilePath = filePath.toLowerCase();
+
+        for (String extension : SUPPORTED_EXTENSIONS) {
+            if (lowerCaseFilePath.endsWith("." + extension)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static boolean isPath(String filePath) {

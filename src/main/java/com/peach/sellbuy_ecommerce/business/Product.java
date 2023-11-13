@@ -58,6 +58,13 @@ public class Product {
         this.populateReviews(); // Populates reviews if not already done.
     }
 
+    public static Product fromID(int productID) {
+        Product product = new Product();
+        product.select(productID);
+
+        return product;
+    }
+
     /**
      * Get the unique identifier of the product.
      * @return The product's unique identifier.
@@ -191,6 +198,14 @@ public class Product {
      * @return A list of images.
      */
     public LinkedList<Image> getImages() {
+        if (this.images == null) {
+            this.populateImages();
+        }
+
+        if (this.images.isEmpty()) {
+            this.images.add(new Image(this.productID, "DEFAULT.jpg"));
+        }
+
         return images;
     }
 
@@ -366,7 +381,7 @@ public class Product {
 
     public static String recommendedItemsCard(Product product) {
         final DecimalFormat df = Util.priceFormat();
-        product.populateImages();
+//        product.populateImages();
 
         String baseURL = Util.getBaseURL("");
         String webRoot = Util.webRoot("add-to-cart");
@@ -398,7 +413,7 @@ public class Product {
 
     public static String cartPageCard(Product product) {
         final DecimalFormat df = Util.priceFormat();
-        product.populateImages();
+//        product.populateImages();
 
         String webRoot = Util.webRoot("add-to-cart");
         String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
@@ -435,7 +450,7 @@ public class Product {
         final DecimalFormat df = Util.priceFormat();
         Product product = item.getProduct();
         double price = product.getPrice();
-        product.populateImages();
+//        product.populateImages();
 
         String imageURL = Util.image(product.getImages().get(0).getImageURL(), "86");
         String productName = product.getProductName();
@@ -459,7 +474,7 @@ public class Product {
                     <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                         <form class="product-form" action="%s">
                             <div style="width: 100px" class="form-outline me-4">
-                                <input value="%s" type="number" name="quantity" id="quantity" step="1" min="1" max="20" class="quantity-input form-control" />
+                                <input value="%s" type="number" name="quantity" id="quantity" step="1" min="1" max="%s" class="quantity-input form-control" />
                                 <input type="hidden" name="cartID" value="%s">
                                 <label class="form-label" for="quantity">Quantity</label>
                             </div>
@@ -476,13 +491,13 @@ public class Product {
                         </form>
                     </div>
                 </div>
-                """.formatted(imageURL, productName, Util.webRoot("update-cart"), item.getQuantity(), item.getCartItemID(), totalPrice, pricePerItem, removeAction, cartItemID);
+                """.formatted(imageURL, productName, Util.webRoot("update-cart"), item.getQuantity(), product.getStockQuantity(), item.getCartItemID(), totalPrice, pricePerItem, removeAction, cartItemID);
     }
 
 
     public static String otherItemsCard(Product product) {
         final DecimalFormat df = Util.priceFormat();
-        product.populateImages();
+//        product.populateImages();
 
         String baseURL = Util.getBaseURL("");
         String productID = String.valueOf(product.getProductID());
@@ -507,7 +522,7 @@ public class Product {
     public static String homepageCard(Product product, String url) {
         final DecimalFormat df = Util.priceFormat();
         double price = product.getPrice();
-        product.populateImages();
+//        product.populateImages();
 
         String webRoot = Util.webRoot("add-to-cart");
         String productID = String.valueOf(product.getProductID());
@@ -536,7 +551,7 @@ public class Product {
 
     public static String searchCard(Product product) {
         final DecimalFormat df = Util.priceFormat();
-        product.populateImages();
+//        product.populateImages();
 
         String webRoot = Util.webRoot("");
         String productID = String.valueOf(product.getProductID());
@@ -590,7 +605,7 @@ public class Product {
 
     public static String homeViewCard(Product product) {
         final DecimalFormat df = Util.priceFormat();
-        product.populateImages();
+//        product.populateImages();
 
         String webRoot = Util.webRoot("");
         String productID = String.valueOf(product.getProductID());
@@ -614,6 +629,44 @@ public class Product {
                </form>
                 """.formatted(webRoot, webRoot, productID, imageURL, productID, priceFormatted, productName);
     }
+
+    public static String myProductsCard(Product product) {
+        String title = product.getProductName();
+        String description = product.getDescription();
+        String category = product.getProductCategory();
+        String keywords = product.getKeywords();
+        int quantity = product.getStockQuantity();
+        int productID = product.getProductID();
+        double price = product.getPrice();
+        DecimalFormat df = Util.priceFormat();
+        String imageURL = Util.image(product.getImages().get(0).getImageURL(), "200");
+
+        return new StringBuilder()
+                .append("<div class=\"col-md-12 mb-2\">")
+                .append("    <a class=\"card-link border p-3 rounded-3 bg-white d-flex align-items-center\">")
+                .append("        <!-- Image Container with Rounded Corners -->")
+                .append("        <div class=\"me-3\">")
+                .append("            <img width=\"150\" height=\"150\" src=\"").append(imageURL).append("\" id=\"image\" class=\"img-rounded border rounded-2\" />")
+                .append("        </div>")
+                .append("        <!-- Information Container -->")
+                .append("        <div class=\"d-flex flex-column\">")
+                .append("            <div class=\"mb-1\" id=\"name\"><strong>").append(title).append("</strong></div>")
+                .append("            <div class=\"mb-1\" id=\"description\">").append(description).append("</div>")
+                .append("            <div class=\"mb-1 fst-italic\" id=\"category\"><strong>").append(category).append("</strong></div>")
+                .append("            <div class=\"mb-1 invisible\" id=\"keywords\"><strong>").append(keywords).append("</strong></div>")
+                .append("            <div class=\"mb-1 invisible\" id=\"stock\"><strong>").append(quantity).append("</strong></div>")
+                .append("            <div class=\"mb-1 invisible\" id=\"price\"><strong>").append(df.format(price)).append("</strong></div>")
+                .append("            <div class=\"mb-1 invisible\" id=\"productID\"><strong>").append(productID).append("</strong></div>")
+                .append("            <div class=\"mt-auto\" id=\"stockString\">").append(quantity).append(" in stock, ").append(df.format(price)).append("/item</div>")
+                .append("        </div>")
+                .append("        <!-- User Information Container -->")
+                .append("        ")
+                .append("    </a>")
+                .append("</div>")
+                .toString();
+    }
+
+
 
 
     public static void sortProductsDescending(LinkedList<Product> productList) {

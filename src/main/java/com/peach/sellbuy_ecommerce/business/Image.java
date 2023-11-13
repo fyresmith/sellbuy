@@ -1,5 +1,10 @@
 package com.peach.sellbuy_ecommerce.business;
 
+import com.peach.sellbuy_ecommerce.util.Data;
+
+import java.io.File;
+
+
 /**
  * This class represents an image associated with a product in an e-commerce system. Each image has a unique
  * image ID, references a product using a product ID, and provides a URL to the image file.
@@ -114,6 +119,9 @@ public class Image {
      */
     public void delete() {
         Access<Image> access = new Access<>("image", "imageID", Image.class);
+
+        boolean fileDeleted = new File(Data.IMAGE + this.imageURL).delete();
+
         access.delete(this.getImageID());
     }
 }

@@ -90,28 +90,30 @@
               <% } else { %>
 
 
-                <div class="col-md-6 mb-2">
-                    <a class="card-link border p-3 rounded-3 bg-white d-flex align-items-center">
-                        <!-- Image Container with Rounded Corners -->
-                        <div class="me-3">
-                            <img width="100%" height="100%" src="<%= Util.image("71Iy1eCkadL", "300") %>" id="image" class="img-rounded border rounded-2" />
-                        </div>
-                        <!-- Information Container -->
-                        <div class="d-flex flex-column">
-                            <div class="mb-1" id="name"><strong>Floating Tube</strong></div>
-                            <div class="mb-1" id="description">Description Text Goes Here</div>
-                            <div class="mb-1" id="category"><strong>Category Text</strong></div>
-                            <div class="mb-1 invisible" id="keywords"><strong>Keywords</strong></div>
-                            <div class="mb-1 invisible" id="stock"><strong>3</strong></div>
-                            <div class="mb-1 invisible" id="price"><strong>100</strong></div>
-                            <div class="mt-auto" id="stockString">3 in stock, $100/item</div>
-                        </div>
-                        <!-- User Information Container -->
-                        <%-- <div class="mx-2 text-muted"><i class="fas fa-signature"></i></div> --%>
-                    </a>
-                </div>
+<%--                <div class="col-md-6 mb-2">--%>
+<%--                    <a class="card-link border p-3 rounded-3 bg-white d-flex align-items-center">--%>
+<%--                        <!-- Image Container with Rounded Corners -->--%>
+<%--                        <div class="me-3">--%>
+<%--                            <img width="100%" height="100%" src="<%= Util.image("71Iy1eCkadL", "300") %>" id="image" class="img-rounded border rounded-2" />--%>
+<%--                        </div>--%>
+<%--                        <!-- Information Container -->--%>
+<%--                        <div class="d-flex flex-column">--%>
+<%--                            <div class="mb-1" id="name"><strong>Floating Tube</strong></div>--%>
+<%--                            <div class="mb-1" id="description">Description Text Goes Here</div>--%>
+<%--                            <div class="mb-1" id="category"><strong>Category Text</strong></div>--%>
+<%--                            <div class="mb-1 invisible" id="keywords"><strong>Keywords</strong></div>--%>
+<%--                            <div class="mb-1 invisible" id="stock"><strong>3</strong></div>--%>
+<%--                            <div class="mb-1 invisible" id="price"><strong>100</strong></div>--%>
+<%--                            <div class="mt-auto" id="stockString">3 in stock, $100/item</div>--%>
+<%--                        </div>--%>
+<%--                        <!-- User Information Container -->--%>
+<%--                        &lt;%&ndash; <div class="mx-2 text-muted"><i class="fas fa-signature"></i></div> &ndash;%&gt;--%>
+<%--                    </a>--%>
+<%--                </div>--%>
 
-
+                    <% for (Product product: products) { %>
+                            <%= Product.myProductsCard(product) %>
+                    <% } %>
 
 
 
@@ -140,14 +142,16 @@
     $(document).ready(function () {
         // Handle card click event
         $('.card-link').click(function () {
-            // Get card information
-            let title = $('#name').text();
-            let description = $('#description').text();
-            let category = $('#category').text();
-            let keywords = $('#keywords').text();
-            let stock = $('#stock').text();
-            let price = $('#price').text();
-            let imageUrl = document.getElementById("image").src;
+            // Get card information relative to the clicked card
+            let card = $(this);  // The clicked card
+            let title = card.find('.mb-1#name').text();
+            let description = card.find('.mb-1#description').text();
+            let category = card.find('.mb-1#category').text();
+            let keywords = card.find('.mb-1#keywords').text();
+            let stock = card.find('.mb-1#stock').text();
+            let price = card.find('.mb-1#price').text();
+            let productID = card.find('.mb-1#productID').text();  // Make sure you have an element with id 'productID'
+            let imageUrl = card.find('img').attr('src');
 
             // Populate modal with card information
             $('#editProductTitle').text("Edit " + title);
@@ -159,14 +163,12 @@
             $('#editProductKeywords').val(keywords);
             $('#editProductPrice').val(price);
             $('#editProductQuantity').val(stock);
+            $('#editProductID').val(productID);
             $('#editImage').attr('src', imageUrl);
-
 
             // Show the modal
             $('#editProduct').modal('show');
         });
     });
+
 </script>
-
-
-

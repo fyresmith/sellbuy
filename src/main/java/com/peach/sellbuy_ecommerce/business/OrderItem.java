@@ -176,7 +176,7 @@ public class OrderItem {
 
     public static String orderCard(OrderItem item) {
         int quantity = item.getQuantity();
-        item.getProduct().populateImages();
+//        item.getProduct().populateImages();
         String image = Util.image((item.getProduct().getImages().get(0)).getImageURL(), "72");
         String title = item.getProduct().getProductName();
         String limitedTitle = Util.limitString(item.getProduct().getProductName(), 20);

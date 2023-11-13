@@ -252,7 +252,7 @@ public class Seeder {
                 product.setKeywords(data[3]);
                 product.setDescription(data[4]);
                 product.setPrice(Util.generateRandomDouble(10.00, 1599.00));
-                product.setStockQuantity(Util.generateRandomNumber(1, 200));
+                product.setStockQuantity(Util.generateRandomNumber(1, 500));
                 product.setSellerID(userIDs.get(new Random().nextInt(userIDs.size())));
 
                 productID += 1;

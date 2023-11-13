@@ -25,12 +25,14 @@ public class UpdateCartServlet extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int cartID = Integer.parseInt(request.getParameter("cartID"));
 
-        if (quantity < 1) quantity = 1;
-        else if (quantity > 20) quantity = 20;
-
         Cart cart = (Cart) session.getAttribute("cart");
 
-        cart.getByID(cartID).setQuantity(quantity);
+        CartItem item = cart.getByID(cartID);
+
+        if (quantity < 1) quantity = 1;
+        else if (quantity > 500) quantity = 500;
+        else if (quantity > item.getProduct().getStockQuantity()) quantity = item.getProduct().getStockQuantity();
+        item.setQuantity(quantity);
 
         session.setAttribute("cart", cart);
 

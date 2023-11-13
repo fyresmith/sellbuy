@@ -43,7 +43,7 @@
             <!-- Price input -->
             <div class="col-md-6 mb-4">
               <div class="form-outline">
-                <input type="number" name="productPrice" id="createProductPrice" class="form-control" min="1" max="100000" required />
+                <input type="text" name="productPrice" id="createProductPrice" class="form-control" pattern="^\d+(\.\d{1,2})?$" required />
                 <label class="form-label" for="createProductPrice">Price</label>
               </div>
             </div>
@@ -51,7 +51,7 @@
             <!-- Quantity input -->
             <div class="col-md-6 mb-4">
               <div class="form-outline">
-                <input type="number" name="productQuantity" id="createProductQuantity" class="form-control" min="1" max="20" required />
+                <input type="number" name="productQuantity" id="createProductQuantity" class="form-control" min="1" max="500" required />
                 <label class="form-label" for="createProductQuantity">Quantity</label>
               </div>
             </div>
