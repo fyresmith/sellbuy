@@ -1,4 +1,4 @@
-<%@ page import="com.peach.sellbuy_ecommerce.util.Templates" %>
+<%@ page import="com.peach.sellbuy.util.Templates" %>
 <%@ page import="java.util.Objects" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith

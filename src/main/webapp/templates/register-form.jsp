@@ -1,5 +1,5 @@
 <%@ page import="java.util.Objects" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %>
+<%@ page import="com.peach.sellbuy.util.Util" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
   if (session.getAttribute("failMessage") == null) {

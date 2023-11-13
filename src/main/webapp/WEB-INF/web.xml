@@ -7,4 +7,9 @@
         <error-code>404</error-code>
         <location>/404.jsp</location>
     </error-page>
+    <listener>
+        <listener-class>
+            com.peach.sellbuy.util.ContextListener
+        </listener-class>
+    </listener>
 </web-app>

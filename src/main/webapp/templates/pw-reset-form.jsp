@@ -1,5 +1,5 @@
 <%@ page import="java.util.Objects" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %><%--
+<%@ page import="com.peach.sellbuy.util.Util" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/20/23

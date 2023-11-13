@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.peach.sellbuy.business.Access" %>
+<%@ page import="com.peach.sellbuy.util.Util" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/19/23
@@ -7,7 +8,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<!--Main Navigation-->
 <jsp:include page="templates/head.jsp"/>
 
 <jsp:include page="templates/header.jsp"/>

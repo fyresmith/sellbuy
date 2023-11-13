@@ -1,9 +1,9 @@
-<%@ page import="com.peach.sellbuy_ecommerce.util.Templates" %>
+<%@ page import="com.peach.sellbuy.util.Templates" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="java.util.Random" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.*" %>
+<%@ page import="com.peach.sellbuy.util.Util" %>
+<%@ page import="com.peach.sellbuy.business.*" %>
 <%@ page import="java.io.IOException" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith

@@ -1,10 +1,10 @@
-<%@ page import="com.peach.sellbuy_ecommerce.business.User" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.Product" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.Access" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.Order" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.OrderItem" %>
+<%@ page import="com.peach.sellbuy.business.User" %>
+<%@ page import="com.peach.sellbuy.business.Product" %>
+<%@ page import="com.peach.sellbuy.business.Access" %>
+<%@ page import="com.peach.sellbuy.business.Order" %>
+<%@ page import="com.peach.sellbuy.business.OrderItem" %>
 <%@ page import="java.util.LinkedList" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %><%--
+<%@ page import="com.peach.sellbuy.util.Util" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/20/23

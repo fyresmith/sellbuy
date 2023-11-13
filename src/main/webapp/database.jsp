@@ -1,8 +1,8 @@
-<%@ page import="com.peach.sellbuy_ecommerce.business.*" %>
+<%@ page import="com.peach.sellbuy.business.*" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.Pager" %>
-<%@ page import="com.peach.sellbuy_ecommerce.util.DBPager" %><%--
+<%@ page import="com.peach.sellbuy.util.Util" %>
+<%@ page import="com.peach.sellbuy.util.Pager" %>
+<%@ page import="com.peach.sellbuy.util.DBPager" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 11/2/23

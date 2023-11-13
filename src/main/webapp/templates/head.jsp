@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.peach.sellbuy.business.*" %>
+<%@ page import="com.peach.sellbuy.util.Util" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 9/28/23
@@ -6,6 +7,7 @@
 
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -17,7 +19,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css'>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.5/dist/fancybox.css'>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

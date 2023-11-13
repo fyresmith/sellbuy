@@ -1,6 +1,6 @@
-<%@ page import="com.peach.sellbuy_ecommerce.util.Templates" %>
+<%@ page import="com.peach.sellbuy.util.Templates" %>
 <%@ page import="java.util.Objects" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.User" %><%--
+<%@ page import="com.peach.sellbuy.business.User" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
   Date: 10/20/23

@@ -1,6 +1,6 @@
-<%@ page import="com.peach.sellbuy_ecommerce.util.Util" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.Product" %>
-<%@ page import="com.peach.sellbuy_ecommerce.business.Access" %>
+<%@ page import="com.peach.sellbuy.util.Util" %>
+<%@ page import="com.peach.sellbuy.business.Product" %>
+<%@ page import="com.peach.sellbuy.business.Access" %>
 <%@ page import="java.util.LinkedList" %><%--
   Created by IntelliJ IDEA.
   User: calebsmith
