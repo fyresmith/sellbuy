@@ -51,7 +51,7 @@
           <h2 class="accordion-header" id="headingThree">
             <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
                     data-mdb-target="#basicAccordionCollapseThree" aria-expanded="false" aria-controls="collapseThree">
-              How do I pay for items I want to buy on SellBuy?
+              How do I pay for the items I want to buy on SellBuy?
             </button>
           </h2>
           <div id="basicAccordionCollapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
