@@ -8,6 +8,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+    if (Access.isEmpty()) {
+        response.sendRedirect(Util.webPage("generator.jsp"));
+    }
+%>
+
 <jsp:include page="templates/head.jsp"/>
 
 <jsp:include page="templates/header.jsp"/>

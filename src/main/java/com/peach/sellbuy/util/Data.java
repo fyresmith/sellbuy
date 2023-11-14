@@ -16,11 +16,15 @@ import java.util.Map;
  * Data class for managing file paths, database connection, and JSON file reading.
  */
 public class Data {
-    private static Dotenv dotenv = Dotenv.load();
-    public static final String ROOT = dotenv.get("DB_URL");
+    public static final String ROOT = ROOT();
     public static final String DATA_ROOT = ROOT + "data/";
     public static final String IMAGE = ROOT + "data/images/";
     public static final String DATABASE = UcanaccessDriver.URL_PREFIX + file("data.accdb");
+
+    public static String ROOT() {
+        Dotenv dotenv = Dotenv.load();
+        return dotenv.get("DATA_PATH");
+    }
 
     /**
      * Constructs the full file path from the root directory.

@@ -242,7 +242,7 @@
                   <th>productID</th>
                   <th>userID</th>
                   <th>rating</th>
-                  <th>reviewTest</th>
+                  <th>reviewText</th>
                   <th>datePosted</th>
                 </tr>
               </thead>

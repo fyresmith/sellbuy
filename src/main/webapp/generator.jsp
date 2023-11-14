@@ -177,7 +177,7 @@
         </div>
 
         <div class="container d-flex justify-content-center">
-          <button type="submit" onclick="disableButton()" class="btn btn-primary">Generate Database</button>
+          <button type="submit" onclick="disableButton()" id="submitBtn" class="btn btn-primary">Generate Database</button>
         </div>
       </form>
     </div>
@@ -196,7 +196,7 @@
 <script src='https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.5/dist/fancybox.umd.js'></script>
 <script>
   function disableButton() {
-    var button = document.getElementById('myButton');
+    var button = document.getElementById('submitBtn');
     button.disabled = true;
   }
 </script>
