@@ -258,7 +258,7 @@
                   </tr>
                 </tbody>
               <% } %>
-            <% } else if (table.equals("user")) {%>
+            7<% } else if (table.equals("user")) {%>
               <thead class="table-primary">
                 <tr>
                   <th>firstName</th>
