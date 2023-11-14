@@ -10,8 +10,8 @@
 
 <%
     if (Access.isEmpty()) {
-        response.sendRedirect(Util.webPage("generator.jsp"));
-    }
+        response.sendRedirect("generator.jsp");
+    } else {
 %>
 
 <jsp:include page="templates/head.jsp"/>
@@ -27,3 +27,5 @@
 <jsp:include page="templates/feature-view.jsp"/>
 
 <jsp:include page="templates/footer-main.jsp"/>
+
+<% } %>
