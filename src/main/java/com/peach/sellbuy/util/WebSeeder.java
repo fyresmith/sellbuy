@@ -1,6 +1,7 @@
 package com.peach.sellbuy.util;
 
 import com.peach.sellbuy.business.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -137,10 +138,12 @@ public class WebSeeder {
      *
      * @param count The number of users to generate and insert into the database.
      */
-    public static void populateUsers(int count) {
+    public static int populateUsers(int count, HttpServletRequest request, int total, int progressMain) {
+        int progress = progressMain;
+
         String insertQuery = "INSERT INTO user (username, firstName, lastName, password, email, shippingAddress, paymentInformation, userID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        int userID = 2;
+        int userID = 10000002;
 
         try {
             PreparedStatement insertStatement = DB.getInstance().getConnection().prepareStatement(insertQuery);
@@ -159,27 +162,33 @@ public class WebSeeder {
                 insertStatement.addBatch();
 
                 userID += 1;
+                progress += 1;
 
                 if (i % batchSize == 0) {
                     insertStatement.executeBatch();
                 }
 
-                Util.printLoadingBar(i, count, " populating user #" + i);
+                request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
             }
 
             // Execute any remaining batches
             insertStatement.executeBatch();
 
-            Util.printLoadingBar(1, 1, " DONE POPULATING USERS! (" + count + " users)");
+            request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
+
+            request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return progress;
     }
 
     /**
      * Populates the "review" table with random review data.
      */
-    public static void populateReviews() {
+    public static int populateReviews(HttpServletRequest request, int total, int progressMain) {
+        int progress = progressMain;
         Access<User> userAccess = new Access<>("user", "userID", User.class);
         Access<Product> productAccess = new Access<>("product", "productID", Product.class);
         int counter = 0;
@@ -196,7 +205,7 @@ public class WebSeeder {
             for (Product product : productList) {
                 int batchSize = 100;  // Adjust the batch size as needed
 
-                for (int j = 0; j < Util.generateRandomNumber(5, 80); j++) {
+                for (int j = 0; j < 20; j++) {
                     // Set parameters for the insert statement
                     insertStatement.setInt(1, product.getProductID());
                     insertStatement.setInt(2, userIDs.get(new Random().nextInt(userIDs.size())));
@@ -215,6 +224,7 @@ public class WebSeeder {
                     }
 
                     counter += 1;
+                    progress += 1;
                 }
 
                 // Execute any remaining batches
@@ -222,17 +232,20 @@ public class WebSeeder {
                     insertStatement.executeBatch();
                 }
 
-                Util.printLoadingBar(productList.indexOf(product), productList.size(), " populating reviews for product \"" + product.getProductName() + "\"");
+                request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
             }
 
-            Util.printLoadingBar(1, 1, " DONE POPULATING REVIEWS! (" + counter + " reviews)");
+            request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return progress;
     }
 
-    public static void populateProducts(int count) {
+    public static int populateProducts(int count, HttpServletRequest request, int total, int progressMain) {
+        int progress = progressMain;
         // Create a prepared statement for product insertion
         String productInsertSQL = "INSERT INTO product (productID, productCategory, productName, keywords, description, price, stockQuantity, sellerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         String imageInsertSQL = "INSERT INTO image (productID, imageURL, imageID) VALUES (?, ?, ?)";
@@ -280,6 +293,7 @@ public class WebSeeder {
                 product.setSellerID(userIDs.get(new Random().nextInt(userIDs.size())));
 
                 productID += 1;
+                progress += 1;
 
                 // Add product and image data to the batch
                 productInsertStatement.setInt(1, product.getProductID());
@@ -307,7 +321,7 @@ public class WebSeeder {
 
                 secondary = splitStringToArray(data[6]);
 
-                Util.printLoadingBar(i, count, " populating image \"" + image.getImageURL() + "\"");
+                request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
 
                 for (String imageURL : secondary) {
                     // Create an Image object and set its properties
@@ -322,7 +336,7 @@ public class WebSeeder {
                     imageInsertStatement.setInt(3, image.getImageID());
                     imageInsertStatement.addBatch();
 
-                    Util.printLoadingBar(i, count, " populating image \"" + image.getImageURL() + "\"");
+                    request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
                 }
 
                 // Execute the batch when it reaches the defined batch size
@@ -332,7 +346,7 @@ public class WebSeeder {
                     DB.getInstance().getConnection();
                 }
 
-                Util.printLoadingBar(i, count, " populating product \"" + product.getProductName() + "\"");
+                request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
 
                 batchCount++;
             }
@@ -343,10 +357,12 @@ public class WebSeeder {
                 imageInsertStatement.executeBatch();
             }
 
-            Util.printLoadingBar(1, 1, " DONE POPULATING PRODUCTS & IMAGES! (" + count + " products, " + imageCounter + " images)");
+            request.getSession().setAttribute("progress", Math.min(100, Math.max(1, Math.round(((double) progress / total) * 100))));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return progress;
     }
 
     /**
@@ -379,84 +395,18 @@ public class WebSeeder {
         System.out.println();
     }
 
-    public static void populateDatabase(int users, int products) {
+    public static void populateDatabase(int users, int products, HttpServletRequest request) {
         System.out.println("\nPOPULATING DATABASE WITH " + users + " users AND " + products + " products!");
 
         clearDB();
 
-        populateUsers(users);
-        populateProducts(products);
-        populateReviews();
+        int total = users + products + (20 * products);
+        int progress = 0;
+
+        progress = populateUsers(users, request, total, progress);
+        progress = populateProducts(products, request, total, progress);
+        progress = populateReviews(request, total, progress);
 
         System.out.println("\nDATABASE POPULATED :)");
-    }
-
-    public static int[] userBuildSizes() {
-        return new int[]{100, 500, 1000, 2000, 4000, 8000, 12000, 16000};
-    }
-
-    public static int[] productBuildSizes() {
-        return new int[]{1000, 2000, 5000, 8000, 10000, 15000, 20000, 25000};
-    }
-
-
-    public static String shortenNumber(long number) {
-        if (number < 1000) {
-            return Long.toString(number); // No need to shorten
-        } else if (number < 1000000) {
-            if (number % 1000 == 0) {
-                return String.format("%dK", number / 1000);
-            } else {
-                return String.format("%.1fK", number / 1000.0);
-            }
-        } else {
-            if (number % 1000000 == 0) {
-                return String.format("%dM", number / 1000000);
-            } else {
-                return String.format("%.1fM", number / 1000000.0);
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        TextMenu main = new TextMenu("Main Menu");
-        main.addItem("Select From Preset Database Dimensions");
-        main.addItem("Input Custom Database Dimensions");
-
-        int menuChoice = main.run();
-
-        if (menuChoice == 1) {
-
-            int[] userSizes = userBuildSizes();
-            int[] productSizes = productBuildSizes();
-
-            TextMenu menu = new TextMenu("Test Database Builder");
-            menu.addItem("Light (" + userSizes[0] + " users, " + productSizes[0] + " products, ~" + shortenNumber(productSizes[0] * 5L) + "-" + shortenNumber(productSizes[0] * 80L) + " reviews)");
-            menu.addItem("Mini (" + userSizes[1] + " users, " + productSizes[1] + " products, ~" + shortenNumber(productSizes[1] * 5L) + "-" + shortenNumber(productSizes[1] * 80L) + " reviews)");
-            menu.addItem("Small (" + userSizes[2] + " users, " + productSizes[2] + " products, ~" + shortenNumber(productSizes[2] * 5L) + "-" + shortenNumber(productSizes[2] * 80L) + " reviews)");
-            menu.addItem("Medium (" + userSizes[3] + " users, " + productSizes[3] + " products, ~" + shortenNumber(productSizes[3] * 5L) + "-" + shortenNumber(productSizes[3] * 80L) + " reviews)");
-            menu.addItem("Large (" + userSizes[4] + " users, " + productSizes[4] + " products, ~" + shortenNumber(productSizes[4] * 5L) + "-" + shortenNumber(productSizes[4] * 80L) + " reviews)");
-            menu.addItem("Massive (" + userSizes[5] + " users, " + productSizes[5] + " products, ~" + shortenNumber(productSizes[5] * 5L) + "-" + shortenNumber(productSizes[5] * 80L) + " reviews)");
-            menu.addItem("Excessive (" + userSizes[6] + " users, " + productSizes[6] + " products, ~" + shortenNumber(productSizes[6] * 5L) + "-" + shortenNumber(productSizes[6] * 80L) + " reviews)");
-            menu.addItem("Exit");
-
-            int choice = menu.run();
-
-            if (choice == 6) {
-                System.out.println("Exiting program.");
-                return;
-            }
-
-            populateDatabase(userSizes[choice - 1], productSizes[choice - 1]);
-        } else {
-            int users = Util.getNumberInRange("Enter a number of users", 1, 100000);
-            int products = Util.getNumberInRange("Enter a number of products", 1, 110000);
-
-            if (Util.getYesNoChoice("Are you sure you would like to generate this database? y/n")) {
-                populateDatabase(users, products);
-            } else {
-                System.out.println("Exiting program.");
-            }
-        }
     }
 }

@@ -1,5 +1,6 @@
 package com.peach.sellbuy.util;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import net.ucanaccess.jdbc.UcanaccessDriver;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +16,8 @@ import java.util.Map;
  * Data class for managing file paths, database connection, and JSON file reading.
  */
 public class Data {
-    public static final String ROOT = "/Users/calebsmith/IdeaProjects/SellBuy/";
+    private static Dotenv dotenv = Dotenv.load();
+    public static final String ROOT = dotenv.get("DB_URL");
     public static final String DATA_ROOT = ROOT + "data/";
     public static final String IMAGE = ROOT + "data/images/";
     public static final String DATABASE = UcanaccessDriver.URL_PREFIX + file("data.accdb");
