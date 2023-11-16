@@ -9,6 +9,8 @@ import org.json.JSONTokener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +18,7 @@ import java.util.Map;
  * Data class for managing file paths, database connection, and JSON file reading.
  */
 public class Data {
+    public static final String TEST = Paths.get(System.getProperty("user.dir")).toString();
     public static final String ROOT = ROOT();
     public static final String DATA_ROOT = ROOT + "data/";
     public static final String IMAGE = ROOT + "data/images/";

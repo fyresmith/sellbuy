@@ -2,6 +2,8 @@ package com.peach.sellbuy;
 
 // Import required java libraries
 import java.io.*;
+
+import com.peach.sellbuy.util.Data;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -39,12 +41,21 @@ public class Refresh extends HttpServlet {
         String docType =
                 "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
 
+        // Get the ServletContext
+        ServletContext context = getServletContext();
+
+        // Get the real path of the root folder
+        String rootPath = context.getRealPath("/");
+
+        response.getWriter().println("Root folder path: " + rootPath);
+
         out.println(docType +
                 "<html>\n" +
                 "<head><title>" + title + "</title></head>\n"+
                 "<body bgcolor = \"#f0f0f0\">\n" +
                 "<h1 align = \"center\">" + title + "</h1>\n" +
-                "<p>Current Time is: " + CT + "</p>\n"
+                "<p>Current Time is: " + CT + "</p>\n" +
+                "" + Data.TEST
         );
     }
 

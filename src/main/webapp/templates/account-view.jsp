@@ -87,7 +87,7 @@
             <% } else { %>
             <div class="col-md-12">
               <div class="border border-danger text-white p-3 rounded-3 bg-danger text-center">
-                You have made any orders!
+                You haven't made any orders!
               </div>
             </div>
             <% } %>
