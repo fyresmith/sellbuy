@@ -227,8 +227,4 @@ public class SendEmail {
             me.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        SendEmail.resetPassword(new String[]{"me@calebmsmith.com"}, "THIS IS A TEST");
-    }
 }

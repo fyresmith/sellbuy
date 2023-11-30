@@ -33,8 +33,4 @@ public class NewSendEmail {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        resetPassword("me@calebmsmith.com", "Caleb Smith", "123456");
-    }
 }
