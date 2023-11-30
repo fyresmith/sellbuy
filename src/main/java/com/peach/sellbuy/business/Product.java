@@ -657,7 +657,7 @@ public class Product {
                 .append("            <div class=\"mb-1 invisible\" id=\"stock\"><strong>").append(quantity).append("</strong></div>")
                 .append("            <div class=\"mb-1 invisible\" id=\"price\"><strong>").append(df.format(price)).append("</strong></div>")
                 .append("            <div class=\"mb-1 invisible\" id=\"productID\"><strong>").append(productID).append("</strong></div>")
-                .append("            <div class=\"mt-auto\" id=\"stockString\">").append(quantity).append(" in stock, ").append(df.format(price)).append("/item</div>")
+                .append("            <div class=\"mt-auto\" id=\"stockString\">").append(quantity).append(" in stock, $").append(df.format(price)).append("/item</div>")
                 .append("        </div>")
                 .append("        <!-- User Information Container -->")
                 .append("        ")
