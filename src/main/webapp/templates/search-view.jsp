@@ -103,9 +103,6 @@
                             </h2>
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
                                 <form class="accordion-body" action="<%= Util.webPage("sort-min-max") %>">
-<%--                                    <div class="range">--%>
-<%--                                        <input type="range" class="form-range" id="customRange1" />--%>
-<%--                                    </div>--%>
                                     <div class="row mb-3">
                                         <div class="col-6">
                                             <p class="mb-0">
@@ -128,66 +125,9 @@
                                 </form>
                             </div>
                         </div>
-<%--                        <form class="accordion-item" action="<%= Util.webPage("sort-by-rating") %>">--%>
-<%--                            <h2 class="accordion-header" id="headingFour">--%>
-<%--                                <button--%>
-<%--                                        class="accordion-button text-dark bg-light"--%>
-<%--                                        type="button"--%>
-<%--                                        data-mdb-toggle="collapse"--%>
-<%--                                        data-mdb-target="#panelsStayOpen-collapseFive"--%>
-<%--                                        aria-expanded="false"--%>
-<%--                                        aria-controls="panelsStayOpen-collapseFive"--%>
-<%--                                >--%>
-<%--                                    Ratings--%>
-<%--                                </button>--%>
-<%--                            </h2>--%>
-<%--                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingThree">--%>
-<%--                                <div class="accordion-body">--%>
-<%--                                    <!-- Default checkbox -->--%>
-<%--                                    <div class="form-check">--%>
-<%--                                        <input class="form-check-input" name="ratings" type="checkbox" value="5" id="flexCheckDefault1" checked />--%>
-<%--                                        <label class="form-check-label" for="flexCheckDefault1">--%>
-<%--                                            <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>--%>
-<%--                                        </label>--%>
-<%--                                    </div>--%>
-<%--                                    <!-- Default checkbox -->--%>
-<%--                                    <div class="form-check">--%>
-<%--                                        <input class="form-check-input" name="ratings" type="checkbox" value="4" id="flexCheckDefault2" checked />--%>
-<%--                                        <label class="form-check-label" for="flexCheckDefault2">--%>
-<%--                                            <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i>--%>
-<%--                                        </label>--%>
-<%--                                    </div>--%>
-<%--                                    <!-- Default checkbox -->--%>
-<%--                                    <div class="form-check">--%>
-<%--                                        <input class="form-check-input" name="ratings" type="checkbox" value="3" id="flexCheckDefault3" checked />--%>
-<%--                                        <label class="form-check-label" for="flexCheckDefault3">--%>
-<%--                                            <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i>--%>
-<%--                                        </label>--%>
-<%--                                    </div>--%>
-<%--                                    <!-- Default checkbox -->--%>
-<%--                                    <div class="form-check">--%>
-<%--                                        <input class="form-check-input" name="ratings" type="checkbox" value="2" id="flexCheckDefault4" checked />--%>
-<%--                                        <label class="form-check-label" for="flexCheckDefault4">--%>
-<%--                                            <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i>--%>
-<%--                                        </label>--%>
-<%--                                    </div>--%>
-<%--                                    <!-- Default checkbox -->--%>
-<%--                                    <div class="form-check">--%>
-<%--                                        <input class="form-check-input" name="ratings" type="checkbox" value="1" id="flexCheckDefault5" checked />--%>
-<%--                                        <label class="form-check-label" for="flexCheckDefault5">--%>
-<%--                                            <i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i>--%>
-<%--                                        </label>--%>
-<%--                                    </div>--%>
-<%--                                    <br />--%>
-<%--                                    <button type="submit" class="btn btn-white w-100 border border-secondary">apply</button>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </form>--%>
                     </div>
                 </div>
             </div>
-            <!-- sidebar -->
-            <!-- content -->
             <div class="col-lg-9">
                 <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                     <strong class="d-block py-2"><%= results.size() %> Items found </strong>
@@ -195,7 +135,6 @@
                         <form id="sortSelect" action="<%= Util.webPage("sort-result") %>">
                             <select id="formSelect" name="option" class="form-select d-inline-block w-auto border pt-1">
                                 <option value="best">Best match</option>
-                                <option value="rated">High rated</option>
                                 <option value="highest">Highest Price</option>
                                 <option value="lowest">Lowest Price</option>
                                 <option value="random">Randomly</option>

@@ -20,6 +20,9 @@
   }
 
   String successMessage = (String) session.getAttribute("successMessage");
+
+  session.setAttribute("failMessage", "");
+  session.setAttribute("successMessage", "");
 %>
 
 <div class="sign-in-card contact-form-card container border card rounded-4 d-lg-block p-5 pt-4 mt-5 mb-5">

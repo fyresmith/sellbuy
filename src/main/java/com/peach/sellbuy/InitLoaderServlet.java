@@ -23,6 +23,6 @@ public class InitLoaderServlet extends HttpServlet {
 
         WebSeeder.populateDatabase(users, products, request);
 
-        response.sendRedirect(Util.webPage("database.jsp"));
+        response.sendRedirect(Util.webPage("index.jsp"));
     }
 }

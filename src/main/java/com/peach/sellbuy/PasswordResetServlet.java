@@ -13,7 +13,8 @@ import jakarta.servlet.annotation.*;
 public class PasswordResetServlet extends HttpServlet {
 
     public void init() {
-        String message = "Hello World!";
+        System.setProperty("javax.net.ssl.trustStore", "clientTrustStore.key");
+        System.setProperty("javax.net.ssl.trustStorePassword", "qwerty");
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -29,20 +30,20 @@ public class PasswordResetServlet extends HttpServlet {
             response.sendRedirect("password-reset.jsp");
         } else {
             session.setAttribute("failMessage", "");
+
+            User tempUser = access.altSelect("email", email);
+
+            String code = Integer.toString(Util.generateSixDigitNumber());
+            session.setAttribute("resetCode", code);
+
+            NewSendEmail.resetPassword(email, tempUser.getName(), code);
+            session.setAttribute("failMessage", "");
+
+            session.setAttribute("successMessage", "Email sent!");
+            session.setAttribute("tempUser", tempUser);
+
+            response.sendRedirect("password-reset.jsp");
         }
-
-        User tempUser = access.altSelect("email", email);
-
-        String code = Integer.toString(Util.generateSixDigitNumber());
-        session.setAttribute("resetCode", code);
-
-        NewSendEmail.resetPassword(email, tempUser.getName(), code);
-        session.setAttribute("failMessage", "");
-
-        session.setAttribute("successMessage", "Email sent!");
-        session.setAttribute("tempUser", tempUser);
-
-        response.sendRedirect("password-reset.jsp");
     }
 
     public void destroy() {

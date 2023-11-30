@@ -29,16 +29,15 @@ public class PasswordResetFinalServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
         } else {
             session.setAttribute("failMessage", "");
+            User user = (User) session.getAttribute("tempUser");
+            user.setPassword(password);
+
+            user.update();
+
+            session.setAttribute("successMessage", "Password reset!");
+
+            response.sendRedirect("login.jsp");
         }
-
-        User user = (User) session.getAttribute("tempUser");
-        user.setPassword(password);
-
-        user.update();
-
-        session.setAttribute("successMessage", "Password reset!");
-
-        response.sendRedirect("login.jsp");
     }
 
     public void destroy() {

@@ -18,6 +18,8 @@
 
   String failMessage = (String) session.getAttribute("failMessage");
   String successMessage = (String) session.getAttribute("successMessage");
+  session.setAttribute("failMessage", "");
+  session.setAttribute("successMessage", "");
 %>
 
 

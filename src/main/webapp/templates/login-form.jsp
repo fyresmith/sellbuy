@@ -12,13 +12,14 @@
         session.setAttribute("failMessage", "");
     }
 
-    String failMessage = (String) session.getAttribute("failMessage");
-
     if (session.getAttribute("successMessage") == null) {
         session.setAttribute("successMessage", "");
     }
 
+    String failMessage = (String) session.getAttribute("failMessage");
     String successMessage = (String) session.getAttribute("successMessage");
+    session.setAttribute("failMessage", "");
+    session.setAttribute("successMessage", "");
 %>
 
 

@@ -38,22 +38,22 @@ public class AddToCartServlet extends HttpServlet {
             session.setAttribute("alertMessage", "Your item was not added to the cart because it is out of stock!");
             String referer = request.getHeader("Referer");
             response.sendRedirect(referer);
-        }
-
-        cart.addItem(new CartItem(product, quantity));
-
-        session.setAttribute("cart", cart);
-
-        session.setAttribute("alertTitle", "Added to Cart!");
-
-        if (user == null) {
-            session.setAttribute("alertMessage", "Your item was added to the cart, but you must first sign in to access it!");
         } else {
-            session.setAttribute("alertMessage", "Your item was added to the cart!");
-        }
+            cart.addItem(new CartItem(product, quantity));
 
-        String referer = request.getHeader("Referer");
-        response.sendRedirect(referer);
+            session.setAttribute("cart", cart);
+
+            session.setAttribute("alertTitle", "Added to Cart!");
+
+            if (user == null) {
+                session.setAttribute("alertMessage", "Your item was added to the cart, but you must first sign in to access it!");
+            } else {
+                session.setAttribute("alertMessage", "Your item was added to the cart!");
+            }
+
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
+        }
     }
 
     public void destroy() {}

@@ -40,10 +40,6 @@ public class AddReviewServlet extends HttpServlet {
         review.setUserID(user.getUserID());
         review.save();
 
-//        URI url = Util.appendUri(Util.webPage("product.jsp"), "pid=" + productID);
-//
-//        assert url != null;
-//        response.sendRedirect(url.toString());
         session.setAttribute("alertTitle", "Success!");
         session.setAttribute("alertMessage", "Your review was added to the product!");
         String referer = request.getHeader("Referer");

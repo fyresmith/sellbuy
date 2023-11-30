@@ -47,52 +47,37 @@ public class RegisterServlet extends HttpServlet {
         session.setAttribute("zipCode", zipCode);
         session.setAttribute("password", password);
         Access<Product> access = new Access(Product.class);
+
         if (access.existsInColumn("email", email)) {
             this.failResponse(request, response, "There is already an account with that email address!");
-        }
-
-        if (!Validator.isValidName(firstName)) {
+        } else if (access.existsInColumn("email", email)) {
+            this.failResponse(request, response, "There is already an account with that email address!");
+        } else if (!Validator.isValidName(firstName)) {
             this.failResponse(request, response, "First name is Invalid!");
-        }
-
-        if (!Validator.isValidName(lastName)) {
+        } else if (!Validator.isValidName(lastName)) {
             this.failResponse(request, response, "Last name is Invalid!");
-        }
-
-        if (!Validator.isValidPassword(password)) {
+        } else if (!Validator.isValidPassword(password)) {
             this.failResponse(request, response, "Password is Invalid!");
-        }
-
-        if (!Validator.isValidEmail(email)) {
+        } else if (!Validator.isValidEmail(email)) {
             this.failResponse(request, response, "Email Address is Invalid!");
-        }
-
-        if (!Validator.isValidUsername(username)) {
+        } else if (!Validator.isValidUsername(username)) {
             this.failResponse(request, response, "Username is Invalid!");
-        }
-
-        if (!Validator.isValidStreetAddress(streetAddress)) {
+        } else if (!Validator.isValidStreetAddress(streetAddress)) {
             this.failResponse(request, response, "Street Address is invalid!");
-        }
-
-        if (!Validator.isValidCity(city)) {
+        } else if (!Validator.isValidCity(city)) {
             this.failResponse(request, response, "City field is invalid!");
-        }
-
-        if (!Validator.isValidState(state)) {
+        } else if (!Validator.isValidState(state)) {
             this.failResponse(request, response, "State is invalid! Must be a state code (i.e. GA, TX, MN, PA, etc)");
-        }
-
-        if (!Validator.isValidZipCode(zipCode)) {
+        } else if (!Validator.isValidZipCode(zipCode)) {
             this.failResponse(request, response, "Zip Code is invalid!");
+        } else {
+            AddressFormat address = new AddressFormat(streetAddress, city, state, zipCode);
+            User user = new User(firstName, lastName, username, password, email, address.toString(), "None");
+            user.save();
+            session.setAttribute("user", user);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("user-account.jsp");
+            requestDispatcher.forward(request, response);
         }
-
-        AddressFormat address = new AddressFormat(streetAddress, city, state, zipCode);
-        User user = new User(firstName, lastName, username, password, email, address.toString(), "None");
-        user.save();
-        session.setAttribute("user", user);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("user-account.jsp");
-        requestDispatcher.forward(request, response);
     }
 
     public void destroy() {

@@ -25,12 +25,12 @@ public class ResetCodeServlet extends HttpServlet {
             session.setAttribute("failMessage", "That code is incorrect!");
 
             response.sendRedirect("password-reset.jsp");
+        } else {
+            session.setAttribute("failMessage", "");
+            session.setAttribute("successMessage", "PWRESET");
+
+            response.sendRedirect("password-reset.jsp");
         }
-
-        session.setAttribute("failMessage", "");
-        session.setAttribute("successMessage", "PWRESET");
-
-        response.sendRedirect("password-reset.jsp");
     }
 
     public void destroy() {

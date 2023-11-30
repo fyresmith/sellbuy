@@ -35,11 +35,11 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("failMessage", "Email or Password Incorrect!");
 
                 response.sendRedirect("login.jsp");
+            } else {
+                session.setAttribute("user", user);
+
+                response.sendRedirect("user-account.jsp");
             }
-
-            session.setAttribute("user", user);
-
-            response.sendRedirect("user-account.jsp");
         }
     }
 
