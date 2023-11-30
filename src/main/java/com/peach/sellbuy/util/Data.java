@@ -9,7 +9,6 @@ import org.json.JSONTokener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class Data {
 
     public static String ROOT() {
         Dotenv dotenv = Dotenv.load();
-        return dotenv.get("DATA_PATH");
+        return dotenv.get("DATA_PATH") + "/";
     }
 
     /**
